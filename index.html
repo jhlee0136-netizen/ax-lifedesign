@@ -2271,9 +2271,11 @@ function addToPlan(name) {
   return true;
 }
 async function checkAI() {
-  if (state.aiMode !== undefined) return state.aiMode;
+  /* 연결됨은 기억하고, 연결 안 됨은 30초 뒤 다시 확인(키를 나중에 넣거나 서버가 늦게 깨어날 때) */
+  if (state.aiMode === true || (state.aiMode === false && Date.now() - (state.aiAt || 0) < 30000)) return state.aiMode;
   try { const r = await aiFetch('health'); state.aiMode = r.ok && (await r.json()).ai === true; }
   catch (e) { state.aiMode = false; }
+  state.aiAt = Date.now();
   return state.aiMode;
 }
 function renderCounsel() {
@@ -3387,7 +3389,7 @@ function renderItemBank() {
   if (gen) gen.onclick = async () => {
     state.ibPend = true; state.ibGenMsg = ''; renderItemBank();
     let d = await aiItemDraft(sel);
-    if (!d) { d = ruleDraft(sel); state.ibGenMsg = d ? 'AI 서버가 연결되지 않아 시연용 사전 작성 초안을 보여 줍니다.' : 'AI 서버가 연결되면 이 문항의 평행 문항 초안을 만듭니다.'; }
+    if (!d) { d = ruleDraft(sel); state.ibGenMsg = d ? (state.aiMode ? 'AI 응답을 받지 못해 시연용 사전 작성 초안을 보여 줍니다. 잠시 뒤 다시 시도하세요.' : 'AI 서버가 연결되지 않아 시연용 사전 작성 초안을 보여 줍니다.') : 'AI 서버가 연결되면 이 문항의 평행 문항 초안을 만듭니다.'; }
     state.ibPend = false;
     if (d) state.ibDraft = { key: sel.key, ...d };
     renderItemBank();
