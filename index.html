@@ -1175,6 +1175,34 @@ body.no-demo .demostrip .phase { display: none !important; }
 .p-qabad .tbl td .btn { white-space: nowrap; }
 .qa-guide { display: grid; grid-template-columns: 6.5em 1fr; gap: 8px 14px; margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13.5px; }
 .qa-guide dt { font-weight: 640; } .qa-guide dd { margin: 0; color: var(--muted); line-height: 1.6; }
+/* v12: 위치 표시 · 보기 전환 · 지금 할 일 */
+#pagehead:empty { display: none; }
+.crumb { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin: -8px 0 16px; font-size: 13.5px; color: var(--muted); }
+.crumb i { font-style: normal; margin: 0 7px; color: var(--line-strong); }
+.crumb b { color: var(--ink); font-weight: 640; }
+.crumb .meta { font-size: 13.5px; }
+.subtabs + .crumb, .subnav:not(:empty) + #pagehead .crumb { margin-top: -12px; }
+.vswitch { display: flex; flex-wrap: wrap; gap: 0; margin: 0 0 22px; border-bottom: 1px solid var(--line); }
+.vs { font: inherit; font-size: 15px; background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 14px 9px; margin-bottom: -1px; color: var(--muted); cursor: pointer; }
+.vs:hover { color: var(--ink); }
+.vs[aria-selected="true"] { color: var(--ink); font-weight: 650; border-bottom-color: var(--signal); }
+.todo { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; }
+.todo li + li { border-top: 1px solid var(--line); }
+.todo button { width: 100%; display: grid; grid-template-columns: 10px 1fr auto; gap: 12px; align-items: start; text-align: left; font: inherit; color: var(--ink); background: none; border: 0; padding: 11px 6px; cursor: pointer; border-radius: 8px; }
+.todo button:hover { background: var(--paper); }
+.td-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 8px; background: var(--line-strong); }
+.td-high .td-dot { background: var(--amber); box-shadow: 0 0 0 3px var(--amber-soft); } .td-mid .td-dot { background: var(--signal); }
+.td-main { display: grid; gap: 1px; } .td-main b { font-weight: 640; } .td-main .meta { font-size: 13.5px; line-height: 1.5; }
+.td-due { font-size: 12.5px; font-weight: 640; color: var(--muted); white-space: nowrap; padding-top: 2px; font-variant-numeric: tabular-nums; }
+.td-high .td-due { color: var(--warn-ink); }
+.p-todo { grid-column: span 12; }
+.p-todo .todo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+.p-todo .todo li + li { border-top: 0; } .p-todo .todo li { border-bottom: 1px solid var(--line); }
+@media (max-width: 1000px) { .p-todo .todo { grid-template-columns: 1fr; } }
+.klist .kgrp { font-size: 12px; font-weight: 650; color: var(--muted); padding: 10px 14px 2px; }
+.klist .ksub button { padding-left: 30px; font-size: 14px; color: var(--muted); }
+.klist .ksub.on button, .klist .ksub button:hover { color: var(--ink); }
+.kbox .klist { max-height: 62vh; }
 </style>
 </head>
 <body>
@@ -1186,6 +1214,7 @@ body.no-demo .demostrip .phase { display: none !important; }
   </header>
   <div class="demostrip no-print" id="demostrip"></div>
   <nav class="subnav" id="subnav" aria-label="세부 메뉴"></nav>
+  <div id="pagehead"></div>
   <main class="layout">
     <div id="view" aria-live="polite"></div>
     <aside class="dial-wrap" aria-label="영역별 역량 다이얼">
@@ -5001,21 +5030,22 @@ function mountMorph(labels) {
 /* ---------- 바로 가기(Ctrl+K): 메뉴 이름으로 화면 찾기 ---------- */
 function paletteItems() {
   const u = state.user; if (!u) return [];
-  return NAV[u.role].flatMap(g => g.steps.map(([id, t]) => ({ id, t, g: g.t })));
+  return NAV[u.role].flatMap(g => g.steps.map(([id, t, par]) => ({ id, t, g: g.t, sub: !!par })));
 }
 function openPalette() {
   if (!state.user) return;
   let box = document.getElementById('kpal');
   if (!box) { box = document.createElement('div'); box.id = 'kpal'; box.className = 'kpal'; document.body.appendChild(box); }
   box.hidden = false;
-  box.innerHTML = `<div class="kbox" role="dialog" aria-modal="true" aria-label="화면 바로 가기"><input id="kq" placeholder="가려는 화면 이름을 입력하세요" autocomplete="off"><ul class="klist" id="kl" role="listbox"></ul></div>`;
+  box.innerHTML = `<div class="kbox" role="dialog" aria-modal="true" aria-label="화면 바로 가기"><input id="kq" placeholder="가려는 화면 이름을 입력하세요. 비워 두면 전체 화면 지도입니다" autocomplete="off"><ul class="klist" id="kl" role="listbox"></ul></div>`;
   const q = document.getElementById('kq'), ul = document.getElementById('kl'); let sel = 0, list = [];
   const norm = s => s.replace(/\s/g, '').toLowerCase();
   const paint = () => {
     const k = norm(q.value), all = paletteItems();
     list = k ? all.filter(x => norm(x.t + x.g).includes(k)) : all;
     sel = Math.min(sel, Math.max(0, list.length - 1));
-    ul.innerHTML = list.length ? list.map((x, i) => `<li class="${i === sel ? 'on' : ''}" role="option" aria-selected="${i === sel}"><button data-k="${x.id}">${esc(x.t)}<span>${esc(x.g)}</span></button></li>`).join('') : '<li class="kempty">맞는 화면이 없습니다. 다른 이름으로 찾아 보세요.</li>';
+    /* 검색어가 없으면 메뉴별로 묶은 전체 화면 지도 */
+    ul.innerHTML = list.length ? list.map((x, i) => `${!k && (i === 0 || list[i - 1].g !== x.g) ? `<li class="kgrp" role="presentation">${esc(x.g)}</li>` : ''}<li class="${i === sel ? 'on' : ''}${!k && x.sub ? ' ksub' : ''}" role="option" aria-selected="${i === sel}"><button data-k="${x.id}">${esc(x.t)}${k ? `<span>${esc(x.g)}</span>` : ''}</button></li>`).join('') : '<li class="kempty">맞는 화면이 없습니다. 다른 이름으로 찾아 보세요.</li>';
   };
   const close = () => { box.hidden = true; box.innerHTML = ''; };
   const pick = id => { close(); go(id); };
@@ -5472,14 +5502,104 @@ function bindCheckin() {
   if (d) d.onclick = () => { const n = tt.res.study.length; tt.checks = tt.checks || {}; [3, 2, 1].forEach((k, i) => { tt.checks[weekBack(k)] = { done: tt.res.study.slice(0, [n, Math.min(1, n), 0][i]).map(studyKey), total: n }; }); ttSave(tt); render(); };
 }
 
+/* ======================================================================
+   지금 할 일(역할별 홈) · 위치 표시 · 화면 안 보기 전환
+   ====================================================================== */
+/* 할 일: { t 제목, d 설명, due 기한·상태, go 이동할 화면, lv high(먼저)·mid·low } — 높은 것부터 */
+function todoHtml(items, empty) {
+  const order = { high: 0, mid: 1, low: 2 };
+  const L = items.slice().sort((a, b) => order[a.lv] - order[b.lv]);
+  return L.length ? `<ol class="todo">${L.map(x => `<li class="td-${x.lv}"><button data-go="${x.go}" type="button"><span class="td-dot" aria-hidden="true"></span><span class="td-main"><b>${x.t}</b><span class="meta">${x.d}</span></span><span class="td-due">${x.due || ''}</span></button></li>`).join('')}</ol>`
+    : `<p class="meta">${empty || '지금 처리할 일이 없습니다.'}</p>`;
+}
+const dday = iso => { if (!iso) return ''; const d = Math.round((new Date(iso + 'T00:00:00') - new Date(new Date().toDateString())) / 864e5); return d > 0 ? `D-${d}` : d === 0 ? '오늘' : `${-d}일 지남`; };
+function studentTodos() {
+  const H = state.history || [], last = H[H.length - 1], { next } = stepStatus(), out = [];
+  const tt = state.tt || (state.tt = ttLoad()), plan = loadPlan();
+  if (next) out.push({ t: next.k, d: next.d, due: '다음 단계', go: next.go, lv: 'high' });
+  if (last && last.verdict === '재실시') out.push({ t: '진단 다시 받기', d: '응답 신뢰성 점검에서 재실시 판정을 받았습니다.', due: '재실시', go: 'intro', lv: 'high' });
+  if (state.phase === 'end' && H.length && !H.some(h => h.end)) out.push({ t: '학기말 재진단', d: '같은 3종 진단을 다시 받아 이번 학기 성장을 확인합니다.', due: dday(settingsNow().schedule.retestEnd) || '재진단 기간', go: 'intro', lv: 'high' });
+  if (H.length >= 2 && mean(H[H.length - 1].vals) - mean(H[0].vals) < ((state.alertStd && state.alertStd.drop) || 0)) out.push({ t: '지도교수 상담', d: '향상도가 기준에 못 미쳐 상담이 안내되었습니다.', due: '상담 안내', go: 'counsel', lv: 'high' });
+  if (H.length && (!tt.blocks.length || !tt.ran)) out.push({ t: '내 시간표에 맞춰 교양 고르기', d: '전공 시간표를 불러오면 빈 시간에 들을 교양·비교과를 추천합니다.', due: '이번 학기', go: 'timetable', lv: 'mid' });
+  if (tt.ran && tt.res && tt.res.study.length) { const cur = (tt.checks || {})[weekBack(0)]; const n = cur ? cur.done.length : 0; if (n < tt.res.study.length) out.push({ t: '이번 주 자기주도 학습 표시', d: `제안된 ${tt.res.study.length}개 중 ${n}개를 했습니다. 아래 '이번 주 자기주도 학습'에서 표시하세요.`, due: '이번 주', go: 'home', lv: 'mid' }); }
+  if (plan) { const miss = gradCheck(plan).filter(r => !r.ok && !r.opt); if (miss.length) out.push({ t: '졸업 요건 채우기', d: `${miss.map(r => r.k).join(', ')}이(가) 계획에서 부족합니다.`, due: `${miss.length}개 부족`, go: 'plan', lv: 'low' }); }
+  return out.filter((x, i, a) => a.findIndex(y => y.t === x.t) === i);
+}
+function facultyTodos(al, log) {
+  const out = [], left = al.filter(a => !log[a.st.no]).length, today = localTime().slice(0, 10);
+  if (left) out.push({ t: '지도 학생 상담', d: `상담 알림 ${al.length}건 중 ${left}건이 남았습니다. 상담 준비 카드를 보고 상담 후 기록하세요.`, due: `${left}건`, go: 'advisor', lv: 'high' });
+  const follow = Object.values(log).filter(l => l.follow && l.follow <= today).length;
+  if (follow) out.push({ t: '후속 점검', d: '상담에서 합의한 행동의 점검일이 되었습니다.', due: `${follow}건`, go: 'advisor', lv: 'high' });
+  if (state.phase === 'start') out.push({ t: '수준별 분반 확인', d: '진단 점수로 자동 편성된 담당 교양 분반을 확인하고 명단을 내려받습니다.', due: '학기 초', go: 'sections', lv: 'mid' });
+  if (state.phase === 'end') out.push({ t: '향상도 기준 미만 학생 확인', d: '재진단 결과 향상도가 낮은 학생이 상담 대상에 추가됩니다.', due: '학기말', go: 'advisor', lv: 'mid' });
+  out.push({ t: '플랫폼 이용 학생 살펴보기', d: "자기주도 실천률이 낮은 학생은 아래 표에 '상담 권장'으로 표시됩니다.", due: '수시', go: 'fhome', lv: 'low' });
+  return out;
+}
+function adminTodos() {
+  const S = settingsNow(), p = state.phase, out = [];
+  const cat = catalogNow(), M = sGet('org', 'mapping') || {}, specN = Object.keys(specsNow()).length, apN = Object.keys(M).length;
+  let qaBad = 0; try { qaBad = Object.values(itemStats(state.qaData || pilotResponses())).flatMap(d => d.rows).filter(r => r.flags.length).length; } catch (e) { /* 분석 자료 없음 */ }
+  if (p === 'start') {
+    out.push({ t: '진단 기간 안내 메일', d: `진단 시작일(${S.schedule.diagStart})에 학생에게 안내를 보냅니다.${S.autoNotify ? ' 자동 발송이 켜져 있습니다.' : ''}`, due: dday(S.schedule.diagStart), go: 'notify', lv: S.autoNotify ? 'low' : 'high' });
+    out.push({ t: '미응시 학생 독려', d: `독려일(${S.schedule.remind})에 아직 진단하지 않은 학생에게 보냅니다.`, due: dday(S.schedule.remind), go: 'notify', lv: 'mid' });
+    if (!cat || !cat.courses) out.push({ t: '수강편람·전공 시간표 연동', d: '자료가 없으면 학생 시간표 추천이 시연용 값으로 동작합니다.', due: '미연동', go: 'integration', lv: 'high' });
+  }
+  if (p === 'mid' && !state.gradeApplied) out.push({ t: '학점 연계 자료 반영', d: '비교과·교양 이수 결과를 업로드해 학점과 이수 기록에 반영합니다.', due: '반영 대기', go: 'grades', lv: 'high' });
+  if (p === 'end') {
+    out.push({ t: '재진단 안내 메일', d: `재진단 기간(${S.schedule.retestStart} ~ ${S.schedule.retestEnd})을 학생에게 알립니다.`, due: dday(S.schedule.retestStart), go: 'notify', lv: 'high' });
+    const G = gainStats('ncs', 3, (state.alertStd && state.alertStd.drop) || 0), E = effectiveness();
+    out.push({ t: '향상도 기준 미만 학생', d: `평균 ${sgn(G.m)}점, 기준 미만 ${G.below}명은 지도교수 상담 알림으로 갑니다.`, due: `${G.below}명`, go: 'gain', lv: 'mid' });
+    const rd = E.rows.filter(r => /개선|재설계/.test(r.decision)).length;
+    out.push({ t: '위원회 안건 정리', d: `개선·재설계 검토 대상 ${rd}개를 골라 교육과정개발위원회 안건과 보고서를 만듭니다.`, due: `${rd}개`, go: 'committee', lv: 'mid' });
+  }
+  if (qaBad) out.push({ t: '점검 필요 문항 고치기', d: '난이도·변별도 기준을 벗어난 문항을 AI 고도화로 평행 문항 초안을 만들어 검토합니다.', due: `${qaBad}개`, go: 'itemqa', lv: p === 'start' ? 'mid' : 'low' });
+  if (apN < specN) out.push({ t: '교과목–역량 매핑 승인', d: `명세서가 연결된 ${specN}과목 중 ${specN - apN}과목의 매핑이 승인 전입니다. 승인하면 학생 추천에 반영됩니다.`, due: `${specN - apN}과목`, go: 'specmap', lv: 'low' });
+  return out;
+}
+
+/* ---------- 위치 표시: 역할 › 메뉴 › 화면 › 보기, 그리고 이 화면에서 하는 일 ---------- */
+const PAGE_JOB = {
+  home: '이번 학기에 할 일과 진행 단계를 봅니다.', intro: '직업기초·핵심·기초학습 3종 진단을 받습니다.', result: '3종 진단 결과와 강점·보완점을 봅니다.', analysis: 'AI가 진단 결과를 해석하고 보완 순서를 처방합니다.',
+  growth: '입학 직후와 재진단을 비교해 성장을 확인합니다.', plan: '교양·융합·비교과를 학기별로 배치해 이수 계획을 세웁니다.', timetable: '전공 시간표의 빈 시간에 맞춰 교양·비교과를 고릅니다.',
+  career: '목표 직무에 필요한 역량으로 계획을 다시 짭니다.', roadmap: '융합과정의 인증 기준과 구성 과목을 봅니다.', counsel: '진단 결과와 계획을 근거로 AI와 진로 상담을 합니다.',
+  fhome: '상담 알림과 이번 학기 할 일을 봅니다.', sections: '진단 점수로 담당 교양의 수준별 분반을 편성합니다.', advisor: '상담 알림 학생의 준비 카드를 보고 상담을 기록합니다.',
+  ahome: '이번 학기 운영 할 일과 프로세스 현황을 봅니다.', axkpi: '도입 전후 업무 시간을 비교해 AX 성과를 계산합니다.', diagops: '진단 일정과 응답 신뢰성 기준을 운영합니다.',
+  itembank: '운영 문항을 AI로 고도화해 B형 평행 문항을 만듭니다.', itemqa: '난이도·변별도·신뢰도로 고칠 문항을 고릅니다.', forms: 'A형·B형 검사지를 구성하고 점수를 같은 척도로 맞춥니다.',
+  integration: '학사정보시스템과 수강편람 자료를 연결합니다.', grades: '이수 결과를 학점과 기록에 반영합니다.', notify: '일정에 맞춰 학생에게 안내 메일을 보냅니다.',
+  gain: '재진단으로 역량 향상도를 평가합니다.', impact: '교양·융합·비교과별 효과를 비교해 개편 판단을 붙입니다.', ask: '질문을 집계로 바꿔 데이터를 바로 확인합니다.',
+  specmap: '교과목 명세서로 과목–역량 매핑을 만들고 승인합니다.', coverage: '교과과정이 21개 능력을 고르게 다루는지 점검합니다.', studio: '부족한 능력을 채울 교과목 개선안을 설계합니다.',
+  committee: '효과성 결과로 위원회 안건을 정리합니다.', report: '위원회 보고서를 PDF·Word로 만듭니다.', settings: '판정·알림·졸업 요건 기준과 학기 일정을 관리합니다.', auditlog: '설정 변경·발송·열람 기록을 확인합니다.'
+};
+function crumbHtml() {
+  const u = state.user, gi = groupOf(state.step); if (!u || !gi) return '';
+  const cur = STEP_ALIAS[state.step] || state.step, st = gi.g.steps.find(s => s[0] === cur), parent = st && st[2] ? gi.g.steps.find(s => s[0] === st[2]) : null;
+  const hasKids = st && gi.g.steps.some(s => s[2] === st[0]);
+  const path = [ROLE_NAME[u.role], gi.g.t, ...(parent ? [parent[1], st[1]] : st ? [st[1], hasKids ? st[3] : null] : [])].filter((x, i, a) => x && a.indexOf(x) === i);
+  return `<nav class="crumb no-print" aria-label="현재 위치"><span>${path.map((x, i) => i === path.length - 1 ? `<b>${esc(x)}</b>` : esc(x)).join('<i aria-hidden="true">›</i>')}</span>${PAGE_JOB[cur] ? `<span class="meta">${PAGE_JOB[cur]}</span>` : ''}</nav>`;
+}
+/* 한 화면 안의 보기 전환: steps의 세 번째 값이 같은 부모 화면으로 묶음 */
+function viewSwitchHtml() {
+  const gi = groupOf(state.step); if (!gi) return '';
+  const cur = STEP_ALIAS[state.step] || state.step, st = gi.g.steps.find(s => s[0] === cur); if (!st) return '';
+  const root = st[2] || st[0], fam = gi.g.steps.filter(s => s[0] === root || s[2] === root);
+  if (fam.length < 2) return '';
+  return `<div class="vswitch no-print" role="tablist" aria-label="보기">${fam.map(([id, t, par, vt]) => `<button role="tab" class="vs" data-go="${id}" aria-selected="${id === cur}">${par ? t : vt || t}</button>`).join('')}</div>`;
+}
+
 /* ---------- 메뉴: 역할별 운영 프로세스 순서 ---------- */
 const NAV = {
-  student: [{ id: 'home', t: '홈', steps: [['home', '홈']] }, { id: 'diag', t: '진단', steps: [['intro', '3종 진단']] }, { id: 'res', t: '진단 결과', steps: [['result', '결과 요약'], ['analysis', 'AI 분석']] },
-    { id: 'plan', t: '이수 계획', steps: [['plan', '맞춤 이수 계획'], ['timetable', '시간표로 설계'], ['career', '목표 직무로 설계'], ['roadmap', '융합과정·인증']] }, { id: 'grow', t: '성장 리포트', steps: [['growth', '성장 리포트']] }, { id: 'cns', t: '상담', steps: [['counsel', 'AI 상담']] }],
+  /* steps: [화면 id, 이름, 부모 화면(있으면 그 화면 안의 보기), 부모 화면의 첫 보기 이름] */
+  student: [{ id: 'home', t: '홈', steps: [['home', '홈']] },
+    { id: 'diag', t: '내 진단', steps: [['intro', '진단 받기'], ['result', '진단 결과', null, '결과 요약'], ['analysis', 'AI 분석', 'result'], ['growth', '성장 리포트']] },
+    { id: 'plan', t: '내 설계', steps: [['plan', '이수 설계', null, '맞춤 이수 계획'], ['timetable', '시간표로 설계', 'plan'], ['career', '목표 직무로 설계', 'plan'], ['roadmap', '융합과정·인증', 'plan']] },
+    { id: 'cns', t: '상담', steps: [['counsel', 'AI 상담']] }],
   faculty: [{ id: 'fhome', t: '홈', steps: [['fhome', '홈']] }, { id: 'sec', t: '수준별 분반', steps: [['sections', '수준별 분반']] }, { id: 'adv', t: '지도 학생', steps: [['advisor', '지도 학생 상담']] }],
-  admin: [{ id: 'ahome', t: '운영 현황', steps: [['ahome', '운영 현황'], ['axkpi', 'AX 성과']] }, { id: 'dops', t: '진단 운영', steps: [['diagops', '신뢰성 기준'], ['itembank', '문항 은행·AI 고도화'], ['itemqa', '문항 분석'], ['forms', '검사지·동등화']] }, { id: 'grd', t: '학점 연계', steps: [['grades', '학점 연계']] },
-    { id: 'out', t: '성과 분석', steps: [['gain', '역량 향상도'], ['impact', '교육과정 효과성'], ['ask', 'AI 데이터 비서']] }, { id: 'imp', t: '교육과정 개선', steps: [['specmap', '명세서·역량 매핑'], ['coverage', '교과과정 점검'], ['studio', '개선안 설계'], ['committee', '위원회 안건'], ['report', '위원회 보고서']] },
-    { id: 'cfg', t: '운영 설정', steps: [['settings', '기준값·일정'], ['integration', '학사·수강편람 연동'], ['notify', '알림 발송'], ['auditlog', '변경 이력']] }]
+  admin: [{ id: 'ahome', t: '홈', steps: [['ahome', '지금 할 일'], ['axkpi', 'AX 성과']] },
+    { id: 'tstart', t: '학기 초', steps: [['diagops', '진단 운영'], ['itembank', '문항 관리', null, '문항 은행·AI 고도화'], ['itemqa', '문항 분석', 'itembank'], ['forms', 'B형 검사지·동등화', 'itembank'], ['integration', '학사·수강편람 연동']] },
+    { id: 'tmid', t: '학기 중', steps: [['grades', '학점 연계'], ['notify', '알림 발송']] },
+    { id: 'tend', t: '학기말', steps: [['gain', '성과 분석', null, '역량 향상도'], ['impact', '교육과정 효과성', 'gain'], ['ask', 'AI 데이터 비서', 'gain']] },
+    { id: 'imp', t: '교육과정 개선', steps: [['specmap', '역량 매핑'], ['coverage', '개선 설계', null, '교과과정 점검'], ['studio', '개선안 설계', 'coverage'], ['committee', '위원회', null, '위원회 안건'], ['report', '위원회 보고서', 'committee']] },
+    { id: 'cfg', t: '운영 설정', steps: [['settings', '기준값·일정'], ['auditlog', '변경 이력']] }]
 };
 const ROLE_NAME = { student: '학생', faculty: '교원', admin: '관리자' };
 const STEP_ALIAS = { quiz: 'intro', retake: 'result', needdiag: 'home' };
@@ -5501,7 +5621,8 @@ function renderNav() {
   strip.innerHTML = `<label class="phase" title="시연용: 학기 시점을 바꿔 흐름을 확인합니다">시연 시점<select id="phase">${PHASES.map(([k, t]) => `<option value="${k}" ${state.phase === k ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
     <button class="linkbtn demotog" id="demotog" title="가상 데이터 안내와 시연 시점 선택을 숨기거나 보입니다">${demoOn() ? '시연 표시 끄기' : '시연 표시 켜기'}</button><span id="savest" class="savest"></span>`;
   box.innerHTML = `<button class="kbtn no-print" id="kbtn" type="button" title="화면 이름으로 바로 가기(Ctrl+K)">바로 가기 <kbd>Ctrl K</kbd></button><span class="uchip"><b>${esc(u.name)}</b><span>${ROLE_NAME[u.role]}${u.no ? ' · ' + u.no : ''}${u.role === 'student' ? ' · ' + esc(state.dept) : ''}</span></span><button class="linkbtn" id="logout">로그아웃</button>`;
-  sub.innerHTML = gi && gi.g.steps.length > 1 ? `<div class="subtabs" role="tablist">${gi.g.steps.map(([id, t]) => `<button role="tab" class="subtab" data-go="${id}" aria-selected="${id === cur}">${t}</button>`).join('')}</div>` : '';
+  const tabs = gi ? gi.g.steps.filter(s => !s[2]) : [], curSt = gi && gi.g.steps.find(s => s[0] === cur), curRoot = curSt ? curSt[2] || curSt[0] : cur;
+  sub.innerHTML = tabs.length > 1 ? `<div class="subtabs" role="tablist">${tabs.map(([id, t]) => `<button role="tab" class="subtab" data-go="${id}" aria-selected="${id === curRoot}">${t}</button>`).join('')}</div>` : '';
   document.getElementById('phase').onchange = e => { state.phase = e.target.value; render(); };
   document.getElementById('logout').onclick = logout;
   document.getElementById('kbtn').onclick = openPalette;
@@ -5570,7 +5691,7 @@ function renderHome() {
     ${panelH('p-hme', '나의 역량', last ? `${last.label} · ${last.date}` : '', last ? `<div class="stats stats-sm"><div class="stat"><b>${Math.round(mean(last.vals))}</b><span>직업기초 평균</span></div><div class="stat"><b>${CORE_AXES[last.core.indexOf(Math.min(...last.core))]}</b><span>핵심역량 보완 축</span></div><div class="stat"><b>${BASIC_SUBJ.filter((_, k) => last.basic[k] < MID).join('·') || '없음'}</b><span>기초학습 낮음</span></div></div>
       ${AREAS.map((a, k) => `<div class="sub"><span>${a.short}</span><div class="bar ${last.vals[k] < MID ? 'low' : ''}"><b style="width:${last.vals[k]}%"></b></div><span class="lv">${last.vals[k]}</span></div>`).join('')}
       <div class="actions"><button class="btn ghost sm" data-go="result">결과 자세히</button><button class="btn ghost sm" data-go="analysis">AI 분석</button></div>` : '<p class="meta">아직 진단 기록이 없습니다.</p><div class="actions"><button class="btn sm" data-go="intro">진단 시작</button></div>')}
-    ${panelH('p-hal', '알림', `${alerts.length}건`, alerts.length ? `<ul class="alerts">${alerts.map(([t, d, g]) => `<li><b>${t}</b><span>${d}</span><button class="linkbtn" data-go="${g}">이동</button></li>`).join('')}</ul>` : '<p class="meta">새 알림이 없습니다.</p>')}
+    ${panelH('p-hal', '지금 할 일', `${studentTodos().length}건`, todoHtml(studentTodos(), '지금 처리할 일이 없습니다. 이번 학기 계획대로 진행하세요.'))}
     ${panelH('p-hpl', '나의 이수 계획', plan ? '저장됨' : '아직 없음', plan ? `<p>${plan.items.length}과목${plan.micro ? ` · 목표 융합과정 <b>${CURRICULUM.micro.find(m => m.id === plan.micro).name}</b>` : ''}</p><p class="meta">${termName(planTerms(state.dept)[0])} 교양 ${termCr}학점 계획</p><div class="actions"><button class="btn ghost sm" data-go="plan">계획 보기</button><button class="btn ghost sm" data-go="timetable">내 시간표에 맞추기</button><button class="btn ghost sm" data-go="career">목표 직무로 설계</button></div>` : '<p class="meta">진단 결과로 교양·융합·비교과를 추천받아 학기별 계획을 세웁니다.</p><div class="actions"><button class="btn ghost sm" data-go="plan">계획 세우기</button></div>')}
     ${panelH('p-hck', '이번 주 자기주도 학습', '최근 4주 실천', checkinHtml())}
     ${panelH('p-hgr', '진단 기록', `${H.length}회`, H.length ? `<table class="tbl"><thead><tr><th>회차</th><th>날짜</th><th>직업기초</th><th>신뢰성</th></tr></thead><tbody>${H.map(h => `<tr><td>${h.label}</td><td>${h.date}</td><td>${Math.round(mean(h.vals))}</td><td>${h.verdict}</td></tr>`).join('')}</tbody></table>` : '<p class="meta">기록이 없습니다.</p>')}
@@ -5589,7 +5710,7 @@ function renderFHome() {
       <div class="stats"><div class="stat"><b>${al.length}명</b><span>상담 알림(${esc(state.dept)})</span></div><div class="stat"><b>${doneN}명</b><span>상담 완료</span></div><div class="stat"><b>${courses.length}개</b><span>수준별 분반 대상 교양</span></div></div>
       <div class="actions"><button class="btn" data-go="advisor">지도 학생 상담</button><button class="btn ghost" data-go="sections">수준별 분반</button></div></section>
     ${panelH('p-fa', '상담 알림 미리 보기', `${al.length - doneN}건 남음`, al.length ? `<ul class="alerts">${al.slice(0, 5).map(a => `<li><b>${a.st.alias}</b><span>${a.why.join(' · ')}</span>${log[a.st.no] ? '<span class="okc">완료</span>' : ''}</li>`).join('')}</ul><div class="actions"><button class="btn ghost sm" data-go="advisor">전체 보기</button></div>` : '<p class="meta">알림이 없습니다.</p>')}
-    ${panelH('p-fw', '교원이 하는 일', '', `<ol class="road"><li><h3>학기 초 · 수준별 분반</h3><p>진단 점수로 담당 교양의 분반을 자동 편성하고, 필요하면 학생을 옮긴 뒤 명단을 내려받습니다.</p></li><li><h3>학기 중 · 지도 학생 상담</h3><p>재실시 반복, 기초학습 낮음, '하' 수준 지속 학생에게 상담 알림이 옵니다. 학생이 동의한 AI 분석 요약을 보고 상담합니다.</p></li><li><h3>학기말 · 향상도 확인</h3><p>재진단 향상도가 기준보다 낮은 학생이 상담 대상에 추가됩니다.</p></li></ol>`)}
+    ${panelH('p-fw', '지금 할 일', '', todoHtml(facultyTodos(al, log)))}
     ${panelH('p-freal', '플랫폼 이용 학생', '서버에 저장된 실제 이용 기록', '<div id="realbox"><p class="meta">불러오는 중…</p></div>')}
   </div>`;
   fillRealStudents('realbox');
@@ -5610,6 +5731,7 @@ function renderAHome() {
       <p class="summary">신입생 ${n}명의 대학 생활 설계 운영 현황입니다.</p>
       ${terraHtml({ frames: p === 'end' ? [AREAS.map((_, k) => mean(co.map(s => s.traceArea[0][k]))), AREAS.map((_, k) => mean(co.map(s => s.traceArea[1][k])))] : [AREAS.map((_, k) => mean(co.map(s => s.traceArea[0][k])))], labels: ['입학 직후', '1학기말'], cap: p === 'end' ? '신입생 평균 점수: 입학 직후(점선)에서 1학기말(실선)로 바뀐 모습' : '신입생 평균 점수(입학 직후). 깜박이는 점이 평균이 가장 낮은 영역입니다.' })}
       <p class="meta"><span class="badge amber">가상 예시 데이터</span> 오른쪽 위 '시연 시점'을 바꾸면 학기 진행에 따라 단계별 현황이 바뀝니다.</p></section>
+    ${panelH('p-todo', '지금 할 일', `${PHASES.find(x => x[0] === p)[1]} · ${adminTodos().length}건`, todoHtml(adminTodos()))}
     <section class="panel p-proc"><header class="phead"><h2>운영 프로세스</h2><span class="meta">시스템설계서 3장 순서</span></header><div class="pbody"><ol class="proc">
       ${box(1, '3종 진단', '학생', `${n}명 응시`, '직업기초·핵심·기초학습', 'diagops', st(p === 'start', p !== 'start'))}
       ${box(2, '신뢰성 점검', '플랫폼', `재실시 ${re}명 · 주의 ${ca}명`, `재실시율 ${(re / n * 100).toFixed(1)}%`, 'diagops', st(p === 'start', p !== 'start'))}
@@ -5623,16 +5745,32 @@ function renderAHome() {
   </div>`;
 }
 const NEXT = {
+  result: [['analysis', 'AI 분석 보기'], ['plan', '이수 계획 세우기']],
   analysis: [['plan', '맞춤 이수 계획 세우기']],
   plan: [['timetable', '내 시간표에 맞춰 고르기'], ['career', '목표 직무로 다시 설계']],
   timetable: [['plan', '이수 계획 확인'], ['counsel', '상담하기']],
   career: [['plan', '이수 계획 확인']],
   roadmap: [['plan', '이수 계획 확인']],
-  growth: [['plan', '다음 학기 계획 세우기'], ['counsel', '상담하기']]
+  growth: [['plan', '다음 학기 계획 세우기'], ['counsel', '상담하기']],
+  sections: [['advisor', '지도 학생 상담']],
+  advisor: [['fhome', '홈에서 할 일 보기']],
+  diagops: [['notify', '진단 안내 메일 보내기'], ['itembank', '문항 관리']],
+  itembank: [['forms', 'B형 검사지 구성']],
+  itemqa: [['itembank', 'AI로 문항 고치기']],
+  forms: [['diagops', '진단 운영으로']],
+  integration: [['ahome', '지금 할 일로']],
+  grades: [['gain', '성과 분석']],
+  notify: [['auditlog', '발송 기록 확인']],
+  gain: [['impact', '교육과정 효과성 보기']],
+  impact: [['committee', '위원회 안건 만들기']],
+  specmap: [['coverage', '교과과정 점검']],
+  coverage: [['studio', '개선안 설계']],
+  studio: [['committee', '위원회 안건']],
+  committee: [['report', '보고서 만들기']]
 };
 function nextBar() {
   const nx = NEXT[state.step];
-  if (!nx || !state.user || state.user.role !== 'student') return;
+  if (!nx || !state.user || roleOf(state.step) !== state.user.role) return;
   $view.insertAdjacentHTML('beforeend', `<nav class="nextbar no-print" aria-label="다음 단계"><span class="meta">다음 단계</span>${nx.map(([g, t], i) => `<button class="btn ${i ? 'ghost' : ''}" data-go="${g}">${t}</button>`).join('')}</nav>`);
 }
 
@@ -5654,6 +5792,7 @@ function render() {
   const R = { login: renderLogin, home: renderHome, fhome: renderFHome, ahome: renderAHome, needdiag: renderNeedDiag, intro: renderIntro, quiz: renderQuiz, coverage: renderCoverage, roadmap: renderRoadmap,
     committee: renderCommittee, growth: renderGrowth, impact: renderImpact, plan: renderPlan, studio: renderStudio, counsel: renderCounsel, career: renderCareer, sections: renderSections,
     advisor: renderAdvisor, diagops: renderDiagOps, grades: renderGrades, analysis: renderAnalysis, timetable: renderTimetable, gain: renderGain, itembank: renderItemBank, forms: renderForms, settings: renderSettings, integration: renderIntegration, notify: renderNotify, auditlog: renderAudit, axkpi: renderAxKpi, specmap: renderSpecMap, report: renderReport, ask: renderAsk, itemqa: renderItemQA, result: renderResult };
+  const ph = document.getElementById('pagehead'); if (ph) ph.innerHTML = u ? crumbHtml() + viewSwitchHtml() : '';
   (R[state.step] || renderResult)();
   if (state.step === 'home') bindCheckin();
   nextBar();
