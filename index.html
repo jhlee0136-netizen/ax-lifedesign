@@ -649,6 +649,53 @@ details.pd:not([open]) > summary { border-bottom: 0; }
 body.no-demo .phase, body.no-demo .badge.amber, body.no-demo .resfoot, body.no-demo .demo-note, body.no-demo p:has(> .badge.amber:first-child) { display: none !important; }
 .demotog { font-size: 12.5px; white-space: nowrap; }
 @media (max-width: 640px) { .demotog { display: none; } }
+.p-axchart { grid-column: span 7; } .p-axin { grid-column: span 5; } .p-axtbl { grid-column: span 12; } .p-axuse { grid-column: span 7; } .p-axq { grid-column: span 5; }
+.axrow { display: grid; grid-template-columns: 11em 1fr 5.5em; gap: 10px; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--line); }
+.axn { font-size: 13.5px; display: grid; } .axn .meta { font-size: 12px; }
+.axbars { display: grid; gap: 2px; }
+.axbars i { display: block; height: 8px; border-radius: 0 4px 4px 0; }
+.axbars .b0, .lg.axl0 { background: #A9B4AE; } .axbars .b1, .lg.axl1 { background: var(--signal); }
+.lg.axl0, .lg.axl1 { width: 14px; height: 8px; border-radius: 2px; }
+.axv { text-align: right; display: grid; line-height: 1.2; } .axv b { font-size: 15px; } .axv .meta { font-size: 11.5px; }
+@container (max-width: 520px) { .axrow { grid-template-columns: 1fr 4.5em; } .axbars { grid-column: 1 / -1; grid-row: 2; } }
+.tbl.axtbl { display: table; max-width: none; width: 100%; }
+.axtbl td.meta { min-width: 12em; white-space: normal; }
+.axtbl td, .axtbl th { vertical-align: top; }
+.axtbl input { width: 4.5em; font: inherit; padding: 3px 6px; border: 1.5px solid var(--line); border-radius: 4px; background: var(--paper); color: var(--ink); }
+.axtbl .sumrow td { border-top: 2px solid var(--ink); }
+.tourbtn { margin: 4px 0 6px; display: inline-flex; gap: 10px; align-items: baseline; }
+.tourbtn span { font-weight: 400; font-size: 13px; opacity: .8; }
+.tour { position: fixed; right: 20px; bottom: 20px; z-index: 200; width: min(380px, calc(100vw - 32px)); background: var(--panel); border: 2px solid var(--signal); border-radius: 8px; padding: 14px 16px; box-shadow: 0 12px 32px rgba(0, 0, 0, .22); }
+.tour h2 { margin: 2px 0 6px; font-size: 18px; } .tour p { margin: 0 0 8px; font-size: 14.5px; line-height: 1.6; }
+.tour-n { font-size: 12.5px !important; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.tour-bar { flex: 1; height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; } .tour-bar i { display: block; height: 100%; background: var(--signal); }
+.tour-hl { outline: 3px solid var(--signal) !important; outline-offset: 4px; border-radius: 4px; box-shadow: 0 0 0 9999px rgba(10, 20, 40, .16); position: relative; z-index: 5; transition: box-shadow .2s; }
+@media (max-width: 640px) { .tour { right: 8px; left: 8px; bottom: 8px; width: auto; } }
+.p-smlist { grid-column: span 4; } .p-smed { grid-column: span 8; }
+.smlist { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 6px; max-height: 620px; overflow: auto; }
+.smlist button { width: 100%; text-align: left; font: inherit; color: var(--ink); background: var(--paper); border: 1.5px solid var(--line); border-radius: 6px; padding: 8px 10px; cursor: pointer; display: grid; gap: 2px; }
+.smlist button.on { border-color: var(--signal); box-shadow: 0 0 0 2px var(--signal-soft); }
+.spec { background: var(--paper); border: 1px solid var(--line); padding: 10px 14px; font-size: 14px; line-height: 1.65; margin-bottom: 10px; }
+.spec p { margin: 0 0 6px; } .spec ol { margin: 0 0 6px; padding-left: 1.3em; }
+.spec mark { background: var(--signal-soft); color: inherit; padding: 0 2px; }
+.smtbl tr.add td { background: color-mix(in srgb, var(--signal-soft) 60%, transparent); } .smtbl tr.del td { color: var(--muted); }
+.p-rdoc { grid-column: span 12; }
+.rdoc { max-width: 820px; margin: 0 auto; background: #fff; color: #1a1a1a; padding: 32px 40px; border: 1px solid var(--line); font-size: 14.5px; line-height: 1.7; }
+.rdoc h1 { font-size: 22px; margin: 4px 0 6px; } .rdoc h2 { font-size: 16px; margin: 20px 0 6px; border-bottom: 1px solid #bbb; padding-bottom: 3px; }
+.rdoc .rk { color: #2340E0; font-weight: 700; margin: 0; font-size: 13px; } .rdoc .meta { color: #555; }
+.rtbl { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 13px; } .rtbl th, .rtbl td { border: 1px solid #bbb; padding: 4px 8px; text-align: left; } .rtbl thead th { background: #f0f2f5; }
+@media (max-width: 640px) { .rdoc { padding: 18px 14px; } }
+.p-askr { grid-column: span 8; } .p-askh { grid-column: span 4; }
+.p-askh .linkbtn { text-align: left; }
+.askf { display: flex; gap: 8px; margin: 12px 0 10px; } .askf input { flex: 1; font: inherit; padding: 10px 12px; border: 1.5px solid var(--ink); border-radius: 6px; background: var(--paper); color: var(--ink); min-width: 0; }
+.askq { font-size: 16px; font-weight: 700; margin: 0 0 8px; } .askspec { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 10px; }
+.askn { display: grid; margin: 8px 0 12px; } .askn b { font-size: 34px; line-height: 1.1; }
+.axbars .b1.neg { background: var(--amber); }
+.p-qabad { grid-column: span 12; } .p-qa-ncs { grid-column: span 12; } .p-qa-core, .p-qa-basic { grid-column: span 6; }
+@media print { body.printing #report .rdoc { border: 0; padding: 0; max-width: none; } }
+.p-set5, .p-aiuse { grid-column: span 6; }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; z-index: 300; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 8px; font-size: 14px; max-width: min(560px, calc(100vw - 32px)); transition: opacity .2s, transform .2s; }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
 .savest { font-size: 12px; color: var(--muted); white-space: nowrap; }
 .savest.pend { color: var(--amber); } .savest.err { color: #b3261e; font-weight: 700; }
 .resume { border: 1.5px solid var(--signal); background: var(--panel); padding: 12px 16px; margin: 0 0 16px; }
@@ -3468,8 +3515,12 @@ async function supaApi(path, body) {
   return { status: 404, data: { error: 'not found' } };
 }
 /* AI 호출: Supabase 서버 함수 → 없으면 로컬 서버(/api/...) */
+function toast(msg) {
+  const t = document.getElementById('toast') || document.body.appendChild(Object.assign(document.createElement('div'), { id: 'toast', className: 'toast', role: 'status' }));
+  t.textContent = msg; t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 5000);
+}
 async function aiFetch(op, body) {
-  if (AUTH.mode === 'supa') { const r = await fnCall('ai', { op, ...(body || {}) }); return { ok: r.status === 200, status: r.status, json: async () => r.data }; }
+  if (AUTH.mode === 'supa') { const r = await fnCall('ai', { op, ...(body || {}) }); if (r.status === 429 && r.data.limit) toast(r.data.error + ' (규칙 기반으로 표시합니다)'); return { ok: r.status === 200, status: r.status, json: async () => r.data }; }
   if (op === 'health') return fetch('/api/health', { cache: 'no-store' });
   return fetch('/api/' + op, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) });
 }
@@ -3552,7 +3603,9 @@ const SETTINGS_DEFAULT = {
   effect: { min: 2, minN: 30 },
   privacy: { minGroup: 10 },
   schedule: { diagStart: '2027-03-02', diagEnd: '2027-03-13', remind: '2027-03-10', retestStart: '2027-06-14', retestEnd: '2027-06-25' },
-  autoNotify: false
+  autoNotify: false,
+  ax: {},
+  ai: { budget: 3, perUserDaily: 15, dailyTotal: 150 }
 };
 function settingsNow() {
   const S = sGet('org', 'settings') || {};
@@ -3571,7 +3624,8 @@ const SET_FIELDS = [
   ['응답 신뢰성', '심각 1개 이상 또는 경고 2개 이상이면 재실시, 경고 1개면 주의입니다.', [['rel.speedWarn', '과속 응답 경고(%)'], ['rel.speedBad', '과속 응답 심각(%)'], ['rel.inconWarn', '불일치 응답 경고(%)'], ['rel.inconBad', '불일치 응답 심각(%)'], ['rel.runWarn', '일렬 응답 경고(연속 문항)'], ['rel.runBad', '일렬 응답 심각(연속 문항)'], ['rel.modeWarn', '같은 답 경고(%)'], ['rel.modeBad', '같은 답 심각(%)'], ['rel.totalWarn', '총 소요 시간 경고(기준 대비 % 미만)'], ['rel.totalBad', '총 소요 시간 심각(기준 대비 % 미만)']]],
   ['상담 알림', '조건을 만족하면 지도교수 화면과 학생 홈에 상담 알림이 뜹니다.', [['alert.drop', '향상도 기준(이 점수 미만이면 알림)'], ['alert.lowCount', "'하' 수준 2회 연속 능력 수(이상)"]]],
   ['교육과정 효과성', '보정 효과 판정 기준입니다.', [['effect.min', '의미 있는 최소 효과(점)'], ['effect.minN', '판정에 필요한 최소 이수 인원']]],
-  ['개인정보', '집계 화면에서 이 인원 미만 집단은 공개하지 않습니다.', [['privacy.minGroup', '집계 공개 최소 인원']]]
+  ['개인정보', '집계 화면에서 이 인원 미만 집단은 공개하지 않습니다.', [['privacy.minGroup', '집계 공개 최소 인원']]],
+  ['AI 사용 한도', '넘으면 AI를 호출하지 않고 규칙 기반으로 동작합니다. 충전한 크레딧보다 월 예산을 낮게 두세요.', [['ai.budget', '월 예산(US$)'], ['ai.perUserDaily', '1인 하루 호출 수'], ['ai.dailyTotal', '하루 전체 호출 수']]]
 ];
 const SCHED_FIELDS = [['diagStart', '진단 시작일'], ['diagEnd', '진단 종료일'], ['remind', '미응시 독려 발송일'], ['retestStart', '재진단 시작일'], ['retestEnd', '재진단 종료일']];
 const getPath = (o, p) => p.split('.').reduce((a, k) => a[k], o);
@@ -3582,6 +3636,7 @@ function settingsCheck(S) {
   [['speed', '과속'], ['incon', '불일치'], ['run', '일렬'], ['mode', '같은 답']].forEach(([k, n]) => { if (!(S.rel[k + 'Warn'] < S.rel[k + 'Bad'])) err.push(`${n} 응답: 경고 값이 심각 값보다 작아야 합니다.`); });
   if (!(S.rel.totalBad < S.rel.totalWarn)) err.push('총 소요 시간: 심각 값이 경고 값보다 작아야 합니다.');
   if (S.privacy.minGroup < 5) err.push('집계 공개 최소 인원은 5명 이상이어야 합니다.');
+  if (!(S.ai.budget >= 0 && S.ai.perUserDaily >= 0 && S.ai.dailyTotal >= 0)) err.push('AI 사용 한도는 0 이상이어야 합니다.');
   const sc = S.schedule;
   if (sc.diagStart > sc.diagEnd || sc.retestStart > sc.retestEnd) err.push('시작일이 종료일보다 늦습니다.');
   if (sc.remind < sc.diagStart || sc.remind > sc.diagEnd) err.push('미응시 독려일은 진단 기간 안이어야 합니다.');
@@ -3592,6 +3647,19 @@ function logLocal(action, target, detail) {
   const a = sGet('org', 'audit') || [];
   a.unshift({ at: localTime(), who: state.user.name, action, target, detail });
   sSet('org', 'audit', a.slice(0, 200));
+}
+const AI_OP = { chat: 'AI 상담', analyze: '진단·분석 해석', items: '문항 초안', map: '역량 매핑', report: '위원회 보고서', ask: '데이터 비서' };
+async function fillAiUsage() {
+  const box = document.getElementById('aiuse'); if (!box) return;
+  if (AUTH.mode !== 'supa') { box.innerHTML = '<p class="meta">클라우드(Supabase)에 연결된 경우에 표시합니다.</p>'; return; }
+  const r = await fnCall('ai', { op: 'usage' });
+  if (!document.getElementById('aiuse')) return;
+  if (r.status !== 200) { box.innerHTML = `<p class="meta">${esc(r.data.error || '불러오지 못했습니다.')}</p>`; return; }
+  const d = r.data, pct = d.limits.budget ? Math.min(100, d.month_cost / d.limits.budget * 100) : 100;
+  box.innerHTML = `<div class="stats stats-sm"><div class="stat"><b>${d.ai ? '연결됨' : '키 없음'}</b><span>AI · ${esc(d.model)}</span></div><div class="stat"><b>US$${d.month_cost.toFixed(3)}</b><span>이번 달 사용 / 예산 US$${d.limits.budget}</span></div><div class="stat"><b>${d.today_all}회</b><span>오늘 호출 / 한도 ${d.limits.dailyTotal}회</span></div></div>
+    <div class="bar ${pct >= 80 ? 'low' : ''}" style="margin:6px 0 10px" aria-label="예산 사용률 ${pct.toFixed(0)}%"><b style="width:${pct}%"></b></div>
+    ${d.by_op.length ? `<table class="tbl"><thead><tr><th>기능</th><th>호출</th><th>비용</th></tr></thead><tbody>${d.by_op.map(o => `<tr><td>${AI_OP[o.op] || esc(o.op)}</td><td>${o.n}회</td><td>US$${o.cost.toFixed(4)}</td></tr>`).join('')}</tbody></table>` : '<p class="meta">이번 달 AI 호출이 없습니다.</p>'}
+    <p class="meta">비용은 응답의 토큰 수로 계산한 추정치입니다. 정확한 청구액은 Claude Console에서 확인하세요.</p>`;
 }
 function renderSettings() {
   const S = state.setDraft || settingsNow(), saved = settingsNow();
@@ -3608,7 +3676,9 @@ function renderSettings() {
     ${panelH('p-sched', '학기 일정과 예약 알림', '', `<div class="setgrid">${SCHED_FIELDS.map(([k, l]) => `<label>${l}<input type="date" data-sd="${k}" value="${S.schedule[k]}" class="${S.schedule[k] !== saved.schedule[k] ? 'chg' : ''}"></label>`).join('')}</div>
       <label class="chk"><input type="checkbox" id="sauto" ${S.autoNotify ? 'checked' : ''}> 일정에 맞춰 알림 메일 자동 발송(진단 시작일 안내, 독려일 미응시 안내, 재진단 시작일 안내)</label>
       <p class="meta">자동 발송은 서버가 하루 한 번 일정을 확인해 보냅니다. 문안은 '알림 발송'에서 고칩니다.</p>`)}
+    ${panelH('p-aiuse', 'AI 사용 현황', '이번 달', '<div id="aiuse"><p class="meta">불러오는 중…</p></div>')}
   </div>`;
+  fillAiUsage();
   const draft = () => (state.setDraft = state.setDraft || JSON.parse(JSON.stringify(S)));
   $view.querySelectorAll('[data-sp]').forEach(inp => inp.onchange = () => { setPath(draft(), inp.dataset.sp, Number(inp.value)); state.setMsg = ''; renderSettings(); });
   $view.querySelectorAll('[data-sd]').forEach(inp => inp.onchange = () => { draft().schedule[inp.dataset.sd] = inp.value; state.setMsg = ''; renderSettings(); });
@@ -3704,6 +3774,517 @@ async function renderAudit() {
       <p class="meta">누가 언제 무엇을 바꾸고 열람했는지 남겨 개인정보 보호와 운영 책임을 확인합니다.</p></section>
     ${panelH('p-aud', '기록', `${rows.length}건`, rows.length ? `<div class="scrollx"><table class="tbl"><thead><tr><th>일시</th><th>담당</th><th>내용</th><th>대상</th><th>상세</th></tr></thead><tbody>${rows.map(x => `<tr><td>${esc(String(x.at).slice(0, 16))}</td><td>${esc(x.who)}</td><td>${esc(x.action)}</td><td>${esc(x.target)}</td><td class="aud">${esc(x.detail || '').replace(/\n/g, '<br>')}</td></tr>`).join('')}</tbody></table></div>` : '<p class="meta">기록이 없습니다.</p>')}
   </div>`;
+}
+
+/* ======================================================================
+   ③ AX 성과 대시보드: 플랫폼 도입 전후 행정 업무 시간(가정값은 관리자가 조정)
+   ====================================================================== */
+const AX_DEFAULT = {
+  students: 900, courses: 12, advisors: 60, meetings: 4, items: 63,
+  tasks: {
+    diag: { before: 3, after: 0.2 }, rel: { before: 0.5, after: 0 }, plan: { before: 10, after: 2 },
+    sec: { before: 4, after: 0.3 }, adv: { before: 3, after: 0.5 }, grade: { before: 40, after: 2 },
+    cmt: { before: 16, after: 2 }, item: { before: 1.5, after: 0.4 }
+  }
+};
+/* 업무: [키, 업무, 담당, 기존 방식, 플랫폼 방식, 단위, 단위 수 계산, 연간 횟수, 분 단위 여부] */
+const AX_TASKS = [
+  ['diag', '진단 실시·결과 정리', '진단 담당', '외부 시스템 결과를 엑셀로 취합해 학생별 결과지 배포', '응시 즉시 3종 통합 결과 자동 생성', '학생당 분', a => a.students, 2, true],
+  ['rel', '불성실 응답 선별', '진단 담당', '응답 기록을 보며 수작업 검토', '응답 시간·일관성 자동 판정, 재실시 안내', '학생당 분', a => a.students, 2, true],
+  ['plan', '교양·비교과 추천과 이수 계획 안내', '지도교수', '상담 때 교과과정표를 찾아 개별 안내', '진단 기반 맞춤 계획 자동 작성, 학생이 수정', '학생당 분', a => a.students, 2, true],
+  ['sec', '수준별 분반 편성', '교과 담당', '성적·설문을 보며 과목별 명단 작성', '진단 점수로 자동 편성, 조정 후 내려받기', '과목당 시간', a => a.courses, 2, false],
+  ['adv', '상담 대상 선정·준비', '지도교수', '학생 자료를 모아 대상 선정과 상담 준비', '알림 자동 선정, 상담 준비 카드 제공', '교원당 시간', a => a.advisors, 2, false],
+  ['grade', '학점 반영·향상도 분석', '교육과정 담당', '학점·진단 자료를 맞춰 통계 분석', '업로드 검증 후 향상도·효과성 자동 분석', '학기당 시간', () => 1, 2, false],
+  ['cmt', '위원회 안건 자료 작성', '위원회 간사', '집계표·분석 결과를 모아 안건 문서 작성', '효과성 분석에서 안건 자동 구성, 보고서 작성', '회의당 시간', a => a.meetings, 1, false],
+  ['item', '진단 문항 개발·개정', '진단 담당', '문항을 하나씩 새로 작성·검토', 'AI 평행 문항 초안 + 체크리스트 검토', '문항당 시간', a => a.items, 1, false]
+];
+function axNow() {
+  const S = settingsNow().ax || {};
+  const a = JSON.parse(JSON.stringify(AX_DEFAULT));
+  ['students', 'courses', 'advisors', 'meetings', 'items'].forEach(k => { if (S[k] != null) a[k] = S[k]; });
+  Object.keys(a.tasks).forEach(k => { if (S.tasks && S.tasks[k]) a.tasks[k] = { ...a.tasks[k], ...S.tasks[k] }; });
+  return a;
+}
+function axCalc(a) {
+  const rows = AX_TASKS.map(([k, name, who, how0, how1, unit, units, per, minute]) => {
+    const n = units(a) * per, f = minute ? 1 / 60 : 1, t = a.tasks[k];
+    return { k, name, who, how0, how1, unit, n, before: t.before * n * f, after: t.after * n * f, ub: t.before, ua: t.after };
+  });
+  const before = rows.reduce((s, r) => s + r.before, 0), after = rows.reduce((s, r) => s + r.after, 0);
+  return { rows, before, after, saved: before - after, pct: before ? (before - after) / before * 100 : 0 };
+}
+async function renderAxKpi() {
+  const a = state.axDraft || axNow(), C = axCalc(a), dirty = !!state.axDraft;
+  const h = v => (v >= 100 ? Math.round(v).toLocaleString() : v.toFixed(1));
+  const max = Math.max(...C.rows.map(r => r.before), 1);
+  const bars = C.rows.map(r => `<div class="axrow" title="${esc(r.name)}: 기존 ${h(r.before)}시간 → 플랫폼 ${h(r.after)}시간 (연간)">
+      <span class="axn">${esc(r.name)}<span class="meta">${esc(r.who)}</span></span>
+      <div class="axbars"><i class="b0" style="width:${r.before / max * 100}%"></i><i class="b1" style="width:${Math.max(r.after / max * 100, r.after > 0 ? 0.6 : 0)}%"></i></div>
+      <span class="axv"><b>${h(r.before - r.after)}</b><span class="meta">시간 절감</span></span></div>`).join('');
+  const inp = (k, label) => `<label>${label}<input type="number" min="0" data-ax="${k}" value="${a[k]}"></label>`;
+  $view.innerHTML = `
+  <div class="dash-grid">
+    <section class="panel p-sum p-axsum"><p class="eyebrow">AX 성과 · 행정 업무 시간</p>
+      <p class="summary">연간 교직원 업무 ${h(C.before)}시간이 ${h(C.after)}시간으로 줄어 <b>${h(C.saved)}시간(${C.pct.toFixed(0)}%)</b>을 아낍니다.</p>
+      <div class="stats"><div class="stat"><b>${h(C.saved)}시간</b><span>연간 절감</span></div><div class="stat"><b>${(C.saved / 2080).toFixed(1)}명</b><span>상근 인력 환산(연 2,080시간)</span></div><div class="stat"><b>${C.pct.toFixed(0)}%</b><span>업무 시간 감소율</span></div><div class="stat"><b>${a.students.toLocaleString()}명</b><span>대상 신입생</span></div></div>
+      <p class="meta" style="margin-top:8px"><span class="badge amber">가정값</span> 업무별 소요 시간은 담당자 면담 전 초기 가정입니다. 아래 표에서 고치면 바로 다시 계산되고, 저장하면 결과보고서 수치로 씁니다.</p></section>
+    ${panelH('p-axchart', '업무별 연간 소요 시간', '기존 방식 대비 플랫폼', `<div class="glegend meta"><span><i class="lg axl0"></i>기존 방식</span><span><i class="lg axl1"></i>플랫폼 도입 후</span></div>${bars}`)}
+    ${panelH('p-axin', '규모 가정', '', `<div class="setgrid">${inp('students', '대상 학생 수(명)')}${inp('courses', '수준별 분반 교양 과목 수')}${inp('advisors', '지도교원 수(명)')}${inp('meetings', '연간 위원회 회의 수')}${inp('items', '연간 개발·개정 문항 수')}</div>
+      <div class="actions no-print"><button class="btn sm" id="axsave" ${dirty ? '' : 'disabled'}>가정값 저장</button><button class="linkbtn" id="axdef">기본값</button><span class="meta" id="axmsg">${state.axMsg || ''}</span></div>`)}
+    ${panelH('p-axtbl', '업무별 계산 근거', '단위 시간을 고치면 다시 계산', `<div class="scrollx"><table class="tbl axtbl"><thead><tr><th>업무</th><th>기존 방식</th><th>플랫폼 방식</th><th>단위</th><th>기존</th><th>도입 후</th><th>연간 횟수</th><th>연간 기존</th><th>연간 도입 후</th></tr></thead><tbody>
+      ${C.rows.map(r => `<tr><td><b>${esc(r.name)}</b><br><span class="meta">${esc(r.who)}</span></td><td class="meta">${esc(r.how0)}</td><td class="meta">${esc(r.how1)}</td><td>${r.unit}</td><td><input type="number" step="0.1" min="0" data-axt="${r.k}" data-w="before" value="${r.ub}"></td><td><input type="number" step="0.1" min="0" data-axt="${r.k}" data-w="after" value="${r.ua}"></td><td>${r.n.toLocaleString()}</td><td>${h(r.before)}</td><td>${h(r.after)}</td></tr>`).join('')}
+      <tr class="sumrow"><td colspan="7"><b>합계(시간)</b></td><td><b>${h(C.before)}</b></td><td><b>${h(C.after)}</b></td></tr></tbody></table></div>`)}
+    ${panelH('p-axuse', '실제 이용 현황', '클라우드 기록', '<div id="axuse"><p class="meta">불러오는 중…</p></div>')}
+    ${panelH('p-axq', '정성 효과', '', `<ul class="tips"><li><b>학생</b>: 진단이 결과지로 끝나지 않고 그 자리에서 교양·융합·비교과 이수 계획으로 이어집니다.</li><li><b>지도교수</b>: 상담이 필요한 학생과 상담 준비 자료를 자동으로 받습니다.</li><li><b>교육과정 운영</b>: 과목별 보정 효과로 개편 근거를 마련하고 위원회 안건을 자동으로 구성합니다.</li><li><b>진단 품질</b>: 불성실 응답 판정, A·B형 평행 문항과 동등화로 결과를 믿을 수 있게 합니다.</li></ul>`)}
+  </div>`;
+  const draft = () => (state.axDraft = state.axDraft || JSON.parse(JSON.stringify(a)));
+  $view.querySelectorAll('[data-ax]').forEach(i => i.onchange = () => { draft()[i.dataset.ax] = Math.max(0, Number(i.value) || 0); state.axMsg = ''; renderAxKpi(); });
+  $view.querySelectorAll('[data-axt]').forEach(i => i.onchange = () => { draft().tasks[i.dataset.axt][i.dataset.w] = Math.max(0, Number(i.value) || 0); state.axMsg = ''; renderAxKpi(); });
+  document.getElementById('axdef').onclick = () => { state.axDraft = JSON.parse(JSON.stringify(AX_DEFAULT)); state.axMsg = '기본값을 불러왔습니다. 저장해야 반영됩니다.'; renderAxKpi(); };
+  document.getElementById('axsave').onclick = () => { const S = settingsNow(); S.ax = state.axDraft; sSet('org', 'settings', S, `AX 성과 가정값 변경: 연간 절감 ${h(axCalc(state.axDraft).saved)}시간`); logLocal('기준값 변경', 'AX 성과 가정값', ''); state.axDraft = null; state.axMsg = '저장했습니다.'; renderAxKpi(); };
+  const r = await api('/api/staff/students');
+  const box = document.getElementById('axuse'); if (!box) return;
+  const L = (r.data && r.data.students) || [];
+  const n = k => L.filter(k).length;
+  box.innerHTML = `<div class="stats stats-sm"><div class="stat"><b>${L.length}명</b><span>플랫폼 이용 학생</span></div><div class="stat"><b>${n(x => x.n > 0)}명</b><span>진단 완료</span></div><div class="stat"><b>${n(x => x.plan > 0)}명</b><span>이수 계획 저장</span></div><div class="stat"><b>${n(x => x.n >= 2)}명</b><span>재진단 완료</span></div><div class="stat"><b>${n(x => x.email)}명</b><span>이메일 등록</span></div></div>
+    <p class="meta">실증 운영에서 쌓이는 실제 이용 기록입니다. 시연 계정 이용도 포함됩니다.</p>`;
+}
+
+/* ======================================================================
+   ⑤ 심사위원 시연 투어: 학생 → 교원 → 관리자 흐름을 자동으로 안내
+   ====================================================================== */
+const TOUR = [
+  { title: '대학 생활 설계 플랫폼', text: '학생은 3종 진단 결과로 교양·융합·비교과 이수 계획을 세우고, 교원과 관리자는 같은 데이터로 수준별 분반, 상담, 교육과정 개선을 합니다. 학생 → 교원 → 관리자 순서로 3분 동안 둘러봅니다.', sel: '.login-intro' },
+  { title: '로그인', text: '처음에는 학번+생년월일로 본인을 확인하고 이메일을 등록합니다. 이후에는 이메일 인증번호로 로그인합니다. 투어에서는 가상 학생으로 바로 들어갑니다.', sel: '.login-card' },
+  { title: '학생 홈', text: '학기 흐름 6단계(진단 → 결과 → 계획 → 이수 → 재진단 → 성장)와 지금 할 일을 보여 줍니다.', sel: '.stepper', prep: async () => { await tourLogin('student', '20261001'); state.phase = 'start'; fillDemo(); state.pendingSnap = true; go('result'); go('home'); } },
+  { title: '진단 결과 요약', text: '직업기초·핵심·기초학습 3종 결과를 강점, 보완할 점, 지금 할 일 카드로 먼저 보여 주고, 상세는 펼쳐 봅니다.', sel: '.p-cards', prep: async () => go('result') },
+  { title: '응답 신뢰성', text: '응답 시간, 쌍문항 일관성, 같은 답 반복을 점검해 성의 없는 응답은 재실시로 판정합니다.', sel: '.p-three' },
+  { title: 'AI 진단 분석', text: '규칙으로 근거를 뽑고 AI가 해석 문장을 씁니다. 보완 우선순위마다 교양과 비교과를 처방합니다.', sel: '.p-pri', prep: async () => go('analysis') },
+  { title: '맞춤 이수 계획', text: '추천 과목이 학기별로 자동 배치되고 학생이 끌어 놓기로 고칩니다. 목표 직무와 융합과정으로 다시 설계할 수도 있습니다.', sel: '.p-board, .plan-grid', prep: async () => { go('plan'); const b = [...document.querySelectorAll('button')].find(x => /계획 저장/.test(x.textContent)); if (b) b.click(); } },
+  { title: '학기말 재진단과 성장', text: '학기말에는 같은 능력을 다른 문항(B형)으로 재진단합니다. 공통 문항으로 점수를 같은 척도에 맞춰 성장을 비교합니다.', sel: '.block.own', prep: async () => { state.phase = 'end'; if (!(state.history || []).some(h => h.end)) { fillDemo(false, true); state.pendingSnap = false; snapshot(); } go('growth'); } },
+  { title: '교원 · 상담 준비 카드', text: '향상도가 기준에 못 미치거나 낮은 수준이 이어지는 학생은 지도교수에게 자동으로 알려 줍니다. 상담 질문과 연계할 과목까지 준비해 줍니다.', sel: '.prep', prep: async () => { await tourLogin('faculty'); go('advisor'); } },
+  { title: '교원 · 수준별 자동 분반', text: '진단 점수로 교양 과목의 상·중·하 분반을 자동으로 편성하고, 옮긴 뒤 명단을 내려받습니다.', sel: '.secol', prep: async () => go('sections') },
+  { title: '관리자 · 운영 현황', text: '운영 프로세스 8단계별 현황을 한 화면에서 봅니다.', sel: '.proc', prep: async () => { await tourLogin('admin'); state.phase = 'end'; go('ahome'); } },
+  { title: '관리자 · AX 성과', text: '업무별 소요 시간을 도입 전후로 비교해 연간 절감 시간을 계산합니다.', sel: '.p-axsum', prep: async () => go('axkpi') },
+  { title: '관리자 · 교육과정 효과성', text: '교양·융합과정·비교과마다 입학 직후 점수를 맞춘 보정 효과를 구하고, 유지·확대·개선·재설계 판단을 붙입니다.', sel: '.p-escat', prep: async () => go('impact') },
+  { title: '관리자 · AI 문항 고도화', text: '운영 중인 문항을 넣으면 AI가 같은 능력을 재는 평행 문항 초안을 만들고, 검토 체크리스트를 거쳐 학기말 B형에 들어갑니다.', sel: '.p-ibed', prep: async () => go('itembank') },
+  { title: '관리자 · 위원회 안건', text: '효과성 분석에서 고른 프로그램이 교양교육과정개발위원회 안건으로 이어집니다. 투어를 마치면 이 계정으로 직접 둘러볼 수 있습니다.', sel: 'h1', prep: async () => go('committee') }
+];
+async function tourLogin(role, no) {
+  if (state.user) { await authCall('/api/auth/logout', {}); STORE.user = {}; STORE.org = {}; state.user = null; resetDiag(); useForm('A'); state.history = []; state.seen = {}; state.plan = null; state.chat = []; }
+  const r = await authCall(role === 'student' ? '/api/auth/student-demo' : '/api/auth/staff-demo', role === 'student' ? { no } : { role });
+  if (r.status !== 200) throw new Error(r.data.error || '로그인 실패');
+  await enterUser(r.data.user);
+}
+function tourMark(sel) {
+  document.querySelectorAll('.tour-hl').forEach(e => e.classList.remove('tour-hl'));
+  const el = sel && [...document.querySelectorAll(sel)].find(e => e.offsetParent !== null);
+  if (el) { el.classList.add('tour-hl'); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+}
+async function tourShow(i) {
+  const T = state.tour; if (!T) return;
+  T.i = Math.max(0, Math.min(TOUR.length - 1, i));
+  const s = TOUR[T.i];
+  const box = document.getElementById('tourbox') || document.body.appendChild(Object.assign(document.createElement('aside'), { id: 'tourbox', className: 'tour no-print' }));
+  box.setAttribute('aria-live', 'polite');
+  box.innerHTML = `<p class="tour-n">${T.i + 1} / ${TOUR.length}</p><h2>${s.title}</h2><p class="meta">준비 중…</p>`;
+  try { if (s.prep && T.done[T.i] !== true) { await s.prep(); T.done[T.i] = true; } } catch (e) { box.innerHTML = `<h2>투어를 계속할 수 없습니다</h2><p class="meta">${esc(e.message)}</p><div class="actions"><button class="btn sm" id="tend">끝내기</button></div>`; document.getElementById('tend').onclick = tourEnd; return; }
+  await new Promise(r => setTimeout(r, 450));
+  tourMark(s.sel);
+  box.innerHTML = `<p class="tour-n">${T.i + 1} / ${TOUR.length} <span class="tour-bar"><i style="width:${(T.i + 1) / TOUR.length * 100}%"></i></span></p><h2>${s.title}</h2><p>${s.text}</p>
+    <div class="actions"><button class="btn ghost sm" id="tprev" ${T.i ? '' : 'disabled'}>이전</button><button class="btn sm" id="tnext">${T.i === TOUR.length - 1 ? '직접 둘러보기' : '다음'}</button><button class="linkbtn" id="tend">끝내기</button></div>`;
+  document.getElementById('tprev').onclick = () => tourShow(T.i - 1);
+  document.getElementById('tnext').onclick = () => (T.i === TOUR.length - 1 ? tourEnd() : tourShow(T.i + 1));
+  document.getElementById('tend').onclick = tourEnd;
+  document.getElementById('tnext').focus();
+}
+function tourStart() { state.tour = { i: 0, done: {} }; tourShow(0); }
+function tourEnd() {
+  state.tour = null;
+  document.querySelectorAll('.tour-hl').forEach(e => e.classList.remove('tour-hl'));
+  const b = document.getElementById('tourbox'); if (b) b.remove();
+}
+document.addEventListener('keydown', e => { if (state.tour && e.key === 'Escape') tourEnd(); });
+
+/* ======================================================================
+   ① 교과목 명세서 → AI 과목–역량 매핑 → 위원회 검토·승인 → 추천·분석 반영
+   - 지금 과목–역량 연결은 과목명 기준 초안. 명세서(개요·학습목표·주요 내용)를 근거로 다시 매핑합니다.
+   - AI 연결 시 AI가 근거 문장과 함께 매핑하고, 없으면 명세서 문장의 핵심어로 매핑합니다(같은 형식).
+   ====================================================================== */
+/* 시연용 예시 명세서(가상). 실제 교양 교육과정 명세서를 받으면 업로드로 교체 */
+const DEMO_SPECS = {
+  '자기이해와진로설계': { cat: '자기주도성', cr: 2, overview: '성격·흥미·가치관 검사로 자신을 이해하고, 희망 직무에 필요한 역량과 현재 수준의 차이를 분석해 학기별 경력 개발 계획을 세운다.', goals: ['자신의 흥미와 강점을 설명할 수 있다', '희망 직무의 요구 역량과 나의 수준을 비교해 개발 계획을 세울 수 있다', '학기 목표를 정하고 우선순위에 따라 일정을 관리할 수 있다'], weeks: '자기 이해 검사와 해석 · 직무 탐색과 NCS 직무 기술서 읽기 · 경력 목표 설정 · 학기 계획표와 시간 관리 · 새로운 기술 학습 계획 발표' },
+  'AI와빅데이터리터러시': { cat: '직업기초', cr: 2, overview: '생성형 AI와 데이터 분석 도구를 업무에 활용하는 기초를 익힌다. 공공 데이터를 모아 평균·비율 등 기초 통계로 분석하고 그래프로 시각화하며, 개인정보 보호와 저작권 등 AI 윤리를 다룬다.', goals: ['생성형 AI에 목적과 조건을 분명히 해 요청하고 결과를 검토할 수 있다', '데이터를 정리해 기초 통계를 계산하고 그래프로 나타낼 수 있다', 'AI를 쓸 때 개인정보와 저작권을 지킬 수 있다'], weeks: '생성형 AI 요청문 작성 실습 · 스프레드시트로 데이터 정리 · 평균·비율·증감률 계산 · 차트와 대시보드 만들기 · 개인정보 비식별화와 저작권 · 팀 데이터 분석 발표' },
+  '영어회화': { cat: '일반', cr: 2, overview: '직장과 현장실습에서 자주 쓰는 영어 표현을 익히고 상황별 대화를 연습한다.', goals: ['업무 안내와 요청을 영어로 이해하고 답할 수 있다', '자기소개와 업무 설명을 영어로 할 수 있다'], weeks: '인사와 자기소개 · 전화·이메일 응대 표현 · 일정 조율 · 제품·공정 설명 · 역할극 발표' },
+  '의사소통과AI윤리및디지털시민의식': { cat: '직업기초', cr: 2, overview: '업무 문서를 읽고 핵심을 정리하며, 보고서와 이메일을 목적에 맞게 작성한다. 회의에서 경청하고 의견을 근거와 함께 말하는 연습을 하고, 온라인 소통의 예절과 AI 활용 윤리를 다룬다.', goals: ['업무 문서의 핵심 정보를 정확히 파악할 수 있다', '보고서와 이메일을 목적에 맞게 작성할 수 있다', '상대 의견을 경청하고 근거를 들어 말할 수 있다', '온라인 소통과 AI 활용에서 책임 있게 행동할 수 있다'], weeks: '공지·안내문 읽기 · 보고서 구조 · 업무 이메일 작성 · 회의 발언과 경청 · 발표 · 디지털 시민성과 AI 윤리' },
+  '엑셀활용': { cat: '일반', cr: 2, overview: '스프레드시트 함수와 표·차트 기능을 익혀 업무 자료를 정리하고 분석한다.', goals: ['함수로 합계·평균·조건 계산을 할 수 있다', '표와 차트로 자료를 시각화할 수 있다', '업무 자료를 정리해 보고용 표를 만들 수 있다'], weeks: '셀 서식과 기본 함수 · 조건 함수와 참조 · 피벗 테이블 · 차트 작성 · 업무 자동화 기초 · 실무 과제' },
+  '문제해결과AI윤리및디지털시민의식': { cat: '직업기초', cr: 2, overview: '현장 문제를 조사해 원인을 구체화하고, 여러 대안을 기준에 따라 비교해 실행 계획을 세운다. 팀 프로젝트로 시범 실행 결과를 지표로 점검하고 개선한다.', goals: ['문제 상황을 조사해 원인을 분석할 수 있다', '대안을 효과·비용·실행 가능성 기준으로 비교할 수 있다', '실행 결과를 지표로 확인하고 개선안을 낼 수 있다', '팀원과 역할을 나눠 협력할 수 있다'], weeks: '문제 정의와 현상 조사 · 원인 분석 도구 · 대안 발굴과 비교 · 의사결정 · 팀 프로젝트 실행과 결과 점검 · AI 활용 문제해결 사례' },
+  '수리와AI윤리및디지털시민의식': { cat: '직업기초', cr: 2, overview: '업무에 필요한 단위 환산과 사칙연산, 비율·평균 등 기초 통계, 표와 그래프 해석을 익힌다.', goals: ['업무 계산과 단위 환산을 정확히 할 수 있다', '평균·비율로 자료의 특성을 설명할 수 있다', '표와 그래프의 증감을 해석할 수 있다'], weeks: '단위 환산과 계산 · 비율과 백분율 · 평균과 분포 · 표·그래프 해석 · 데이터 오류와 책임 있는 활용' },
+  '창업실무': { cat: '일반', cr: 3, overview: '팀을 이뤄 창업 아이디어를 발굴하고, 고객 조사를 바탕으로 사업 모델을 설계해 발표한다.', goals: ['고객 문제를 조사해 창업 아이디어를 낼 수 있다', '여러 사업안을 기준에 따라 비교해 선택할 수 있다', '팀원과 협력해 사업 계획을 발표할 수 있다'], weeks: '아이디어 발굴 · 고객 인터뷰 · 사업 모델 캔버스 · 대안 비교와 선택 · 팀 피칭 발표' },
+  '글쓰기와토론': { cat: '일반', cr: 2, overview: '주장과 근거를 갖춘 글을 쓰고, 토론에서 상대 의견을 경청하며 반론과 조정을 연습한다.', goals: ['근거를 갖춘 글을 쓸 수 있다', '토론에서 경청하고 논리적으로 말할 수 있다', '의견 차이를 존중하며 조정할 수 있다'], weeks: '논증의 구조 · 보고서 작성 · 토론 규칙 · 찬반 토론 · 갈등 상황 조정 연습' },
+  '직업윤리와AI윤리및디지털시민의식': { cat: '직업기초', cr: 2, overview: '직장인의 성실·책임·정직과 공동체 의식을 사례로 익히고, 현장 안전 수칙과 AI·데이터 윤리를 다룬다.', goals: ['직장에서 정직하고 책임 있게 행동하는 방법을 설명할 수 있다', '동료를 존중하고 협력하는 태도를 보일 수 있다', '현장 안전 수칙을 지킬 수 있다', '데이터와 AI를 윤리적으로 사용할 수 있다'], weeks: '직업윤리의 의미 · 정직과 책임 사례 · 직장 내 존중과 공동체 · 산업 안전과 보건 · AI·데이터 윤리' },
+  '인성과리더쉽': { cat: '일반', cr: 2, overview: '팀 활동에서 역할을 나누고 조율하며, 동료를 돕고 이끄는 리더십을 연습한다.', goals: ['팀 목표를 위해 역할을 조율할 수 있다', '동료의 어려움을 살피고 도울 수 있다', '갈등을 대화로 조정할 수 있다'], weeks: '나의 리더십 유형 · 팀 빌딩 · 역할 분담과 조율 · 갈등 조정 · 섬김 리더십 프로젝트' },
+  '진로와취업': { cat: '일반', cr: 2, overview: '목표 직무의 채용 정보를 분석하고 자기소개서와 면접을 준비한다.', goals: ['채용 공고에서 요구 역량을 분석할 수 있다', '자기소개서를 작성할 수 있다', '모의 면접에서 자신을 설명할 수 있다'], weeks: '직무 분석 · 채용 공고 읽기 · 자기소개서 작성 · 모의 면접 · 취업 일정 관리' }
+};
+/* 명세서 문장 핵심어(규칙 기반 매핑). AI 연결 시 AI 판단을 씀 */
+const SPEC_KW = {
+  문서소통능력: /문서|보고서|이메일|자기소개서|글을|글쓰기|읽고|읽기|작성/, 구두소통능력: /말하|발표|경청|회의|토론|면접|대화|응대|피칭/, 외국어소통능력: /영어|외국어|일본어|중국어/,
+  연산능력: /계산|단위|사칙연산|환산/, 통계활용능력: /통계|평균|비율|분포|백분율/, 도표활용능력: /그래프|차트|도표|표와|시각화|대시보드/,
+  문제분석능력: /원인|문제를? ?조사|문제 정의|분석할|분석해|조사해/, 대안발굴능력: /대안|아이디어|발굴|개선안/, 의사결정능력: /비교해|선택|결정|기준에 따라|지표로/,
+  경력개발능력: /경력|진로|직무|채용|자기 이해|흥미|강점/, 적응학습능력: /새로운 기술|학습 계획|스스로|익힌다/, 시간관리능력: /일정|시간 관리|우선순위|계획표/,
+  협업능력: /팀|협력|협업|역할을? ?나|조율/, 리더십: /리더십|이끄|돕고|도울/, 갈등관리능력: /갈등|조정|반론/,
+  디지털활용능력: /스프레드시트|함수|도구|소프트웨어|자동화|피벗|디지털 도구/, AI활용능력: /생성형 AI|AI에|AI를|AI 활용|요청문/, 디지털책임의식: /개인정보|저작권|AI 윤리|디지털 시민|비식별|윤리적으로/,
+  근로윤리: /성실|책임|정직/, 직장공동체의식: /존중|공동체|배려/, 산업안전보건의식: /안전|보건|위험/
+};
+function specRule(spec) {
+  const sents = [...String(spec.overview || '').split(/(?<=[.다])\s+/), ...(spec.goals || []), ...String(spec.weeks || '').split('·')].map(x => x.trim()).filter(Boolean);
+  const out = [];
+  Object.entries(SPEC_KW).forEach(([sub, re]) => {
+    const hit = sents.filter(t => re.test(t));
+    if (!hit.length) return;
+    const inGoal = (spec.goals || []).some(g => re.test(g));
+    out.push({ sub, role: hit.length >= 2 || inGoal ? '주' : '부', evidence: hit[0], n: hit.length });
+  });
+  return out.sort((a, b) => (a.role === b.role ? b.n - a.n : a.role === '주' ? -1 : 1)).slice(0, 6);
+}
+const baseSubs = {};
+function courseIndex() {
+  const idx = {};
+  Object.values(CURRICULUM.byDept).forEach(cs => cs.forEach(c => { if (!(c.n in baseSubs)) baseSubs[c.n] = c._subs0 || c.subs.slice(); idx[c.n] = idx[c.n] || { n: c.n, cat: c.c, depts: 0 }; idx[c.n].depts++; }));
+  return idx;
+}
+const specsNow = () => sGet('org', 'specs') || DEMO_SPECS;
+/* 승인한 매핑을 추천·분석·편성 현황에 반영 */
+function applyMapping() {
+  const M = sGet('org', 'mapping') || {};
+  courseIndex();
+  let changed = 0;
+  Object.entries(CURRICULUM.byDept).forEach(([d, cs]) => cs.forEach(c => {
+    if (!c._subs0) c._subs0 = c.subs.slice();
+    const next = M[c.n] ? M[c.n].subs.slice() : c._subs0.slice();
+    if (next.join() !== c.subs.join()) { c.subs = next; changed++; }
+  }));
+  if (!changed && !applyMapping.done) { applyMapping.done = true; return; }
+  applyMapping.done = true;
+  const POOLS = ['자유전공학부(공통)'];
+  Object.keys(CURRICULUM.cover).forEach(sn => {
+    const own = new Set(), common = new Set(); let depts = 0;
+    Object.entries(CURRICULUM.byDept).forEach(([d, cs]) => {
+      const has = cs.filter(c => c.subs.includes(sn));
+      if (POOLS.includes(d)) has.forEach(c => common.add(c.n));
+      else if (has.length) { depts++; has.forEach(c => own.add(c.n)); }
+    });
+    Object.assign(CURRICULUM.cover[sn], { depts, ownCourses: [...own], commonCourses: [...common] });
+  });
+  COHORT = null; IMPACT = null; EFFECT = null; PROFILES = null;
+}
+async function aiMap(name, spec) {
+  if (!(await checkAI())) return null;
+  try {
+    const r = await aiFetch('map', { course: name, spec, subs: SUBNAMES.map(sn => ({ sub: sn, area: AREAS[SUB_AREA[SUBNAMES.indexOf(sn)]].short, definition: SUB_DEF[sn] })) });
+    if (!r.ok) return null;
+    const j = await r.json();
+    return j.result ? { rows: j.result.mappings, level: j.result.ai_level, note: j.result.note, src: `AI 매핑(${j.model || 'AI'})` } : null;
+  } catch (e) { return null; }
+}
+function renderSpecMap() {
+  const specs = specsNow(), demo = !sGet('org', 'specs'), M = sGet('org', 'mapping') || {}, idx = courseIndex();
+  const names = Object.keys(specs).filter(n => idx[n] || true);
+  state.smSel = names.includes(state.smSel) ? state.smSel : names[0];
+  const sel = state.smSel, sp = specs[sel], base = baseSubs[sel] || [];
+  state.smDraft = state.smDraft || {};
+  const draft = state.smDraft[sel];
+  const prop = draft ? draft.rows : M[sel] ? M[sel].rows : null;
+  const diff = n => { const a = new Set(baseSubs[n] || []), b = new Set((M[n] || {}).subs || []); return { add: [...b].filter(x => !a.has(x)).length, del: [...a].filter(x => !b.has(x)).length }; };
+  const st = n => (M[n] ? `<span class="st st-승인">승인</span>${(d => d.add || d.del ? ` <span class="meta">+${d.add} −${d.del}</span>` : '')(diff(n))}` : state.smDraft[n] ? '<span class="st st-초안">검토 대기</span>' : '<span class="st">매핑 전</span>');
+  const nApproved = names.filter(n => M[n]).length, nAdded = names.filter(n => M[n]).reduce((a, n) => a + diff(n).add, 0);
+  const allSubs = prop ? [...new Set([...prop.map(r => r.sub), ...base])] : base;
+  const hl = t => { let h = esc(t); (prop || []).forEach(r => { if (r.evidence && t.includes(r.evidence)) h = `<mark>${h}</mark>`; }); return h; };
+  $view.innerHTML = `
+  <div class="dash-grid">
+    <section class="panel p-sum"><p class="eyebrow">교과목 명세서 · AI 역량 매핑</p>
+      <p class="summary">교과목 명세서를 근거로 과목이 기르는 하위능력을 다시 매핑하고, 위원회가 승인하면 추천과 분석에 바로 반영합니다.</p>
+      <div class="stats"><div class="stat"><b>${names.length}개</b><span>명세서 연결 과목</span></div><div class="stat"><b>${nApproved}개</b><span>매핑 승인</span></div><div class="stat"><b>${nAdded}개</b><span>새로 찾은 과목–능력 연결</span></div><div class="stat"><b>${Object.keys(idx).length}개</b><span>교과과정표 교양 과목</span></div></div>
+      <ol class="flow"><li><b>명세서 연결</b>개요·학습목표·주요 내용</li><li><b>AI 매핑</b>21개 하위능력, 근거 문장</li><li><b>위원회 검토</b>채택·제외 선택</li><li><b>승인</b>매핑 확정·변경 기록</li><li><b>반영</b>추천·분반·효과성·편성 현황</li></ol>
+      ${demo ? '<p class="meta" style="margin-top:8px"><span class="badge amber">시연용 예시 명세서</span> 교양 교육과정 명세서를 받으면 양식에 맞춰 올려 교체합니다.</p>' : ''}</section>
+    ${panelH('p-smlist', '과목 목록', `${names.length}개`, `<div class="actions no-print" style="margin:0 0 8px"><button class="btn ghost sm" id="small">전체 매핑 초안 만들기</button><button class="btn ghost sm" id="smtpl">명세서 양식</button><label class="btn ghost sm filebtn">명세서 올리기<input type="file" id="smfile" accept=".csv" hidden></label></div>
+      <span class="meta" id="smmsg" aria-live="polite">${state.smMsg || ''}</span>
+      <ul class="smlist">${names.map(n => `<li><button class="${n === sel ? 'on' : ''}" data-sm="${esc(n)}"><b>${esc(n)}</b><span class="meta">${esc((specs[n] || {}).cat || '')} · ${idx[n] ? idx[n].depts + '개 학과 편성' : '교과과정표에 없음'}</span>${st(n)}</button></li>`).join('')}</ul>`)}
+    ${panelH('p-smed', esc(sel), `${esc(sp.cat || '')} · ${sp.cr || '-'}학점`, `
+      <div class="spec"><p><b>개요</b> ${hl(sp.overview || '')}</p><p><b>학습목표</b></p><ol>${(sp.goals || []).map(g => `<li>${hl(g)}</li>`).join('')}</ol><p><b>주요 내용</b> ${esc(sp.weeks || '')}</p></div>
+      <div class="actions no-print"><button class="btn sm" id="smgen">${state.smPend ? '매핑 중…' : 'AI로 역량 매핑'}</button><span class="meta">${draft ? esc(draft.src) : M[sel] ? `승인 · ${esc(M[sel].by)} · ${esc(M[sel].at)}` : ''}</span></div>
+      ${prop ? `<table class="tbl smtbl"><thead><tr><th>채택</th><th>하위능력</th><th>기존(과목명 기준)</th><th>명세서 근거 제안</th><th>근거 문장</th></tr></thead><tbody>
+        ${allSubs.map(sn => { const r = prop.find(x => x.sub === sn); const inBase = base.includes(sn); const on = M[sel] && !draft ? M[sel].subs.includes(sn) : !!r; return `<tr class="${r && !inBase ? 'add' : !r && inBase ? 'del' : ''}"><td><input type="checkbox" class="smchk" value="${sn}" ${on ? 'checked' : ''} aria-label="${sn} 채택"></td><td><b>${sn}</b><br><span class="meta">${AREAS[SUB_AREA[SUBNAMES.indexOf(sn)]].short}</span></td><td>${inBase ? '연결' : '-'}</td><td>${r ? `<span class="badge">${r.role}</span>` : '<span class="meta">근거 없음</span>'}${r && !inBase ? ' <span class="okc">새로 찾음</span>' : ''}</td><td class="meta">${r ? esc(r.evidence) : ''}</td></tr>`; }).join('')}</tbody></table>
+        <p class="meta">'새로 찾음'은 과목명만으로는 몰랐던 연결입니다. 근거 없는 기존 연결은 위원회가 유지할지 정합니다.</p>
+        <div class="actions no-print"><button class="btn" id="smok">선택한 연결로 승인</button>${M[sel] ? '<button class="linkbtn" id="smreset">승인 취소(과목명 기준으로)</button>' : ''}</div>` : '<p class="meta">아직 매핑하지 않았습니다. \'AI로 역량 매핑\'을 누르세요.</p>'}`)}
+  </div>`;
+  $view.querySelectorAll('[data-sm]').forEach(b => b.onclick = () => { state.smSel = b.dataset.sm; state.smMsg = ''; renderSpecMap(); });
+  const gen = async n => { const s = specs[n]; let d = await aiMap(n, s); if (!d) d = { rows: specRule(s), src: 'AI 미연결 · 명세서 핵심어 기준 초안' }; state.smDraft[n] = d; return d; };
+  document.getElementById('smgen').onclick = async () => { state.smPend = true; renderSpecMap(); await gen(sel); state.smPend = false; renderSpecMap(); };
+  document.getElementById('small').onclick = async () => { state.smMsg = '매핑 중…'; renderSpecMap(); for (const n of names) if (!M[n]) await gen(n); state.smMsg = `${names.filter(n => !M[n]).length}개 과목의 매핑 초안을 만들었습니다. 과목별로 검토해 승인하세요.`; renderSpecMap(); };
+  document.getElementById('smtpl').onclick = () => download('교과목명세서_양식.csv', [['교과목명', '이수구분', '학점', '교과목 개요', '학습목표(| 구분)', '주요 내용'], ...Object.entries(specs).map(([n, s]) => [n, s.cat, s.cr, s.overview, (s.goals || []).join('|'), s.weeks])]);
+  document.getElementById('smfile').onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const rd = new FileReader();
+    rd.onload = () => {
+      const rows = parseCSV(String(rd.result)).slice(1).filter(r => r[0]);
+      if (!rows.length) { state.smMsg = '읽을 수 있는 행이 없습니다. 양식을 확인하세요.'; renderSpecMap(); return; }
+      const out = {}; rows.forEach(r => { out[r[0].trim()] = { cat: r[1], cr: Number(r[2]) || null, overview: r[3] || '', goals: String(r[4] || '').split('|').map(x => x.trim()).filter(Boolean), weeks: r[5] || '' }; });
+      sSet('org', 'specs', out); state.smDraft = {}; state.smMsg = `${rows.length}개 과목 명세서를 올렸습니다.`; renderSpecMap();
+    };
+    rd.readAsText(f, 'utf-8');
+  };
+  const ok = document.getElementById('smok');
+  if (ok) ok.onclick = () => {
+    const subs = [...document.querySelectorAll('.smchk:checked')].map(x => x.value);
+    if (!subs.length) { state.smMsg = '하나 이상 채택해야 합니다.'; renderSpecMap(); return; }
+    const M2 = { ...(sGet('org', 'mapping') || {}) };
+    M2[sel] = { subs, rows: prop, by: state.user.name, at: localTime(), src: draft ? draft.src : M[sel].src };
+    sSet('org', 'mapping', M2, `${sel}: ${base.join(',')} → ${subs.join(',')}`); logLocal('역량 매핑 승인', sel, subs.join(', '));
+    delete state.smDraft[sel]; applyMapping(); state.smMsg = `${sel} 매핑을 승인했습니다. 추천과 분석에 반영됩니다.`; renderSpecMap();
+  };
+  const rs = document.getElementById('smreset');
+  if (rs) rs.onclick = () => { const M2 = { ...(sGet('org', 'mapping') || {}) }; delete M2[sel]; sSet('org', 'mapping', M2, `${sel}: 승인 취소`); applyMapping(); renderSpecMap(); };
+}
+
+/* ======================================================================
+   ② 위원회 보고서 원클릭 작성(PDF·Word)
+   - 표와 수치는 플랫폼 데이터에서 바로 만들고, 문장은 AI(연결 시) 또는 규칙으로 씁니다.
+   ====================================================================== */
+function reportData() {
+  const co = cohort(), n = co.length;
+  const subMean = SUBNAMES.map((_, k) => Math.round(mean(co.map(st => st.sub[k]))));
+  const lowSubs = SUBNAMES.map((sn, k) => ({ sn, m: subMean[k], depts: CURRICULUM.cover[sn].depts })).sort((a, b) => a.m - b.m).slice(0, 5);
+  const G = gainStats('ncs', 3, (state.alertStd || {}).drop || 0), E = effectiveness();
+  const dec = k => E.rows.filter(r => r.decision === k);
+  const M = sGet('org', 'mapping') || {};
+  const agenda = (state.effAgenda && state.effAgenda.length ? state.effAgenda.map(nm => E.rows.find(r => r.nm === nm)).filter(Boolean) : E.rows.filter(r => /개선|재설계/.test(r.decision)));
+  return {
+    term: '2026학년도 1학기', n, retake: co.filter(st => st.rel === '재실시').length,
+    areaMeans: AREAS.map((a, k) => ({ area: a.short, t0: +mean(co.map(st => st.traceArea[0][k])).toFixed(1), t3: +mean(co.map(st => st.traceArea[3][k])).toFixed(1) })),
+    lowSubs, gain: { change: +G.m.toFixed(1), up: +G.up.toFixed(0), down: +G.down.toFixed(0), below: G.below, lowDepts: G.depts.slice(0, 3).map(d => ({ dept: d.d, change: +d.m.toFixed(1) })) },
+    effect: { total: E.rows.length, keep: dec('유지·확산').length + dec('확대 검토').length, improve: dec('내용·운영 개선').map(r => r.nm), redesign: dec('재설계·통합 검토').map(r => r.nm), top: E.rows.filter(r => r.verdict === '효과 뚜렷').sort((a, b) => b.eff - a.eff).slice(0, 3).map(r => ({ kind: r.kind, name: r.nm, effect: +r.eff.toFixed(1) })) },
+    mapping: Object.entries(M).map(([k, v]) => ({ course: k, subs: v.subs })),
+    agenda: agenda.map(r => ({ kind: r.kind, name: r.nm, n: r.n, effect: +r.eff.toFixed(1), ci: +r.ci.toFixed(1), decision: r.decision }))
+  };
+}
+function ruleReport(D) {
+  return {
+    summary: `${D.term} 신입생 ${D.n}명의 3종 진단과 학기말 재진단, 교과·비교과 이수 기록을 분석했습니다. 직업기초역량 평균은 입학 직후보다 ${D.gain.change > 0 ? '+' : ''}${D.gain.change}점 변했고 측정 오차를 넘어 향상된 학생은 ${D.gain.up}%입니다. 분석한 교양·융합과정·비교과 ${D.effect.total}개 중 ${D.effect.keep}개는 효과가 뚜렷했고, ${D.effect.improve.length + D.effect.redesign.length}개는 개선 또는 재설계 검토가 필요합니다.`,
+    sections: [
+      { heading: '1. 진단 결과', body: `대학 평균이 가장 낮은 하위능력은 ${D.lowSubs.map(x => `${x.sn}(${x.m}점)`).join(', ')}입니다. 이 중 교양 편성 학과가 적은 능력은 신설·보강 우선 검토 대상입니다. 응답 신뢰성 점검에서 재실시 판정은 ${D.retake}명입니다.` },
+      { heading: '2. 역량 향상도', body: `입학 직후 대비 3학기말 직업기초역량은 평균 ${D.gain.change > 0 ? '+' : ''}${D.gain.change}점 변했습니다. 의미 있게 향상된 학생은 ${D.gain.up}%, 하락한 학생은 ${D.gain.down}%이며 기준 미만 ${D.gain.below}명은 지도교수 상담으로 연계했습니다. 향상이 작은 학과는 ${D.gain.lowDepts.map(d => `${d.dept}(${d.change > 0 ? '+' : ''}${d.change}점)`).join(', ')}입니다.` },
+      { heading: '3. 교육과정 효과성', body: `입학 직후 점수와 계열을 맞춘 보정 효과가 큰 프로그램은 ${D.effect.top.map(t => `${t.name}(${t.kind}, +${t.effect}점)`).join(', ')}입니다. 내용·운영 개선 대상은 ${D.effect.improve.join(', ') || '없음'}, 재설계·통합 검토 대상은 ${D.effect.redesign.join(', ') || '없음'}입니다. 관찰 자료이므로 인과로 단정하지 않고 다음 학기 재진단으로 개선 효과를 확인합니다.` },
+      { heading: '4. 교과목–역량 매핑', body: D.mapping.length ? `교과목 명세서를 근거로 ${D.mapping.length}개 과목의 역량 연결을 다시 정했습니다. 승인한 매핑은 학생 추천과 효과성 분석에 반영되었습니다.` : '교과목 명세서 기반 역량 매핑은 명세서 수령 후 진행합니다.' }
+    ],
+    decisions: D.agenda.map(a => ({ agenda: `${a.kind} 「${a.name}」 ${a.decision}`, proposal: { '내용·운영 개선': '수업 내용과 운영 방식 개선안을 담당 교원과 마련', '재설계·통합 검토': '재설계 또는 유사 과목과 통합 검토', '확대 검토': '개설 분반·정원 확대 검토', '유지·확산': '운영 방식을 우수 사례로 공유', '추가 관찰': '다음 학기 재진단까지 관찰' }[a.decision], rationale: `이수 ${a.n}명, 보정 효과 ${a.effect > 0 ? '+' : ''}${a.effect}점(±${a.ci})` }))
+  };
+}
+async function renderReport() {
+  const D = reportData(), key = 'report:' + JSON.stringify([D.n, D.agenda.length, D.mapping.length]);
+  const T = (state.aiRes && state.aiRes[key]) || ruleReport(D);
+  const isAI = !!(state.aiRes && state.aiRes[key]);
+  const tblArea = `<table class="rtbl"><thead><tr><th>영역</th>${D.areaMeans.map(a => `<th>${a.area}</th>`).join('')}</tr></thead><tbody><tr><th>입학 직후</th>${D.areaMeans.map(a => `<td>${a.t0}</td>`).join('')}</tr><tr><th>3학기말</th>${D.areaMeans.map(a => `<td>${a.t3}</td>`).join('')}</tr></tbody></table>`;
+  const doc = `<article class="rdoc" id="rdoc">
+    <header><p class="rk">교양교육과정개발위원회 안건 자료</p><h1>${D.term} 대학 생활 설계 진단·교육과정 효과성 보고</h1><p class="meta">작성 ${localTime().slice(0, 10)} · 대학 생활 설계 플랫폼 자동 작성 · ${isAI ? 'AI 작성 문장' : '규칙 기반 문장'} · 가상 예시 데이터</p></header>
+    <h2>요약</h2><p>${esc(T.summary)}</p>
+    ${T.sections.map((s, i) => `<h2>${esc(s.heading)}</h2><p>${esc(s.body)}</p>${i === 0 ? tblArea : ''}${i === 2 && D.agenda.length ? `<table class="rtbl"><thead><tr><th>구분</th><th>프로그램</th><th>이수</th><th>보정 효과</th><th>판단</th></tr></thead><tbody>${D.agenda.map(a => `<tr><td>${a.kind}</td><td>${esc(a.name)}</td><td>${a.n}</td><td>${a.effect > 0 ? '+' : ''}${a.effect} (±${a.ci})</td><td>${a.decision}</td></tr>`).join('')}</tbody></table>` : ''}${i === 3 && D.mapping.length ? `<table class="rtbl"><thead><tr><th>교과목</th><th>승인한 하위능력</th></tr></thead><tbody>${D.mapping.map(m => `<tr><td>${esc(m.course)}</td><td>${m.subs.join(', ')}</td></tr>`).join('')}</tbody></table>` : ''}`).join('')}
+    <h2>심의 요청 사항</h2>${T.decisions.length ? `<table class="rtbl"><thead><tr><th>안건</th><th>제안</th><th>근거</th></tr></thead><tbody>${T.decisions.map(d => `<tr><td>${esc(d.agenda)}</td><td>${esc(d.proposal)}</td><td>${esc(d.rationale)}</td></tr>`).join('')}</tbody></table>` : '<p>이번 학기 심의 요청 사항이 없습니다.</p>'}
+    <p class="meta">이 자료의 수치는 플랫폼의 진단·이수 기록에서 자동 집계했습니다. 관찰 자료 분석이므로 인과로 단정하지 않습니다.</p>
+  </article>`;
+  $view.innerHTML = `
+  <div class="dash-grid">
+    <section class="panel p-sum"><p class="eyebrow">위원회 보고서 ${aiStatus(key)}</p>
+      <p class="summary">진단·향상도·효과성·역량 매핑 결과로 위원회 안건 자료를 한 번에 작성합니다.</p>
+      <p class="meta">표와 수치는 플랫폼 데이터에서 바로 만들고, 문장은 ${state.aiMode ? 'AI가 같은 수치로 다듬습니다' : '규칙으로 작성합니다(AI 연결 시 AI가 다듬음)'}. 효과성 화면에서 고른 안건이 '심의 요청 사항'에 들어갑니다. 학생 개인 정보는 들어가지 않습니다.</p>
+      <div class="actions no-print"><button class="btn" id="rpdf">PDF로 인쇄</button><button class="btn ghost" id="rdocx">Word 문서 내려받기</button>${state.aiMode ? '<button class="btn ghost" id="rai">AI로 문장 다듬기</button>' : ''}<button class="linkbtn" data-go="impact">안건 고르기(효과성)</button></div></section>
+    <section class="panel p-rdoc"><div class="pbody">${doc}</div></section>
+  </div>`;
+  document.getElementById('rpdf').onclick = () => {
+    const el = document.getElementById('report') || document.body.appendChild(Object.assign(document.createElement('div'), { id: 'report' }));
+    el.innerHTML = document.getElementById('rdoc').outerHTML;
+    document.body.classList.add('printing');
+    const off = () => { document.body.classList.remove('printing'); window.removeEventListener('afterprint', off); };
+    window.addEventListener('afterprint', off); window.print();
+  };
+  document.getElementById('rdocx').onclick = () => {
+    const css = 'body{font-family:"맑은 고딕",sans-serif;font-size:10.5pt;line-height:1.6}h1{font-size:16pt}h2{font-size:12pt;border-bottom:1px solid #999;margin-top:14pt}table{border-collapse:collapse;width:100%;margin:6pt 0}th,td{border:1px solid #999;padding:3pt 5pt;font-size:9.5pt;text-align:left}.meta{color:#555;font-size:9pt}.rk{color:#2340E0;font-weight:bold}';
+    const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><title>위원회 안건 자료</title><style>${css}</style></head><body>${document.getElementById('rdoc').innerHTML}</body></html>`;
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿', html], { type: 'application/msword' })); a.download = `위원회_안건자료_${localTime().slice(0, 10)}.doc`; document.body.appendChild(a); a.click(); a.remove();
+  };
+  const ab = document.getElementById('rai');
+  if (ab) ab.onclick = async () => {
+    if (state.aiRes) delete state.aiRes[key];
+    state.aiRes = state.aiRes || {}; state.aiPend = state.aiPend || {}; state.aiPend[key] = true; renderReport();
+    const r = await aiFetch('report', { data: D }).catch(() => null);
+    state.aiPend[key] = false;
+    const j = r && r.ok ? await r.json() : null;
+    state.aiRes[key] = j && j.result ? j.result : null;
+    if (state.step === 'report') renderReport();
+  };
+}
+
+/* ======================================================================
+   ④ AI 데이터 비서: 질문 → 질의(조건·지표) → 화면에서 집계
+   - AI에는 질문과 데이터 항목 설명만 보내고, 학생 데이터는 보내지 않습니다.
+   ====================================================================== */
+const ASK_EXAMPLES = ['기계공학과에서 디지털 역량이 떨어진 학생은 몇 명이야?', '학과별 직업기초역량 향상도를 보여줘', '재실시 판정을 받은 학생은 계열별로 몇 명이야?', '융합과정을 이수한 학생과 안 한 학생의 향상도 차이는?', '입학 직후 수리 점수가 40점 미만인 학생은 몇 명이야?', '핵심역량 사회인 점수가 가장 낮은 학과 5곳은?'];
+const ASK_DIMS = { ncs: AREAS.map(a => a.short), core: CORE_AXES, basic: BASIC_SUBJ };
+function parseAsk(q) {
+  const t = q.replace(/\s+/g, ' ');
+  const diag = /핵심역량|인재상|지성인|직업인|사회인/.test(t) ? 'core' : /기초학습|국어|영어|수리 ?점수.*기초|기초.*수리/.test(t) ? 'basic' : 'ncs';
+  let dim = null;
+  const pool = diag === 'ncs' ? [...ASK_DIMS.ncs.map(x => [x, x]), ...SUBNAMES.map(s => [s, s]), ...SUBNAMES.map(s => [shortSub(s), s])] : ASK_DIMS[diag].map(x => [x, x]);
+  pool.sort((a, b) => b[0].length - a[0].length).some(([k, v]) => { if (t.includes(k)) { dim = v; return true; } return false; });
+  const time = /향상|변화|올랐|오른|떨어|하락|감소|늘었|줄었|차이/.test(t) ? 'change' : /학기말|재진단/.test(t) ? 'T3' : 'T0';
+  const filters = [];
+  CURRICULUM.depts.filter(d => d !== POOL).sort((a, b) => b.length - a.length).some(d => { if (t.includes(d) || t.includes(d.replace(/학과$|과$/, ''))) { filters.push({ field: 'dept', op: 'eq', value: d }); return true; } return false; });
+  ['공학', '서비스', '디자인'].forEach(g => { if (new RegExp(g + ' ?계열').test(t)) filters.push({ field: 'grp', op: 'eq', value: g === '디자인' ? '디자인·기타' : g }); });
+  if (/재실시/.test(t)) filters.push({ field: 'rel', op: 'eq', value: '재실시' });
+  if (/융합과정을? ?이수한/.test(t) && !/안 한|미이수/.test(t)) filters.push({ field: 'micro', op: 'eq', value: 'yes' });
+  let condition = null;
+  const num = (t.match(/(\d+)\s*점/) || [])[1];
+  if (/떨어|하락|감소|줄었/.test(t)) condition = { op: 'lt', value: 0 };
+  else if (num && /미만|이하|낮/.test(t)) condition = { op: 'lt', value: +num };
+  else if (num && /이상|넘|높/.test(t)) condition = { op: 'ge', value: +num };
+  let group_by = /학과별|학과 ?\d+곳|학과는|어느 학과|학과 순/.test(t) ? 'dept' : /계열별/.test(t) ? 'grp' : /수준별/.test(t) ? 'level' : /융합과정을? ?이수한 학생과/.test(t) ? 'micro' : null;
+  const intent = /몇 ?명|수는|인원/.test(t) ? 'count' : /목록|누구|명단/.test(t) ? 'list' : 'mean';
+  const sort = /가장 낮|낮은 학과|하위/.test(t) ? 'asc' : /가장 높|높은 학과|상위/.test(t) ? 'desc' : group_by ? (intent === 'count' ? 'desc' : 'asc') : null;
+  const limit = +((t.match(/(\d+)\s*(곳|개|명)/) || [])[1] || 0) || null;
+  return { intent, measure: { diag, dim, time }, filters, condition, group_by, sort, limit: group_by ? limit : null, answer: '' };
+}
+/* AI 질의 형식('none', 0, 빈 문자열)을 화면 형식(null)으로 */
+function normAsk(Q) {
+  const D = ASK_DIMS[Q.measure.diag] || [];
+  const dim = Q.measure.dim && (D.includes(Q.measure.dim) || SUBNAMES.includes(Q.measure.dim)) ? Q.measure.dim : null;
+  return { intent: Q.intent, measure: { diag: Q.measure.diag, dim, time: Q.measure.time }, filters: (Q.filters || []).filter(f => f.value),
+    condition: Q.condition && Q.condition.op !== 'none' ? Q.condition : null, group_by: Q.group_by === 'none' ? null : Q.group_by, sort: Q.sort === 'none' ? null : Q.sort, limit: Q.limit || null, answer: Q.answer || '' };
+}
+function runAsk(Q) {
+  const co = cohort(), D = ASK_DIMS[Q.measure.diag];
+  const get = (st, t) => Q.measure.diag === 'ncs' ? (SUBNAMES.includes(Q.measure.dim) ? st.traceSub[t][SUBNAMES.indexOf(Q.measure.dim)] : Q.measure.dim ? st.traceArea[t][D.indexOf(Q.measure.dim)] : mean(st.traceArea[t])) : (Q.measure.diag === 'core' ? st.coreTrace[t] : st.basicTrace[t])[Q.measure.dim ? D.indexOf(Q.measure.dim) : 0] ?? mean(Q.measure.diag === 'core' ? st.coreTrace[t] : st.basicTrace[t]);
+  const val = st => Q.measure.time === 'change' ? get(st, 3) - get(st, 0) : get(st, +Q.measure.time.slice(1));
+  const level = st => { const v = get(st, 0); return v >= HIGH ? '상' : v >= MID ? '중' : '하'; };
+  let rows = co.filter(st => Q.filters.every(f => f.field === 'dept' ? st.dept === f.value : f.field === 'grp' ? st.grp === f.value : f.field === 'rel' ? st.rel === f.value : f.field === 'micro' ? (f.value === 'yes' ? !!st.micro : !st.micro) : f.field === 'level' ? level(st) === f.value : true));
+  const base = rows.length;
+  if (Q.condition) rows = rows.filter(st => (Q.condition.op === 'lt' ? val(st) < Q.condition.value : Q.condition.op === 'le' ? val(st) <= Q.condition.value : Q.condition.op === 'gt' ? val(st) > Q.condition.value : val(st) >= Q.condition.value));
+  const keyOf = st => Q.group_by === 'dept' ? st.dept : Q.group_by === 'grp' ? st.grp : Q.group_by === 'level' ? level(st) : Q.group_by === 'micro' ? (st.micro ? '융합과정 이수' : '미이수') : '전체';
+  const groups = {};
+  rows.forEach(st => { (groups[keyOf(st)] = groups[keyOf(st)] || []).push(st); });
+  let out = Object.entries(groups).map(([k, g]) => ({ k, n: g.length, m: mean(g.map(val)) })).filter(x => !Q.group_by || x.n >= Math.min(MIN_GROUP, 5));
+  if (Q.sort) out.sort((a, b) => (Q.intent === 'count' ? a.n - b.n : a.m - b.m) * (Q.sort === 'asc' ? 1 : -1));
+  if (Q.limit) out = out.slice(0, Q.limit);
+  return { rows, base, out, hidden: Object.keys(groups).length - out.length, val };
+}
+const askLabel = Q => {
+  const m = Q.measure, dn = { ncs: '직업기초', core: '핵심역량', basic: '기초학습' }[m.diag];
+  const tl = { T0: '입학 직후', T1: '1학기말', T2: '2학기말', T3: '3학기말', change: '입학 직후→3학기말 변화' }[m.time];
+  return [`${dn} ${m.dim || '평균'}`, tl, ...Q.filters.map(f => ({ dept: '학과', grp: '계열', rel: '신뢰성', micro: '융합과정', level: '수준' }[f.field] + ' = ' + (f.value === 'yes' ? '이수' : f.value))), Q.condition ? `점수 ${{ lt: '<', le: '≤', gt: '>', ge: '≥' }[Q.condition.op]} ${Q.condition.value}` : null, Q.group_by ? `${{ dept: '학과', grp: '계열', level: '입학 수준', micro: '융합과정 이수' }[Q.group_by]}별` : null, { count: '인원', mean: '평균', list: '목록' }[Q.intent]].filter(Boolean);
+};
+async function renderAsk() {
+  state.askLog = state.askLog || [];
+  const cur = state.askLog[0];
+  let body = '<p class="meta">아래 예시를 누르거나 직접 물어보세요.</p>';
+  if (cur) {
+    const R = runAsk(cur.Q), fmt = v => (cur.Q.measure.time === 'change' && v > 0 ? '+' : '') + v.toFixed(1);
+    const max = Math.max(...R.out.map(o => (cur.Q.intent === 'count' ? o.n : Math.abs(o.m))), 1);
+    const head = cur.Q.intent === 'count' && !cur.Q.group_by ? `<p class="askn"><b>${R.rows.length.toLocaleString()}명</b><span class="meta">조건에 맞는 학생 (대상 ${R.base.toLocaleString()}명 중 ${R.base ? (R.rows.length / R.base * 100).toFixed(1) : 0}%)</span></p>`
+      : cur.Q.intent === 'mean' && !cur.Q.group_by ? `<p class="askn"><b>${R.out[0] ? fmt(R.out[0].m) : '-'}점</b><span class="meta">${R.rows.length.toLocaleString()}명 평균</span></p>` : '';
+    const chart = cur.Q.group_by && R.out.length ? `<div class="askbars">${R.out.map(o => { const v = cur.Q.intent === 'count' ? o.n : o.m; return `<div class="axrow" title="${esc(o.k)}: ${cur.Q.intent === 'count' ? o.n + '명' : fmt(o.m) + '점'} (${o.n}명)"><span class="axn">${esc(o.k)}</span><div class="axbars"><i class="b1 ${v < 0 ? 'neg' : ''}" style="width:${Math.abs(v) / max * 100}%"></i></div><span class="axv"><b>${cur.Q.intent === 'count' ? o.n + '명' : fmt(o.m)}</b></span></div>`; }).join('')}</div>${R.hidden > 0 ? `<p class="meta">${Math.min(MIN_GROUP, 5)}명 미만 집단 ${R.hidden}개는 개인 식별을 막기 위해 표시하지 않습니다.</p>` : ''}` : '';
+    const list = cur.Q.intent === 'list' ? `<table class="tbl"><thead><tr><th>학생(가명)</th><th>학과</th><th>값</th></tr></thead><tbody>${R.rows.slice(0, 15).map(st => `<tr><td>${st.alias}</td><td>${st.dept}</td><td>${fmt(R.val(st))}</td></tr>`).join('')}</tbody></table>` : '';
+    body = `<p class="askq">“${esc(cur.q)}”</p><div class="askspec">${askLabel(cur.Q).map(x => `<span class="chipw">${esc(x)}</span>`).join('')}<span class="meta">${esc(cur.src)}</span></div>${cur.Q.answer ? `<p>${esc(cur.Q.answer)}</p>` : ''}${head}${chart}${list}
+      <p class="meta">해석이 다르면 질문을 더 구체적으로 바꿔 보세요. 집계는 이 브라우저에서 하며, AI에는 질문과 데이터 항목 설명만 보냅니다.</p>`;
+  }
+  $view.innerHTML = `
+  <div class="dash-grid">
+    <section class="panel p-sum"><p class="eyebrow">AI 데이터 비서</p>
+      <p class="summary">진단·향상도 데이터를 말로 물어보면 표와 그래프로 답합니다.</p>
+      <form class="askf no-print" id="askf"><label class="sr" for="askin">질문</label><input id="askin" placeholder="예: 기계공학과에서 디지털 역량이 떨어진 학생은 몇 명이야?" value="${esc(state.askDraft || '')}"><button class="btn" type="submit">${state.askPend ? '분석 중…' : '물어보기'}</button></form>
+      <div class="suggest no-print">${ASK_EXAMPLES.map(q => `<button class="chipbtn" data-ask="${esc(q)}">${esc(q)}</button>`).join('')}</div></section>
+    ${panelH('p-askr', '답변', cur ? '' : '', body)}
+    ${panelH('p-askh', '최근 질문', `${state.askLog.length}건`, state.askLog.length ? `<ul class="tips">${state.askLog.slice(0, 8).map((x, i) => `<li><button class="linkbtn" data-askre="${i}">${esc(x.q)}</button></li>`).join('')}</ul>` : '<p class="meta">없음</p>')}
+  </div>`;
+  const ask = async q => {
+    if (!q.trim()) return;
+    state.askPend = true; state.askDraft = q; renderAsk();
+    let Q = null, src = '규칙 기반 해석';
+    if (await checkAI()) {
+      try { const r = await aiFetch('ask', { question: q, fields: { diag: ASK_DIMS, subs: SUBNAMES, depts: CURRICULUM.depts.filter(d => d !== POOL), groups: ['공학', '서비스', '디자인·기타'] } }); if (r.ok) { const j = await r.json(); if (j.result) { Q = normAsk(j.result); src = `AI 해석(${j.model || 'AI'})`; } } } catch (e) { /* 규칙으로 */ }
+    }
+    if (!Q) Q = parseAsk(q);
+    state.askLog.unshift({ q, Q, src }); state.askPend = false; state.askDraft = '';
+    if (state.step === 'ask') renderAsk();
+  };
+  document.getElementById('askf').onsubmit = e => { e.preventDefault(); ask(document.getElementById('askin').value); };
+  $view.querySelectorAll('[data-ask]').forEach(b => b.onclick = () => ask(b.dataset.ask));
+  $view.querySelectorAll('[data-askre]').forEach(b => b.onclick = () => { const x = state.askLog.splice(+b.dataset.askre, 1)[0]; state.askLog.unshift(x); renderAsk(); });
+}
+
+/* ======================================================================
+   ⑥ 문항 품질 분석: 예비 시행 응답 → 난이도·변별도·신뢰도(α) 자동 계산
+   ====================================================================== */
+function pilotResponses() {
+  /* 가상 예비 시행(300명). 실제로는 응답 파일을 올려 교체. 일부 문항은 품질 문제를 일부러 넣어 판정 예시를 보여 줌 */
+  const rnd = seededRand(31), N = 300, sig = x => 1 / (1 + Math.exp(-x));
+  const odd = { 'ncs:2': { b: -2.6 }, 'ncs:15': { a: -0.4 }, 'ncs:4': { b: 2.4 }, 'core:6': { a: 0.15 } };
+  const items = [
+    ...ITEMS_A.map((it, k) => ({ key: 'ncs:' + k, diag: 'ncs', name: it.s, t: it.t, max: it.t === 'self' ? 5 : it.t === 'sjt' ? 4 : 1 })),
+    ...CORE_ITEMS.map((it, k) => ({ key: 'core:' + k, diag: 'core', name: `${CORE_AXES[it.ax]} · ${it.f}${it.rev ? '(역)' : ''}`, t: 'self', max: 5 })),
+    ...BASIC_A.map((it, k) => ({ key: 'basic:' + k, diag: 'basic', name: it.sub, t: 'ach', max: 1 }))
+  ].map((it, i) => ({ ...it, a: (odd[it.key] || {}).a ?? (1 + (i % 4) * 0.25), b: (odd[it.key] || {}).b ?? ((i % 7) - 3) * 0.35 }));
+  const resp = Array.from({ length: N }, () => { const th = gauss(rnd); return items.map(it => { const p = sig(1.7 * it.a * (th - it.b)); if (it.max === 1) return rnd() < p ? 1 : 0; return Math.max(1, Math.min(it.max, Math.round(1 + p * (it.max - 1) + 0.7 * gauss(rnd)))); }); });
+  return { items, resp, N, src: '가상 예비 시행 300명' };
+}
+function itemStats(P) {
+  const corr = (x, y) => { const mx = mean(x), my = mean(y); const sxy = x.reduce((a, v, i) => a + (v - mx) * (y[i] - my), 0), sx = Math.sqrt(x.reduce((a, v) => a + (v - mx) ** 2, 0)), sy = Math.sqrt(y.reduce((a, v) => a + (v - my) ** 2, 0)); return sx && sy ? sxy / (sx * sy) : 0; };
+  const varr = a => { const m = mean(a); return a.reduce((s, v) => s + (v - m) ** 2, 0) / (a.length - 1); };
+  const alpha = cols => { const k = cols.length; if (k < 2) return null; const tot = P.resp.map(r => cols.reduce((s, c) => s + r[c], 0)); return k / (k - 1) * (1 - cols.reduce((s, c) => s + varr(P.resp.map(r => r[c])), 0) / varr(tot)); };
+  const byDiag = {};
+  ['ncs', 'core', 'basic'].forEach(d => {
+    const cols = P.items.map((it, i) => (it.diag === d ? i : -1)).filter(i => i >= 0), a0 = alpha(cols);
+    byDiag[d] = { alpha: a0, n: cols.length, rows: cols.map(c => {
+      const it = P.items[c], x = P.resp.map(r => r[c]), rest = P.resp.map(r => cols.reduce((s, j) => s + (j === c ? 0 : r[j]), 0));
+      const lo = it.max === 1 ? 0 : 1, p = (mean(x) - lo) / (it.max - lo), r = corr(x, rest), ad = alpha(cols.filter(j => j !== c));
+      const flags = [];
+      if (it.t !== 'self' && p > 0.9) flags.push('너무 쉬움'); if (it.t !== 'self' && p < 0.2) flags.push('너무 어려움');
+      if (r < 0) flags.push('역변별(문항 오류 의심)'); else if (r < 0.2) flags.push('변별도 낮음');
+      if (ad != null && a0 != null && ad > a0 + 0.01) flags.push('빼면 신뢰도 상승');
+      return { ...it, p, r, ad, flags };
+    }) };
+  });
+  return byDiag;
+}
+function renderItemQA() {
+  const P = state.qaData || pilotResponses(), S = itemStats(P);
+  const all = Object.values(S).flatMap(d => d.rows), bad = all.filter(r => r.flags.length);
+  const dn = { ncs: '직업기초역량', core: '핵심역량', basic: '기초학습역량' };
+  const aTxt = a => (a == null ? '-' : a.toFixed(2)), aLv = a => (a == null ? '' : a >= 0.8 ? '좋음' : a >= 0.7 ? '보통' : '낮음');
+  $view.innerHTML = `
+  <div class="dash-grid">
+    <section class="panel p-sum"><p class="eyebrow">문항 품질 분석</p>
+      <p class="summary">예비 시행 응답으로 문항별 난이도·변별도와 진단별 신뢰도를 계산해 고칠 문항을 골라냅니다.</p>
+      <div class="stats">${Object.entries(S).map(([d, s]) => `<div class="stat"><b>α ${aTxt(s.alpha)}</b><span>${dn[d]} 신뢰도 · ${aLv(s.alpha)} (${s.n}문항)</span></div>`).join('')}<div class="stat"><b>${bad.length}개</b><span>점검 필요 문항</span></div></div>
+      <p class="meta" style="margin-top:8px"><span class="badge amber">${esc(P.src)}</span> 응답 파일(행: 응답자, 열: 문항 키)을 올리면 실제 예비 시행 결과로 바뀝니다. 기준: 난이도 0.2~0.9, 변별도(문항–나머지 상관) 0.2 이상, 신뢰도 α 0.7 이상.</p>
+      <div class="actions no-print"><button class="btn ghost sm" id="qatpl">응답 파일 양식</button><label class="btn ghost sm filebtn">응답 파일 올리기<input type="file" id="qafile" accept=".csv" hidden></label>${state.qaData ? '<button class="linkbtn" id="qademo">가상 자료로</button>' : ''}<span class="meta" id="qamsg">${state.qaMsg || ''}</span></div></section>
+    ${panelH('p-qabad', '점검 필요 문항', `${bad.length}개`, bad.length ? `<table class="tbl"><thead><tr><th>진단</th><th>문항</th><th>난이도</th><th>변별도</th><th>판정</th><th></th></tr></thead><tbody>${bad.map(r => `<tr><td>${dn[r.diag]}</td><td><b>${esc(r.name)}</b><br><span class="meta">${r.key}</span></td><td>${r.p.toFixed(2)}</td><td class="${r.r < 0.2 ? 'low' : ''}">${r.r.toFixed(2)}</td><td class="low">${r.flags.join(', ')}</td><td class="no-print"><button class="btn ghost sm" data-qafix="${r.key}">AI 고도화로</button></td></tr>`).join('')}</tbody></table>` : '<p class="meta">모든 문항이 기준을 충족합니다.</p>')}
+    ${Object.entries(S).map(([d, s]) => panelH('p-qa-' + d, `${dn[d]} 문항별 분석`, `α ${aTxt(s.alpha)}`, `<div class="scrollx"><table class="tbl"><thead><tr><th>문항</th><th>유형</th><th>난이도</th><th>변별도</th><th>뺐을 때 α</th><th>판정</th></tr></thead><tbody>${s.rows.map(r => `<tr><td>${esc(r.name)}</td><td>${T_NAME[r.t]}</td><td>${r.p.toFixed(2)}</td><td class="${r.r < 0.2 ? 'low' : ''}">${r.r.toFixed(2)}</td><td>${aTxt(r.ad)}</td><td class="${r.flags.length ? 'low' : 'ok'}">${r.flags.join(', ') || '양호'}</td></tr>`).join('')}</tbody></table></div>`)).join('')}
+  </div>`;
+  document.getElementById('qatpl').onclick = () => download('예비시행_응답_양식.csv', [P.items.map(it => it.key), ...P.resp.slice(0, 3)]);
+  document.getElementById('qafile').onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const rd = new FileReader();
+    rd.onload = () => {
+      const rows = parseCSV(String(rd.result)).filter(r => r.length > 1), head = rows[0], base = pilotResponses();
+      const items = head.map(k => base.items.find(it => it.key === k.trim())).filter(Boolean);
+      if (items.length < 3 || rows.length < 31) { state.qaMsg = '문항 키 3개 이상, 응답자 30명 이상이 필요합니다.'; renderItemQA(); return; }
+      const cols = head.map(k => items.findIndex(it => it.key === k.trim()));
+      const resp = rows.slice(1).map(r => items.map((_, j) => Number(r[cols.indexOf(j)]) || 0));
+      state.qaData = { items, resp, N: resp.length, src: `업로드 자료 ${resp.length}명` }; state.qaMsg = ''; renderItemQA();
+    };
+    rd.readAsText(f, 'utf-8');
+  };
+  const dm = document.getElementById('qademo'); if (dm) dm.onclick = () => { state.qaData = null; renderItemQA(); };
+  $view.querySelectorAll('[data-qafix]').forEach(b => b.onclick = () => { const k = b.dataset.qafix; state.ibDiag = { ncs: '직업기초', core: '핵심역량', basic: '기초학습' }[k.split(':')[0]]; state.ibSel = k; go('itembank'); });
 }
 
 /* ======================================================================
@@ -3805,6 +4386,7 @@ async function enterUser(u) {
   state.user = u; state.bank = null; EQUATE = null;
   await storeLoad();
   if (typeof applySettings === 'function') applySettings();
+  applyMapping();
   setUser(u);
 }
 function setUser(u) {
@@ -3865,6 +4447,7 @@ function renderLogin() {
       <p class="eyebrow">2026 AX 교육·행정혁신</p>
       <h1>대학 생활 설계 플랫폼</h1>
       <p class="lede">3종 진단으로 내 역량을 확인하고, 교양·융합·비교과 교육과정을 추천받아 학기별 이수 계획을 세웁니다. 학기말 재진단으로 성장을 확인합니다.</p>
+      <button class="btn tourbtn no-print" id="tourgo" type="button">▶ 3분 둘러보기 <span>학생 → 교원 → 관리자</span></button>
       <ol class="cycle"><li><b>진단</b><span>직업기초·핵심·기초학습</span></li><li><b>추천·계획</b><span>AI 분석과 맞춤 이수 계획</span></li><li><b>이수</b><span>수준별 분반·학점 반영</span></li><li><b>재진단·성장</b><span>향상도 확인·상담 연계</span></li></ol>
     </section>
     <section class="login-card" aria-label="로그인">
@@ -3880,6 +4463,7 @@ function renderLogin() {
   const set = o => { Object.assign(L, o); renderLogin(); };
   const done = async u => { state.login = null; await enterUser(u); state.step = HOME[u.role]; render(); window.scrollTo({ top: 0 }); };
   $view.querySelectorAll('[data-lt]').forEach(b => b.onclick = () => set({ tab: b.dataset.lt, msg: '', err: false }));
+  document.getElementById('tourgo').onclick = tourStart;
   const q = id => document.getElementById(id);
   if (q('tootp')) q('tootp').onclick = () => set({ mode: 'otp', stage: 'email', msg: '', err: false });
   if (q('tofirst')) q('tofirst').onclick = () => set({ mode: 'first', stage: 'id', msg: '', err: false });
@@ -3918,8 +4502,8 @@ const NAV = {
   student: [{ id: 'home', t: '홈', steps: [['home', '홈']] }, { id: 'diag', t: '진단', steps: [['intro', '3종 진단']] }, { id: 'res', t: '진단 결과', steps: [['result', '결과 요약'], ['analysis', 'AI 분석']] },
     { id: 'plan', t: '이수 계획', steps: [['plan', '맞춤 이수 계획'], ['career', '목표 직무로 설계'], ['roadmap', '융합과정·인증']] }, { id: 'grow', t: '성장 리포트', steps: [['growth', '성장 리포트']] }, { id: 'cns', t: '상담', steps: [['counsel', 'AI 상담']] }],
   faculty: [{ id: 'fhome', t: '홈', steps: [['fhome', '홈']] }, { id: 'sec', t: '수준별 분반', steps: [['sections', '수준별 분반']] }, { id: 'adv', t: '지도 학생', steps: [['advisor', '지도 학생 상담']] }],
-  admin: [{ id: 'ahome', t: '운영 현황', steps: [['ahome', '운영 현황']] }, { id: 'dops', t: '진단 운영', steps: [['diagops', '신뢰성 기준'], ['itembank', '문항 은행·AI 고도화'], ['forms', '검사지·동등화']] }, { id: 'grd', t: '학점 연계', steps: [['grades', '학점 연계']] },
-    { id: 'out', t: '성과 분석', steps: [['gain', '역량 향상도'], ['impact', '교육과정 효과성']] }, { id: 'imp', t: '교육과정 개선', steps: [['coverage', '교과과정 점검'], ['studio', '개선안 설계'], ['committee', '위원회 안건']] },
+  admin: [{ id: 'ahome', t: '운영 현황', steps: [['ahome', '운영 현황'], ['axkpi', 'AX 성과']] }, { id: 'dops', t: '진단 운영', steps: [['diagops', '신뢰성 기준'], ['itembank', '문항 은행·AI 고도화'], ['itemqa', '문항 분석'], ['forms', '검사지·동등화']] }, { id: 'grd', t: '학점 연계', steps: [['grades', '학점 연계']] },
+    { id: 'out', t: '성과 분석', steps: [['gain', '역량 향상도'], ['impact', '교육과정 효과성'], ['ask', 'AI 데이터 비서']] }, { id: 'imp', t: '교육과정 개선', steps: [['specmap', '명세서·역량 매핑'], ['coverage', '교과과정 점검'], ['studio', '개선안 설계'], ['committee', '위원회 안건'], ['report', '위원회 보고서']] },
     { id: 'cfg', t: '운영 설정', steps: [['settings', '기준값·일정'], ['notify', '알림 발송'], ['auditlog', '변경 이력']] }]
 };
 const ROLE_NAME = { student: '학생', faculty: '교원', admin: '관리자' };
@@ -4083,11 +4667,11 @@ function render() {
   document.body.classList.toggle('wide', !u || !['intro', 'quiz'].includes(state.step));
   document.body.classList.toggle('authpage', !u);
   document.body.classList.toggle('no-demo', !demoOn());
-  document.body.classList.toggle('dash', ['home', 'fhome', 'ahome', 'result', 'analysis', 'plan', 'studio', 'counsel', 'career', 'sections', 'advisor', 'diagops', 'grades', 'gain', 'impact', 'itembank', 'forms', 'settings', 'notify', 'auditlog'].includes(state.step));
+  document.body.classList.toggle('dash', ['home', 'fhome', 'ahome', 'result', 'analysis', 'plan', 'studio', 'counsel', 'career', 'sections', 'advisor', 'diagops', 'grades', 'gain', 'impact', 'itembank', 'forms', 'settings', 'notify', 'auditlog', 'axkpi', 'specmap', 'report', 'ask', 'itemqa'].includes(state.step));
   renderNav();
   const R = { login: renderLogin, home: renderHome, fhome: renderFHome, ahome: renderAHome, needdiag: renderNeedDiag, intro: renderIntro, quiz: renderQuiz, coverage: renderCoverage, roadmap: renderRoadmap,
     committee: renderCommittee, growth: renderGrowth, impact: renderImpact, plan: renderPlan, studio: renderStudio, counsel: renderCounsel, career: renderCareer, sections: renderSections,
-    advisor: renderAdvisor, diagops: renderDiagOps, grades: renderGrades, analysis: renderAnalysis, gain: renderGain, itembank: renderItemBank, forms: renderForms, settings: renderSettings, notify: renderNotify, auditlog: renderAudit, result: renderResult };
+    advisor: renderAdvisor, diagops: renderDiagOps, grades: renderGrades, analysis: renderAnalysis, gain: renderGain, itembank: renderItemBank, forms: renderForms, settings: renderSettings, notify: renderNotify, auditlog: renderAudit, axkpi: renderAxKpi, specmap: renderSpecMap, report: renderReport, ask: renderAsk, itemqa: renderItemQA, result: renderResult };
   (R[state.step] || renderResult)();
   nextBar();
 }
