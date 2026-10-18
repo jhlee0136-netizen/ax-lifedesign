@@ -7,31 +7,47 @@
 <title>대학 생활 설계 플랫폼</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --paper: #F1F4F2;
-  --panel: #FAFBFA;
-  --ink: #16241F;
-  --muted: #5B6B64;
-  --line: #C6D0CA;
-  --signal: #2340E0;
-  --signal-soft: #DCE2FB;
-  --amber: #E8A317;
-  --amber-soft: #FBEBC5;
-  --font: "IBM Plex Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  /* 북유럽 팔레트: 서리(바탕) · 종이(면) · 화강암(글자) · 피오르(주색) · 오크(보완) · 이끼(양호) · 링곤(위험) */
+  --paper: #F2F4F3;
+  --panel: #FFFFFF;
+  --ink: #1C2826;
+  --muted: #5F6E6A;
+  --line: #DFE5E2;
+  --line-strong: #BCC7C3;
+  --signal: #2D5F6F;
+  --signal-deep: #224A57;
+  --signal-soft: #E3EDEF;
+  --amber: #C38D2C;
+  --amber-soft: #F6EDDC;
+  --warn-ink: #7E5512;
+  --ok: #4E7D5B; --ok-ink: #2E5D3D; --ok-soft: #E4EEE6;
+  --bad-ink: #973A3F; --bad-soft: #F5E3E3;
+  --track: #E8EDEB;
+  --radius: 14px; --radius-sm: 8px;
+  --font: "Wanted Sans Variable", "Wanted Sans", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #121A17;
-    --panel: #172220;
-    --ink: #E8EEEA;
-    --muted: #9AABA3;
-    --line: #2E3C36;
-    --signal: #7C93FF;
-    --signal-soft: #1D2650;
-    --amber: #F2B83A;
-    --amber-soft: #3A2D0C;
+    --paper: #131918;
+    --panel: #1A2120;
+    --ink: #E5ECE9;
+    --muted: #9AA9A4;
+    --line: #2A3432;
+    --line-strong: #3E4B48;
+    --signal: #8DBBCB;
+    --signal-deep: #A9CEDB;
+    --signal-soft: #1E3138;
+    --amber: #D6A750;
+    --amber-soft: #352B17;
+    --warn-ink: #E2BC72;
+    --ok: #7FB28E; --ok-ink: #93C9A2; --ok-soft: #1D2E23;
+    --bad-ink: #E59EA2; --bad-soft: #3A2224;
+    --track: #252E2C;
   }
 }
 * { box-sizing: border-box; }
@@ -107,7 +123,7 @@ section.block { margin-top: 44px; }
 .bar b { display: block; height: 100%; background: var(--signal); }
 .bar.low b { background: var(--amber); }
 .lv { font-size: 14px; color: var(--muted); text-align: right; }
-.lv.low { color: #8A5E00; font-weight: 700; }
+.lv.low { color: var(--warn-ink); font-weight: 700; }
 @media (prefers-color-scheme: dark) { .lv.low { color: var(--amber); } }
 .prose p { max-width: 36em; }
 .tips { margin: 0; padding-left: 1.2em; max-width: 36em; }
@@ -150,13 +166,13 @@ section.block { margin-top: 44px; }
 .pick select { font: inherit; color: var(--ink); background: var(--paper); border: 1.5px solid var(--ink); border-radius: 6px; padding: 10px 12px; min-width: 11em; }
 .meta { color: var(--muted); font-size: 14px; }
 .badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 10px; background: var(--signal-soft); color: var(--signal); margin-left: 6px; vertical-align: 1px; }
-.badge.amber { background: var(--amber-soft); color: #8A5E00; }
+.badge.amber { background: var(--amber-soft); color: var(--warn-ink); }
 @media (prefers-color-scheme: dark) { .badge.amber { color: var(--amber); } }
 .recsub { margin: 0 0 22px; max-width: 42em; }
 .recsub h3 { font-size: 16px; margin: 0 0 6px; }
 .recsub ul { margin: 0; padding-left: 1.2em; }
 .recsub li { margin-bottom: 6px; }
-.gap { color: #8A5E00; font-weight: 500; }
+.gap { color: var(--warn-ink); font-weight: 500; }
 @media (prefers-color-scheme: dark) { .gap { color: var(--amber); } }
 .micro { padding: 16px 0; border-top: 1px solid var(--line); max-width: 42em; }
 .micro:last-child { border-bottom: 1px solid var(--line); }
@@ -245,12 +261,12 @@ section.block { margin-top: 44px; }
 .tbl { border-collapse: collapse; width: 100%; max-width: 50em; font-size: 14px; }
 .tbl th, .tbl td { border-bottom: 1px solid var(--line); padding: 7px 10px 7px 0; text-align: left; vertical-align: top; }
 .tbl thead th { border-bottom: 1.5px solid var(--ink); font-weight: 700; }
-.tbl td.low { color: #8A5E00; font-weight: 700; }
+.tbl td.low { color: var(--warn-ink); font-weight: 700; }
 @media (prefers-color-scheme: dark) { .tbl td.low { color: var(--amber); } }
 
 .spark { display: block; }
-.tbl td.ok { color: #1E6B3A; font-weight: 700; }
-@media (prefers-color-scheme: dark) { .tbl td.ok { color: #6FD39A; } }
+.tbl td.ok { color: var(--ok-ink); font-weight: 700; }
+@media (prefers-color-scheme: dark) { .tbl td.ok { color: var(--ok-ink); } }
 .tbl td, .tbl th { white-space: nowrap; }
 .tbl { display: block; overflow-x: auto; }
 
@@ -316,7 +332,7 @@ section.block { margin-top: 44px; }
 .chip-tools { display: flex; gap: 6px; align-items: center; }
 .chip-tools select { font: inherit; font-size: 12px; padding: 1px 4px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 4px; }
 .chip .x { font: inherit; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 4px; width: 24px; height: 22px; line-height: 1; cursor: pointer; }
-.k-base { border-left-color: var(--muted); } .k-rec { border-left-color: var(--signal); } .k-micro { border-left-color: var(--amber); } .k-added { border-left-color: #1E6B3A; }
+.k-base { border-left-color: var(--muted); } .k-rec { border-left-color: var(--signal); } .k-micro { border-left-color: var(--amber); } .k-added { border-left-color: var(--ok-ink); }
 .legend-chips { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; font-size: 13px; }
 .lc { border-left: 4px solid; padding-left: 6px; }
 .empty { font-size: 13px; }
@@ -326,8 +342,8 @@ section.block { margin-top: 44px; }
 .cands li { display: flex; justify-content: space-between; gap: 10px; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
 .cands select { font: inherit; font-size: 13px; padding: 2px 4px; margin-right: 6px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
 .btn.sm { padding: 6px 12px; font-size: 14px; }
-.okc { color: #1E6B3A; font-weight: 700; }
-@media (prefers-color-scheme: dark) { .okc { color: #6FD39A; } }
+.okc { color: var(--ok-ink); font-weight: 700; }
+@media (prefers-color-scheme: dark) { .okc { color: var(--ok-ink); } }
 .steps { list-style: none; counter-reset: st; padding: 0; margin: 0 0 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
 .steps li { counter-increment: st; border-top: 3px solid var(--signal); padding-top: 6px; font-size: 14px; color: var(--muted); }
 .steps li b { display: block; color: var(--ink); }
@@ -365,7 +381,7 @@ section.block { margin-top: 44px; }
 .hist, .scatter { width: 100%; height: auto; display: block; }
 .scrollx { overflow-x: auto; }
 .tbl tr.me td { background: var(--signal-soft); }
-.tbl td.low { color: #8A5E00; font-weight: 700; }
+.tbl td.low { color: var(--warn-ink); font-weight: 700; }
 @media (prefers-color-scheme: dark) { .tbl td.low { color: var(--amber); } }
 .etbl td, .etbl th { white-space: nowrap; }
 .p-ai { grid-column: span 7; } .p-prof { grid-column: span 5; } .p-cross, .p-sp { grid-column: span 6; } .p-pri, .p-adv { grid-column: span 12; }
@@ -389,9 +405,9 @@ section.block { margin-top: 44px; }
 .chip .cn { display: inline; }
 .term.over { outline: 2px dashed var(--signal); outline-offset: 2px; background: var(--signal-soft); }
 .trash { margin-top: 12px; border: 1.5px dashed var(--line); border-radius: 4px; padding: 12px; text-align: center; color: var(--muted); font-size: 14px; }
-.trash.over, .cands.over { border-color: #B54A2E; color: #B54A2E; background: rgba(181, 74, 46, .08); }
+.trash.over, .cands.over { border-color: var(--bad-ink); color: var(--bad-ink); background: rgba(181, 74, 46, .08); }
 .dmsg { min-height: 1.4em; margin: 0 0 8px; font-size: 14px; color: var(--signal); font-weight: 500; }
-.dmsg.warn { color: #8A5E00; }
+.dmsg.warn { color: var(--warn-ink); }
 @media (prefers-color-scheme: dark) { .dmsg.warn { color: var(--amber); } }
 .dnd-help { margin: 0 0 6px; }
 .cand { user-select: none; }
@@ -546,16 +562,16 @@ html { scrollbar-gutter: stable; }
 .qnote { margin: -14px 0 10px; }
 /* 신뢰성 */
 .relv { display: inline-block; font-weight: 700; font-size: 13px; padding: 1px 10px; border-radius: 10px; }
-.rel-정상 { background: #E3EEE7; color: #1E6B3A; } .rel-주의 { background: var(--amber-soft); color: #8A5E00; } .rel-재실시 { background: #F8DCD6; color: #A3301B; }
-.lv-ok { color: #1E6B3A; font-weight: 700; } .lv-warn { color: #8A5E00; font-weight: 700; } .lv-bad { color: #A3301B; font-weight: 700; }
+.rel-정상 { background: var(--ok-soft); color: var(--ok-ink); } .rel-주의 { background: var(--amber-soft); color: var(--warn-ink); } .rel-재실시 { background: var(--bad-soft); color: var(--bad-ink); }
+.lv-ok { color: var(--ok-ink); font-weight: 700; } .lv-warn { color: var(--warn-ink); font-weight: 700; } .lv-bad { color: var(--bad-ink); font-weight: 700; }
 .p-rel { grid-column: span 12; } .p-rel .tbl { display: table; } .p-rel .tbl td { white-space: normal; }
-.retake { border-top-color: #A3301B; }
+.retake { border-top-color: var(--bad-ink); }
 .p-three { grid-column: span 12; }
 .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 24px; }
 .three .sub { grid-template-columns: 6.5em 1fr 2.6em; font-size: 14px; }
 .big { font-size: 32px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.02em; }
 /* 비교과 칩 */
-.k-nc { border-left-color: #7B3FB5; }
+.k-nc { border-left-color: #7A6A9C; }
 /* 진로: 전략산업 칩 */
 .indchips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
 .indchip { font: inherit; font-size: 14px; background: var(--paper); border: 1.5px solid var(--line); border-radius: 16px; padding: 4px 12px; cursor: pointer; color: var(--ink); }
@@ -571,13 +587,13 @@ html { scrollbar-gutter: stable; }
 .roster li { display: grid; grid-template-columns: 1fr auto auto; gap: 6px; align-items: center; font-size: 13px; padding: 3px 0; border-bottom: 1px solid var(--line); }
 .roster select { font: inherit; font-size: 12px; padding: 1px 3px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
 .lvchip { font-size: 12px; font-weight: 700; padding: 0 6px; border-radius: 8px; }
-.lv-상 { background: #E3EEE7; color: #1E6B3A; } .lv-중 { background: var(--signal-soft); color: var(--signal); } .lv-하 { background: var(--amber-soft); color: #8A5E00; }
+.lv-상 { background: var(--ok-soft); color: var(--ok-ink); } .lv-중 { background: var(--signal-soft); color: var(--signal); } .lv-하 { background: var(--amber-soft); color: var(--warn-ink); }
 /* 교원: 상담 알림 */
 .p-alist { grid-column: span 5; } .p-adet { grid-column: span 7; }
 .alist { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .alrow button { width: 100%; text-align: left; font: inherit; background: var(--paper); border: 1.5px solid var(--line); border-radius: 6px; padding: 8px 10px; cursor: pointer; color: var(--ink); }
 .alrow.on button { border-color: var(--signal); background: var(--signal-soft); }
-.chipw { display: inline-block; font-size: 12px; background: var(--amber-soft); color: #8A5E00; border-radius: 8px; padding: 0 7px; margin: 3px 4px 0 0; }
+.chipw { display: inline-block; font-size: 12px; background: var(--amber-soft); color: var(--warn-ink); border-radius: 8px; padding: 0 7px; margin: 3px 4px 0 0; }
 .p-adet .tbl { display: table; }
 .logform { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
 .logform .full { grid-column: 1 / -1; }
@@ -619,7 +635,7 @@ details.pd:not([open]) > summary { border-bottom: 0; }
   #report .rh { font-weight: 700; font-size: 12pt; margin: 6px 0; }
   #report .rcols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   #report .rr { display: grid; grid-template-columns: 5em 1fr 2.2em 3.2em; gap: 6px; align-items: center; margin: 2px 0; }
-  #report .rb { height: 7px; background: #ddd; display: block; } #report .rb i { display: block; height: 100%; background: #2340E0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  #report .rb { height: 7px; background: #ddd; display: block; } #report .rb i { display: block; height: 100%; background: #2D5F6F; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   #report .m { color: #555; font-size: 9pt; }
   #report table { width: 100%; border-collapse: collapse; font-size: 9.5pt; } #report th, #report td { border: 1px solid #aaa; padding: 3px 6px; text-align: left; vertical-align: top; }
   #report footer { margin-top: 10px; font-size: 8.5pt; color: #555; }
@@ -628,7 +644,7 @@ details.pd:not([open]) > summary { border-bottom: 0; }
 .setgrid label { display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
 .setgrid input { font: inherit; color: var(--ink); background: var(--paper); border: 1.5px solid var(--line); border-radius: 6px; padding: 7px 10px; }
 .setgrid input.chg { border-color: var(--amber); background: var(--amber-soft); }
-.errs { margin: 10px 0 0; color: #8A5E00; font-size: 14px; }
+.errs { margin: 10px 0 0; color: var(--warn-ink); font-size: 14px; }
 .p-set0, .p-set2, .p-set3, .p-set4 { grid-column: span 6; } .p-set1 { grid-column: span 12; } .p-sched { grid-column: span 12; }
 .p-nk { grid-column: span 4; } .p-ned { grid-column: span 8; } .p-nout, .p-aud { grid-column: span 12; }
 .nkinds { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
@@ -654,7 +670,7 @@ body.no-demo .phase, body.no-demo .badge.amber, body.no-demo .resfoot, body.no-d
 .axn { font-size: 13.5px; display: grid; } .axn .meta { font-size: 12px; }
 .axbars { display: grid; gap: 2px; }
 .axbars i { display: block; height: 8px; border-radius: 0 4px 4px 0; }
-.axbars .b0, .lg.axl0 { background: #A9B4AE; } .axbars .b1, .lg.axl1 { background: var(--signal); }
+.axbars .b0, .lg.axl0 { background: var(--line-strong); } .axbars .b1, .lg.axl1 { background: var(--signal); }
 .lg.axl0, .lg.axl1 { width: 14px; height: 8px; border-radius: 2px; }
 .axv { text-align: right; display: grid; line-height: 1.2; } .axv b { font-size: 15px; } .axv .meta { font-size: 11.5px; }
 @container (max-width: 520px) { .axrow { grid-template-columns: 1fr 4.5em; } .axbars { grid-column: 1 / -1; grid-row: 2; } }
@@ -682,7 +698,7 @@ body.no-demo .phase, body.no-demo .badge.amber, body.no-demo .resfoot, body.no-d
 .p-rdoc { grid-column: span 12; }
 .rdoc { max-width: 820px; margin: 0 auto; background: #fff; color: #1a1a1a; padding: 32px 40px; border: 1px solid var(--line); font-size: 14.5px; line-height: 1.7; }
 .rdoc h1 { font-size: 22px; margin: 4px 0 6px; } .rdoc h2 { font-size: 16px; margin: 20px 0 6px; border-bottom: 1px solid #bbb; padding-bottom: 3px; }
-.rdoc .rk { color: #2340E0; font-weight: 700; margin: 0; font-size: 13px; } .rdoc .meta { color: #555; }
+.rdoc .rk { color: #2D5F6F; font-weight: 700; margin: 0; font-size: 13px; } .rdoc .meta { color: #555; }
 .rtbl { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 13px; } .rtbl th, .rtbl td { border: 1px solid #bbb; padding: 4px 8px; text-align: left; } .rtbl thead th { background: #f0f2f5; }
 @media (max-width: 640px) { .rdoc { padding: 18px 14px; } }
 .p-askr { grid-column: span 8; } .p-askh { grid-column: span 4; }
@@ -697,7 +713,7 @@ body.no-demo .phase, body.no-demo .badge.amber, body.no-demo .resfoot, body.no-d
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; z-index: 300; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 8px; font-size: 14px; max-width: min(560px, calc(100vw - 32px)); transition: opacity .2s, transform .2s; }
 .toast.on { opacity: 1; transform: translate(-50%, 0); }
 .savest { font-size: 12px; color: var(--muted); white-space: nowrap; }
-.savest.pend { color: var(--amber); } .savest.err { color: #b3261e; font-weight: 700; }
+.savest.pend { color: var(--amber); } .savest.err { color: var(--bad-ink); font-weight: 700; }
 .resume { border: 1.5px solid var(--signal); background: var(--panel); padding: 12px 16px; margin: 0 0 16px; }
 .resume p { margin: 0 0 6px; }
 .autosave { margin: -4px 0 10px; }
@@ -717,7 +733,7 @@ body.no-demo .phase, body.no-demo .badge.amber, body.no-demo .resfoot, body.no-d
 .st { font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
 .st-승인 { background: var(--signal); color: #fff; border-color: var(--signal); }
 .st-초안, .st-검토\ 중 { color: var(--amber); border-color: var(--amber); }
-.st-반려 { color: #8A5E00; border-style: dashed; }
+.st-반려 { color: var(--warn-ink); border-style: dashed; }
 .itm-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0; }
 @container (max-width: 560px) { .itm-pair { grid-template-columns: 1fr; } }
 .itm { border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; background: var(--paper); font-size: 14px; }
@@ -763,7 +779,7 @@ body.authpage .topbar .appnav { visibility: hidden; }
 .lform .agree { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; line-height: 1.55; color: var(--ink); }
 .lform .agree input { margin-top: 3px; }
 .lmsg { padding: 8px 12px; border-radius: 6px; background: var(--signal-soft); font-size: 14px; margin: 8px 0; }
-.lmsg.err { background: var(--amber-soft); color: #6b4700; }
+.lmsg.err { background: var(--amber-soft); color: var(--warn-ink); }
 .democode { padding: 8px 12px; border: 1.5px dashed var(--amber); border-radius: 6px; font-size: 13.5px; }
 .democode b { font-size: 20px; letter-spacing: .15em; margin-left: 6px; }
 .demohint { margin-top: 16px; padding: 10px 12px; background: var(--paper); border: 1px solid var(--line); font-size: 13px; color: var(--muted); line-height: 1.6; }
@@ -803,15 +819,231 @@ body.authpage .topbar .appnav { visibility: hidden; }
 .block.own h2 .meta { font-size: 13px; font-weight: 400; margin-left: 8px; }
 .exh { margin-top: 32px; }
 
+/* ======================================================================
+   v9 북유럽 레이어: 서리색 바탕 위 흰 면, 그림자 대신 여백과 가는 선.
+   위계는 크기·굵기·간격으로, 색은 의미(주색·보완·양호·위험)에만 씁니다.
+   ====================================================================== */
+body { font-size: 16px; line-height: 1.7; letter-spacing: -0.005em; font-feature-settings: "tnum" 0; }
+b, strong { font-weight: 650; }
+h1 { font-size: clamp(32px, 4.2vw, 48px); font-weight: 680; letter-spacing: -0.035em; line-height: 1.15; }
+h2 { font-weight: 640; letter-spacing: -0.02em; }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 6px; }
+::selection { background: var(--signal-soft); }
+
+/* 버튼: 주 동작은 피오르, 보조는 선 */
+.btn { border-radius: 10px; padding: 12px 20px; font-weight: 620; background: var(--signal); color: #fff; transition: background .15s; }
+.btn:hover { background: var(--signal-deep); color: #fff; }
+.btn[disabled] { background: var(--line-strong); color: var(--panel); opacity: 1; }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line-strong); }
+.btn.ghost:hover { background: var(--panel); border-color: var(--signal); color: var(--signal); }
+.btn.sm { padding: 7px 13px; font-size: 14px; border-radius: 8px; }
+@media (prefers-color-scheme: dark) { .btn, .btn:hover { color: #0F1716; } .btn.ghost, .btn.ghost:hover { color: var(--ink); } }
+.linkbtn { color: var(--signal); text-decoration-color: color-mix(in srgb, var(--signal) 40%, transparent); }
+.linkbtn:hover { color: var(--signal-deep); text-decoration-color: currentColor; }
+
+/* 입력 */
+.lform input:not([type=checkbox]), .lform select, .pick select, .pick input, .logform select, .logform textarea, .ask textarea, .askf input,
+.p-add select, .p-mic2 select, .relgrid input, .setgrid input, .p-ned textarea, .ibedit textarea, .axtbl input, .phase select {
+  border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--panel); transition: border-color .15s;
+}
+.lform input:focus, .lform select:focus, .pick select:focus, .ask textarea:focus, .askf input:focus { border-color: var(--signal); outline: 0; box-shadow: 0 0 0 3px var(--signal-soft); }
+
+/* 상단 막대 */
+.topbar { border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); margin-bottom: 28px; }
+.brand { display: inline-flex; align-items: center; gap: 9px; font-weight: 680; letter-spacing: -0.02em; font-size: 16px; color: var(--ink); }
+.brand svg { flex-shrink: 0; }
+.navlink { color: var(--muted); font-weight: 520; border-bottom: 0; position: relative; border-radius: 8px; }
+.navlink:hover { color: var(--ink); background: color-mix(in srgb, var(--panel) 70%, transparent); }
+.navlink[aria-current="page"] { color: var(--ink); font-weight: 650; }
+.navlink[aria-current="page"]::after { content: ""; position: absolute; left: 50%; bottom: -1px; width: 5px; height: 5px; border-radius: 50%; background: var(--signal); transform: translateX(-50%); }
+.uchip b { font-weight: 640; }
+.phase select { border-style: solid; border-color: var(--line); background: transparent; }
+.savest::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); margin-right: 5px; vertical-align: 1px; }
+.savest.pend::before { background: var(--amber); } .savest.err::before { background: var(--bad-ink); }
+.savest:empty::before { display: none; }
+
+/* 세부 메뉴: 알약형 */
+.subtabs { gap: 4px; border-bottom: 0; margin: -10px 0 24px; padding: 4px; background: color-mix(in srgb, var(--line) 55%, transparent); border-radius: 12px; width: max-content; max-width: 100%; }
+.subtab { border: 0; border-radius: 9px; padding: 6px 14px; font-weight: 520; }
+.subtab[aria-selected="true"] { background: var(--panel); color: var(--ink); font-weight: 640; box-shadow: 0 1px 2px rgba(28, 40, 38, .08); }
+
+/* 면: 흰 종이, 가는 선, 둥근 모서리. 상단 굵은 띠는 없앰 */
+.panel { background: var(--panel); border: 1px solid var(--line); border-top: 1px solid var(--line); border-radius: var(--radius); overflow: clip; }
+.phead { border-bottom: 0; padding: 18px 22px 4px; }
+.phead h2 { font-size: 16px; font-weight: 650; }
+.pbody { padding: 12px 22px 22px; }
+.dash-grid { gap: 18px; }
+/* 요약 면은 상자 없이 바탕 위에 */
+.p-sum { background: transparent; border: 0; border-radius: 0; padding: 6px 2px 10px; overflow: visible; }
+.p-sum .summary { font-size: clamp(24px, 2.8vw, 34px); font-weight: 660; letter-spacing: -0.03em; line-height: 1.3; max-width: 26em; }
+.summary b { color: var(--signal); font-weight: 680; }
+.eyebrow { color: var(--muted); font-weight: 560; font-size: 14px; letter-spacing: 0; }
+.stats { border-top: 0; gap: 12px; }
+.stat { padding: 12px 0 0; border-top: 1px solid var(--line); }
+.stat b { font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.retake { border-color: var(--bad-ink); }
+.rcard { background: var(--panel); border: 1px solid var(--line); border-top: 1px solid var(--line); border-radius: var(--radius); padding: 16px 20px; }
+.rcard .rk { display: flex; align-items: center; gap: 8px; letter-spacing: 0; font-weight: 600; }
+.rcard .rk::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+.rcard.good .rk::before { background: var(--signal); } .rcard.weak .rk::before { background: var(--amber); } .rcard.todo .rk::before { background: var(--ink); }
+.pd-bar { border-bottom: 0; }
+details.pd > summary.phead { padding-bottom: 16px; }
+
+/* 막대: 가늘고 둥글게, 처음 그릴 때만 자라남 */
+.bar, .cmp-track { background: var(--track); }
+.bar { height: 6px; border-radius: 3px; }
+.bar b { border-radius: 3px; transform-origin: left; animation: growx .7s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes growx { from { transform: scaleX(0); } }
+.axbars i { animation: growx .7s cubic-bezier(.2, .7, .2, 1) both; transform-origin: left; }
+
+/* 상태 표시 */
+.badge { border-radius: 6px; font-weight: 600; }
+.relv, .lvchip, .st, .aitag, .ptype, .chipw { border-radius: 6px; }
+.aitag.on { color: #fff; }
+.chipbtn { border-radius: 999px; background: var(--panel); border: 1px solid var(--line); color: var(--ink); }
+.chipbtn:hover { outline: 0; border-color: var(--signal); color: var(--signal); }
+.indchip, .unitchip { border-width: 1px; }
+
+/* 표 */
+.tbl thead th { border-bottom: 1px solid var(--line-strong); font-weight: 600; color: var(--muted); font-size: 13px; }
+.tbl th, .tbl td { border-bottom-color: var(--line); }
+.tbl tr.me td { background: var(--signal-soft); }
+
+/* 단계(학생 여정): 숫자는 실제 순서라 유지 */
+.stepper { gap: 10px; }
+.stepper button { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); transition: border-color .15s; }
+.stepper button:hover:not([disabled]) { border-color: var(--signal); }
+.stepper .now button { border-color: var(--signal); box-shadow: inset 0 0 0 1px var(--signal); }
+.sn { background: var(--track); font-weight: 650; }
+.stepper .done .sn, .pstep.done .sn { background: var(--signal); color: #fff; }
+.pstep { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+.pstep.now { border-color: var(--signal); box-shadow: inset 0 0 0 1px var(--signal); }
+.flow li, .cycle li { border: 1px solid var(--line); border-radius: 12px; }
+
+/* 상자형 선택지들 */
+.opt label { border: 1px solid var(--line-strong); border-radius: 12px; background: var(--panel); transition: border-color .12s, background .12s; }
+.opt input:checked + label { box-shadow: inset 0 0 0 1px var(--signal); }
+.navbtn, .jobcard, .alrow button, .nk, .smlist button, .term, .secol, .itm, .pri, .spec, .mailpv, .peek pre, .demohint { border-width: 1px; border-radius: 12px; }
+.jobcard.on, .nk.on, .smlist button.on, .alrow.on button { box-shadow: inset 0 0 0 1px var(--signal); }
+.chip { border-radius: 8px; border-left-width: 3px; }
+.plan-grid .chips .empty { border-width: 1px; border-radius: 8px; }
+.trash { border-width: 1px; border-radius: 12px; }
+.prep, .resume, .block.own { border-width: 1px; border-radius: var(--radius); }
+.nextbar { border: 0; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line); }
+.advnote { border-left-width: 2px; border-radius: 0 8px 8px 0; }
+.democode, .demobox { border: 1px dashed var(--amber); border-radius: 10px; }
+.lmsg { border-radius: 10px; }
+.msg { border-radius: 16px; }
+.msg.user { background: var(--signal); color: #fff; border-bottom-right-radius: 5px; }
+.msg.ai { background: var(--panel); border-bottom-left-radius: 5px; }
+@media (prefers-color-scheme: dark) { .msg.user { color: #0F1716; } .aitag.on, .stepper .done .sn, .pstep.done .sn, .st-승인 { color: #0F1716; } }
+.tour { border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 18px 40px rgba(28, 40, 38, .16); }
+.tour-hl { outline: 2px solid var(--signal) !important; border-radius: 12px; box-shadow: 0 0 0 9999px rgba(19, 25, 24, .18); }
+.toast { border-radius: 12px; }
+.rdoc { border-radius: 4px; }
+.dial .me-poly { fill-opacity: .12; stroke-width: 2; }
+.dial .me-spoke { stroke-width: 4; }
+
+/* ---------- 로그인: 역량 지형(움직이는 등고선) ---------- */
+.login-wrap { grid-template-columns: minmax(0, 1.2fr) minmax(340px, 1fr); gap: 64px; margin-top: 12px; }
+.login-intro h1 { font-size: clamp(34px, 4.4vw, 52px); margin: 4px 0 18px; }
+.login-intro .lede { font-size: 18px; color: var(--muted); max-width: 30em; }
+.terra { position: relative; margin: 28px 0 0; }
+.terra canvas { display: block; width: 100%; height: 100%; }
+.terra-login { aspect-ratio: 16 / 9; }
+.terra figcaption { font-size: 13.5px; color: var(--muted); margin-top: 10px; max-width: 36em; }
+.terra-tags { position: absolute; inset: 0; pointer-events: none; }
+.terra-tags span { position: absolute; transform: translate(-50%, -50%); font-size: 12.5px; font-weight: 600; color: var(--ink); background: color-mix(in srgb, var(--paper) 78%, transparent); padding: 1px 7px; border-radius: 6px; white-space: nowrap; }
+.terra-tags span i { font-style: normal; font-weight: 500; color: var(--muted); margin-left: 4px; font-variant-numeric: tabular-nums; }
+.cycle-line { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 6px 0; font-size: 14px; color: var(--muted); }
+.cycle-line li { display: flex; align-items: center; }
+.cycle-line li + li::before { content: ""; width: 22px; height: 1px; background: var(--line-strong); margin: 0 10px; }
+.cycle-line b { color: var(--ink); font-weight: 620; margin-right: 6px; }
+.login-card { border: 1px solid var(--line); border-top: 1px solid var(--line); border-radius: 20px; padding: 26px 28px 22px; background: var(--panel); }
+.login-card .tabs { position: static; background: none; border-bottom: 0; gap: 4px; padding: 4px; margin: 0 0 6px; background: var(--paper); border-radius: 12px; width: max-content; }
+.login-card .tab { border-bottom: 0; border-radius: 9px; padding: 6px 18px; }
+.login-card .tab[aria-selected="true"] { background: var(--panel); box-shadow: 0 1px 2px rgba(28, 40, 38, .1); }
+.tourbtn { background: transparent; color: var(--ink); border: 1px solid var(--line-strong); }
+.tourbtn:hover { background: var(--panel); color: var(--signal); border-color: var(--signal); }
+.tourbtn::before { content: ""; width: 0; height: 0; border-left: 8px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; align-self: center; }
+@media (max-width: 900px) { .login-wrap { grid-template-columns: 1fr; gap: 28px; } .terra-login { aspect-ratio: 4 / 3; } }
+
+/* 홈 요약의 개인 지형 */
+.p-sum.has-terra { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 400px); column-gap: 32px; align-items: start; }
+.p-sum.has-terra > :not(.terra):not(.stepper):not(.stats) { grid-column: 1; }
+.p-sum.has-terra > .terra { grid-column: 2; grid-row: 1 / span 4; margin: 0; aspect-ratio: 4 / 3; }
+.p-sum.has-terra > .stepper, .p-sum.has-terra > .stats { grid-column: 1 / -1; }
+@media (max-width: 1000px) { .p-sum.has-terra { grid-template-columns: 1fr; } .p-sum.has-terra > .terra { grid-column: 1; grid-row: auto; aspect-ratio: 16 / 9; } }
+
+/* 성장 영상: 입학 직후 → 최근 진단 지형 */
+.morph { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.morph .terra { aspect-ratio: 16 / 8; margin: 0; }
+.morph-ctl { display: flex; align-items: center; gap: 12px; }
+.morph-ctl input[type=range] { flex: 1; accent-color: var(--signal); }
+.morph-ctl output { font-variant-numeric: tabular-nums; font-size: 14px; min-width: 9em; text-align: right; color: var(--muted); }
+.p-morph { grid-column: span 12; }
+
+/* 바로 가기(Ctrl+K) */
+.kbtn { font: inherit; font-size: 13px; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 4px 8px 4px 10px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; white-space: nowrap; }
+.kbtn:hover { border-color: var(--signal); color: var(--ink); }
+.kbtn kbd { font: inherit; font-size: 11.5px; border: 1px solid var(--line); border-radius: 5px; padding: 0 5px; background: var(--paper); }
+.kpal { position: fixed; inset: 0; z-index: 400; background: rgba(19, 25, 24, .28); display: grid; justify-items: center; align-items: start; padding-top: 12vh; }
+.kpal[hidden] { display: none; }
+.kbox { width: min(560px, calc(100vw - 32px)); background: var(--panel); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 24px 60px rgba(19, 25, 24, .22); overflow: hidden; animation: kin .16s ease-out; }
+@keyframes kin { from { opacity: 0; transform: translateY(-6px) scale(.99); } }
+.kbox input { width: 100%; font: inherit; font-size: 17px; border: 0; border-bottom: 1px solid var(--line); padding: 16px 20px; background: transparent; color: var(--ink); outline: 0; }
+.klist { list-style: none; margin: 0; padding: 6px; max-height: 50vh; overflow: auto; }
+.klist button { width: 100%; text-align: left; font: inherit; color: var(--ink); background: none; border: 0; border-radius: 10px; padding: 9px 14px; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; }
+.klist button span { color: var(--muted); font-size: 13px; }
+.klist li.on button, .klist button:hover { background: var(--signal-soft); }
+.klist .kempty { padding: 14px; color: var(--muted); font-size: 14px; }
+@media (max-width: 640px) { .kbtn { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bar b, .axbars i, .kbox { animation: none; }
+  .btn, .opt label, .stepper button { transition: none; }
+}
+@media print { .terra, .kbtn { display: none !important; } .panel { border-radius: 0; } }
+/* v9b: 머리줄 정리 · 지형 그림 영역 */
+.demostrip { display: flex; align-items: center; gap: 16px; margin: -16px 0 18px; font-size: 13px; color: var(--muted); min-height: 0; }
+.demostrip:empty { display: none; }
+.demostrip .phase { font-size: 13px; }
+.demostrip .phase select { font-size: 13px; padding: 2px 6px; }
+.demostrip .demotog { font-size: 13px; }
+.demostrip .savest { margin-left: auto; }
+body.no-demo .demostrip .phase { display: none !important; }
+.terra { position: static; }
+.terra-c { position: relative; }
+.terra-c::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 62%, var(--paper) 100%); }
+.p-sum .terra-c::after, .terra-morph .terra-c::after { background: radial-gradient(ellipse at center, transparent 60%, var(--paper) 100%); }
+.terra-login .terra-c { aspect-ratio: 16 / 9; }
+.terra-login { aspect-ratio: auto !important; }
+.p-sum.has-terra > .terra { aspect-ratio: auto; }
+.p-sum.has-terra > .terra .terra-c { aspect-ratio: 4 / 3; }
+.morph .terra { aspect-ratio: auto; }
+.morph .terra-c { aspect-ratio: 21 / 8; max-height: 440px; }
+.terra canvas { position: absolute; inset: 0; }
+@media (max-width: 1000px) { .p-sum.has-terra > .terra .terra-c { aspect-ratio: 16 / 9; } }
+@media (max-width: 900px) { .terra-login .terra-c { aspect-ratio: 4 / 3; } .morph .terra-c { aspect-ratio: 4 / 3; } }
+@media (min-width: 1001px) and (max-width: 1360px) { .kbtn { font-size: 0; gap: 0; padding: 4px 6px; } .kbtn kbd { font-size: 11.5px; } }
+.login-wrap > * { min-width: 0; }
+@media (max-width: 900px) { .login-wrap { grid-template-columns: minmax(0, 1fr); } .login-card { padding: 20px 18px; } .terra-tags span { font-size: 11px; padding: 0 4px; } }
+.rcard.good, .rcard.weak, .rcard.todo { border-top-color: var(--line); }
+.chatbody, .thread { align-content: start; }
+.suggest { align-content: flex-start; align-items: flex-start; }
+.chipbtn { padding: 6px 14px; line-height: 1.45; }
+.p-chat .chatbody { display: grid; grid-template-rows: 1fr auto auto; }
+.p-chat .thread { align-self: start; }
 </style>
 </head>
 <body>
 <div class="shell">
   <header class="topbar">
-    <span class="brand">대학 생활 설계 플랫폼</span>
+    <span class="brand"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke="var(--signal)" stroke-width="1.6"><path d="M2.5 15.5c1.8-6 5.4-10.5 9.6-10.5 4.4 0 7.4 4.8 7.4 9.2 0 3-2.2 4.3-5 4.3H6.2c-2.7 0-4.4-1.1-3.7-3Z"/><path d="M7 15.2c.9-3.4 2.9-6 5.2-6 2.5 0 3.9 2.6 3.9 4.9 0 1.4-1 2-2.4 2H8.6c-1.2 0-1.9-.3-1.6-.9Z"/><circle cx="12.4" cy="13" r="1.3" fill="var(--signal)" stroke="none"/></svg>대학 생활 설계 플랫폼</span>
     <nav class="appnav" id="appnav" aria-label="주요 메뉴"></nav>
     <div class="roles" id="roles" aria-label="사용자"></div>
   </header>
+  <div class="demostrip no-print" id="demostrip"></div>
   <nav class="subnav" id="subnav" aria-label="세부 메뉴"></nav>
   <main class="layout">
     <div id="view" aria-live="polite"></div>
@@ -1687,6 +1919,7 @@ function renderGrowth() {
   $view.innerHTML = `
     <h1>성장 리포트</h1>
     <p class="lede">입학 직후에 받은 진단과 학기말마다 받은 재진단을 나란히 보고, 어떤 과목을 들은 뒤에 어떻게 달라졌는지 확인합니다.</p>
+    <section class="block"><h2>역량 지형의 변화</h2>${(state.history || []).length > 1 ? morphHtml(state.history.map(h => h.vals), state.history.map(h => h.label), '내 진단 기록으로 그린 지형입니다. 재생하면 입학 직후부터 최근 진단까지 언덕이 어떻게 자랐는지 보여 줍니다.') : morphHtml(st.traceArea.map(t => t.slice()), TERM_LABEL.slice(0, st.traceArea.length), '<span class="badge amber">가상 예시 데이터</span> 아래 참고 학생의 기록입니다. 재진단을 받으면 내 기록으로 바뀝니다.')}</section>
     ${ownGrowthHtml()}
     <h2 class="exh">참고: 나와 비슷했던 학생의 3학기 기록</h2>
     <p class="meta"><span class="badge amber">가상 예시 데이터</span> ${state.dept}에서 입학 직후 점수 패턴이 비슷한 가상 학생 한 명의 3학기 기록입니다. 이수와 재진단이 쌓이면 어떻게 달라지는지 보여 줍니다.</p>
@@ -1707,6 +1940,7 @@ function renderGrowth() {
       <ul class="tips">${timeline}</ul>
     </section>
     <p class="fine">변화는 수강한 과목 말고도 시간이 지나며 생기는 성장, 연습 효과, 측정 오차가 함께 반영된 값입니다. 점수 변화를 성적이나 평가에 쓰지 않고, 본인의 학습 계획에만 사용합니다.</p>`;
+  mountMorph((state.history || []).length > 1 ? state.history.map(h => h.label) : TERM_LABEL.slice(0, st.traceArea.length));
 }
 
 /* ---------- 플랫폼 공통 ---------- */
@@ -4110,7 +4344,7 @@ async function renderReport() {
     window.addEventListener('afterprint', off); window.print();
   };
   document.getElementById('rdocx').onclick = () => {
-    const css = 'body{font-family:"맑은 고딕",sans-serif;font-size:10.5pt;line-height:1.6}h1{font-size:16pt}h2{font-size:12pt;border-bottom:1px solid #999;margin-top:14pt}table{border-collapse:collapse;width:100%;margin:6pt 0}th,td{border:1px solid #999;padding:3pt 5pt;font-size:9.5pt;text-align:left}.meta{color:#555;font-size:9pt}.rk{color:#2340E0;font-weight:bold}';
+    const css = 'body{font-family:"맑은 고딕",sans-serif;font-size:10.5pt;line-height:1.6}h1{font-size:16pt}h2{font-size:12pt;border-bottom:1px solid #999;margin-top:14pt}table{border-collapse:collapse;width:100%;margin:6pt 0}th,td{border:1px solid #999;padding:3pt 5pt;font-size:9.5pt;text-align:left}.meta{color:#555;font-size:9pt}.rk{color:#2D5F6F;font-weight:bold}';
     const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><title>위원회 안건 자료</title><style>${css}</style></head><body>${document.getElementById('rdoc').innerHTML}</body></html>`;
     const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿', html], { type: 'application/msword' })); a.download = `위원회_안건자료_${localTime().slice(0, 10)}.doc`; document.body.appendChild(a); a.click(); a.remove();
   };
@@ -4449,8 +4683,9 @@ function renderLogin() {
       <p class="eyebrow">2026 AX 교육·행정혁신</p>
       <h1>대학 생활 설계 플랫폼</h1>
       <p class="lede">3종 진단으로 내 역량을 확인하고, 교양·융합·비교과 교육과정을 추천받아 학기별 이수 계획을 세웁니다. 학기말 재진단으로 성장을 확인합니다.</p>
-      <button class="btn tourbtn no-print" id="tourgo" type="button">▶ 3분 둘러보기 <span>학생 → 교원 → 관리자</span></button>
-      <ol class="cycle"><li><b>진단</b><span>직업기초·핵심·기초학습</span></li><li><b>추천·계획</b><span>AI 분석과 맞춤 이수 계획</span></li><li><b>이수</b><span>수준별 분반·학점 반영</span></li><li><b>재진단·성장</b><span>향상도 확인·상담 연계</span></li></ol>
+      <button class="btn tourbtn no-print" id="tourgo" type="button">3분 둘러보기 <span>학생 → 교원 → 관리자</span></button>
+      ${terraHtml({ frames: [[58, 46, 52, 37, 63, 41, 74], [66, 55, 61, 48, 70, 57, 78]], cap: `직업기초 7영역 점수를 언덕 높이로 그린 역량 지형입니다. 주황 점선은 보완 기준(${MID}점) 높이이고, 진단을 받으면 내 점수로 다시 그려집니다.`, alt: '예시 학생의 직업기초 7영역 역량 지형' }, 'terra-login')}
+      <ol class="cycle-line" aria-label="한 학기 흐름"><li><b>진단</b>3종</li><li><b>계획</b>추천·AI 분석</li><li><b>이수</b>분반·학점</li><li><b>재진단</b>성장 확인</li></ol>
     </section>
     <section class="login-card" aria-label="로그인">
       <div class="tabs" role="tablist"><button role="tab" class="tab" aria-selected="${L.tab === 'student'}" data-lt="student">학생</button><button role="tab" class="tab" aria-selected="${L.tab === 'staff'}" data-lt="staff">교직원</button></div>
@@ -4496,8 +4731,148 @@ function renderLogin() {
       if (r.status === 200) done(r.data.user); else set({ msg: r.data.error, err: true });
     }
   };
-  const first = $view.querySelector('.login-card input, .login-card select'); if (first) first.focus();
+  const first = $view.querySelector('.login-card input, .login-card select'); if (first && (innerWidth > 900 || L.stage !== 'id' || L.tab !== 'student')) first.focus({ preventScroll: innerWidth <= 900 });
+  mountTerra($view);
+  const lt = $view.querySelector('.terra-login'); if (lt && lt._terra && !REDUCED_MOTION.matches) setTimeout(() => lt._terra.play(2600), 400);
 }
+
+/* ---------- 역량 지형: 직업기초 7영역 점수를 언덕 높이로 바꿔 등고선으로 그림(움직이는 그림) ----------
+   - 언덕 하나가 영역 하나, 높이는 점수. 주황 점선은 보완 기준(MID점) 높이입니다.
+   - frames를 여러 개 주면 시점 사이를 이어 그려 성장 과정을 영상처럼 보여 줍니다.
+   - 화면 밖이거나 탭이 숨겨지면 멈추고, '동작 줄이기' 설정이면 한 장만 그립니다. */
+const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)');
+const TERRA_POS = [[.15, .33], [.38, .2], [.62, .3], [.86, .22], [.25, .72], [.53, .68], [.8, .74]];
+function terraHtml(o, cls) {
+  /* o: { frames: [[7개 점수], ...], labels?: [시점 이름], cap?: 설명, tags?: true } */
+  return `<figure class="terra ${cls || ''}" data-terra='${esc(JSON.stringify(o))}'><div class="terra-c"><canvas role="img" aria-label="${esc(o.alt || '직업기초 7영역 역량 지형')}"></canvas><div class="terra-tags" aria-hidden="true"></div></div>${o.cap ? `<figcaption>${o.cap}</figcaption>` : ''}</figure>`;
+}
+function mountTerra(root) {
+  (root || document).querySelectorAll('figure.terra[data-terra]:not([data-on])').forEach(fig => {
+    fig.dataset.on = '1';
+    let o; try { o = JSON.parse(fig.dataset.terra); } catch (e) { return; }
+    fig._terra = terraRun(fig, o);
+  });
+}
+function terraRun(fig, o) {
+  const cv = fig.querySelector('canvas'), cx = cv.getContext('2d'), tags = fig.querySelector('.terra-tags');
+  const frames = o.frames.map(f => f.map(v => Math.max(0, Math.min(100, +v || 0))));
+  const S = { pos: frames.length - 1, t0: performance.now(), raf: 0, seen: true, last: 0, col: null, play: null };
+  const colors = () => { const cs = getComputedStyle(fig); S.col = { line: cs.getPropertyValue('--signal').trim(), warn: cs.getPropertyValue('--amber').trim(), ink: cs.getPropertyValue('--ink').trim(), paper: cs.getPropertyValue('--panel').trim() }; };
+  colors(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { colors(); draw(S.last); });
+  const vals = () => { const i = Math.max(0, Math.min(Math.floor(S.pos), frames.length - 2)), f = S.pos - Math.max(i, 0); if (frames.length < 2) return frames[0]; return frames[i].map((v, k) => v + (frames[i + 1][k] - v) * f); };
+  const setTags = v => {
+    if (!tags || o.tags === false) return;
+    tags.innerHTML = AREAS.map((a, k) => `<span style="left:${TERRA_POS[k][0] * 100}%;top:${(TERRA_POS[k][1] + .13) * 100}%">${a.short}<i>${Math.round(v[k])}</i></span>`).join('');
+  };
+  function draw(t) {
+    if (!cv.isConnected) return false;
+    const W = cv.clientWidth, H = cv.clientHeight; if (!W || !H) return true;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    if (cv.width !== Math.round(W * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.clearRect(0, 0, W, H);
+    const v = vals(), asp = W / H, sec = t / 1000, still = REDUCED_MOTION.matches;
+    /* 언덕 위치는 천천히 숨 쉬듯 흔들림 */
+    const P = TERRA_POS.map(([x, y], k) => [x + (still ? 0 : .006 * Math.sin(sec * .35 + k * 1.7)), y + (still ? 0 : .008 * Math.cos(sec * .28 + k * 2.3)), v[k] / 100]);
+    const g = Math.max(4, Math.round(W / 110)), nx = Math.ceil(W / g) + 1, ny = Math.ceil(H / g) + 1, F = new Float32Array(nx * ny), s2 = 2 * .15 * .15;
+    for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
+      const x = i * g / W, y = j * g / H; let f = still ? 0 : .025 * Math.sin(x * 5 + sec * .22) * Math.cos(y * 4 - sec * .18);
+      for (const [px, py, h] of P) { const dx = (x - px) * asp, dy = y - py; f += h * Math.exp(-(dx * dx + dy * dy) / s2); }
+      F[j * nx + i] = f;
+    }
+    const iso = (lv, style) => {
+      cx.beginPath();
+      for (let j = 0; j < ny - 1; j++) for (let i = 0; i < nx - 1; i++) {
+        const a = F[j * nx + i], b = F[j * nx + i + 1], c = F[(j + 1) * nx + i + 1], d = F[(j + 1) * nx + i];
+        const k = (a > lv) | ((b > lv) << 1) | ((c > lv) << 2) | ((d > lv) << 3); if (k === 0 || k === 15) continue;
+        const X = i * g, Y = j * g, e = [];
+        const L = (p, q) => (lv - p) / (q - p);
+        if ((k & 1) !== ((k >> 1) & 1)) e.push([X + g * L(a, b), Y]);
+        if (((k >> 1) & 1) !== ((k >> 2) & 1)) e.push([X + g, Y + g * L(b, c)]);
+        if (((k >> 2) & 1) !== ((k >> 3) & 1)) e.push([X + g * L(d, c), Y + g]);
+        if (((k >> 3) & 1) !== (k & 1)) e.push([X, Y + g * L(a, d)]);
+        for (let m = 0; m + 1 < e.length; m += 2) { cx.moveTo(e[m][0], e[m][1]); cx.lineTo(e[m + 1][0], e[m + 1][1]); }
+      }
+      Object.assign(cx, style); cx.stroke(); cx.setLineDash([]);
+    };
+    cx.lineCap = 'round';
+    for (let lv = .08; lv < 1.05; lv += .07) iso(lv, { strokeStyle: S.col.line, globalAlpha: .16 + .62 * Math.min(1, lv), lineWidth: lv > HIGH / 100 ? 1.6 : 1 });
+    cx.globalAlpha = 1; cx.setLineDash([3, 4]); iso(MID / 100, { strokeStyle: S.col.warn, lineWidth: 1.4, globalAlpha: .95 });
+    cx.globalAlpha = 1;
+    if (o.dots !== false) P.forEach(([x, y, h]) => { cx.beginPath(); cx.arc(x * W, y * H, 2.6, 0, Math.PI * 2); cx.fillStyle = h < MID / 100 ? S.col.warn : S.col.line; cx.fill(); });
+    return true;
+  }
+  function loop(t) {
+    S.raf = 0;
+    if (S.play) { const p = Math.max(0, (t - S.play.t0) / S.play.ms); S.pos = Math.min(1, p) * (frames.length - 1); setTags(vals()); if (o.onPos) o.onPos(S.pos); if (p >= 1) S.play = null; }
+    if (t - S.last > 33 || S.play) { S.last = t; if (!draw(t)) return; }
+    if (S.seen && !document.hidden && (!REDUCED_MOTION.matches || S.play)) S.raf = requestAnimationFrame(loop);
+  }
+  const kick = () => { if (!S.raf && cv.isConnected) S.raf = requestAnimationFrame(loop); };
+  new IntersectionObserver(es => { S.seen = es[0].isIntersecting; if (S.seen) kick(); }).observe(fig);
+  document.addEventListener('visibilitychange', kick);
+  new ResizeObserver(() => { S.last = 0; draw(performance.now()); }).observe(cv);
+  setTags(vals()); kick();
+  return {
+    frames: frames.length,
+    seek(p) { S.pos = Math.max(0, Math.min(frames.length - 1, p)); S.play = null; setTags(vals()); draw(performance.now()); kick(); },
+    play(ms) { S.play = { t0: performance.now(), ms: ms || 1400 * (frames.length - 1) }; S.pos = 0; kick(); }
+  };
+}
+/* 성장 영상: 시점 사이 지형 변화를 재생·탐색 */
+function morphHtml(frames, labels, note) {
+  return `<div class="morph">${terraHtml({ frames, labels, alt: `${labels[0]}부터 ${labels[labels.length - 1]}까지 역량 지형 변화` }, 'terra-morph')}
+    <div class="morph-ctl no-print"><button class="btn sm" id="mplay" type="button">변화 재생</button><input type="range" id="mpos" min="0" max="${(frames.length - 1) * 100}" value="${(frames.length - 1) * 100}" aria-label="시점"><output id="mlab">${esc(labels[labels.length - 1])}</output></div>
+    ${note ? `<p class="meta">${note}</p>` : ''}</div>`;
+}
+function mountMorph(labels) {
+  const fig = $view.querySelector('.terra-morph'); if (!fig) return;
+  mountTerra($view);
+  const T = fig._terra, r = document.getElementById('mpos'), out = document.getElementById('mlab');
+  if (!T) return;
+  const lab = p => { const i = Math.round(p); out.textContent = labels[i] + (Math.abs(p - i) > .05 ? ' 무렵' : ''); r.value = Math.round(p * 100); };
+  r.oninput = () => { T.seek(r.value / 100); lab(r.value / 100); };
+  document.getElementById('mplay').onclick = () => {
+    T.play(); const t0 = performance.now(), ms = 1400 * (labels.length - 1);
+    const tick = t => { const p = Math.min(1, (t - t0) / ms) * (labels.length - 1); lab(p); if (p < labels.length - 1 && r.isConnected) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  };
+}
+
+/* ---------- 바로 가기(Ctrl+K): 메뉴 이름으로 화면 찾기 ---------- */
+function paletteItems() {
+  const u = state.user; if (!u) return [];
+  return NAV[u.role].flatMap(g => g.steps.map(([id, t]) => ({ id, t, g: g.t })));
+}
+function openPalette() {
+  if (!state.user) return;
+  let box = document.getElementById('kpal');
+  if (!box) { box = document.createElement('div'); box.id = 'kpal'; box.className = 'kpal'; document.body.appendChild(box); }
+  box.hidden = false;
+  box.innerHTML = `<div class="kbox" role="dialog" aria-modal="true" aria-label="화면 바로 가기"><input id="kq" placeholder="가려는 화면 이름을 입력하세요" autocomplete="off"><ul class="klist" id="kl" role="listbox"></ul></div>`;
+  const q = document.getElementById('kq'), ul = document.getElementById('kl'); let sel = 0, list = [];
+  const norm = s => s.replace(/\s/g, '').toLowerCase();
+  const paint = () => {
+    const k = norm(q.value), all = paletteItems();
+    list = k ? all.filter(x => norm(x.t + x.g).includes(k)) : all;
+    sel = Math.min(sel, Math.max(0, list.length - 1));
+    ul.innerHTML = list.length ? list.map((x, i) => `<li class="${i === sel ? 'on' : ''}" role="option" aria-selected="${i === sel}"><button data-k="${x.id}">${esc(x.t)}<span>${esc(x.g)}</span></button></li>`).join('') : '<li class="kempty">맞는 화면이 없습니다. 다른 이름으로 찾아 보세요.</li>';
+  };
+  const close = () => { box.hidden = true; box.innerHTML = ''; };
+  const pick = id => { close(); go(id); };
+  q.oninput = () => { sel = 0; paint(); };
+  q.onkeydown = e => {
+    if (e.key === 'ArrowDown') { sel = Math.min(sel + 1, list.length - 1); paint(); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { sel = Math.max(sel - 1, 0); paint(); e.preventDefault(); }
+    else if (e.key === 'Enter' && list[sel]) pick(list[sel].id);
+    else if (e.key === 'Escape') close();
+  };
+  ul.onclick = e => { const b = e.target.closest('[data-k]'); if (b) pick(b.dataset.k); };
+  box.onclick = e => { if (e.target === box) close(); };
+  paint(); q.focus();
+}
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openPalette(); }
+});
 
 /* ---------- 메뉴: 역할별 운영 프로세스 순서 ---------- */
 const NAV = {
@@ -4521,14 +4896,17 @@ const demoOn = () => lsGet('demo_ui') !== false;
 const PHASES = [['start', '학기 초 · 진단 기간'], ['mid', '학기 중 · 이수'], ['end', '학기말 · 재진단·분석']];
 function renderNav() {
   const u = state.user, nav = document.getElementById('appnav'), box = document.getElementById('roles'), sub = document.getElementById('subnav');
-  if (!u) { nav.innerHTML = ''; box.innerHTML = ''; sub.innerHTML = ''; return; }
+  const strip = document.getElementById('demostrip');
+  if (!u) { nav.innerHTML = ''; box.innerHTML = ''; sub.innerHTML = ''; strip.innerHTML = ''; return; }
   const gi = groupOf(state.step), cur = STEP_ALIAS[state.step] || state.step;
   nav.innerHTML = `<div class="navgroup" role="group" aria-label="${ROLE_NAME[u.role]} 메뉴">${NAV[u.role].map(g => `<button class="navlink" data-go="${g.steps[0][0]}" ${gi && gi.g.id === g.id ? 'aria-current="page"' : ''}>${g.t}</button>`).join('')}</div>`;
-  box.innerHTML = `<label class="phase no-print" title="시연용: 학기 시점을 바꿔 흐름을 확인합니다">시연 시점<select id="phase">${PHASES.map(([k, t]) => `<option value="${k}" ${state.phase === k ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
-    <button class="linkbtn demotog no-print" id="demotog" title="가상 데이터 안내와 시연 시점 선택을 숨기거나 보입니다">${demoOn() ? '시연 표시 끄기' : '시연 표시 켜기'}</button><span id="savest" class="savest"></span><span class="uchip"><b>${esc(u.name)}</b><span>${ROLE_NAME[u.role]}${u.no ? ' · ' + u.no : ''}${u.role === 'student' ? ' · ' + esc(state.dept) : ''}</span></span><button class="linkbtn" id="logout">로그아웃</button>`;
+  strip.innerHTML = `<label class="phase" title="시연용: 학기 시점을 바꿔 흐름을 확인합니다">시연 시점<select id="phase">${PHASES.map(([k, t]) => `<option value="${k}" ${state.phase === k ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
+    <button class="linkbtn demotog" id="demotog" title="가상 데이터 안내와 시연 시점 선택을 숨기거나 보입니다">${demoOn() ? '시연 표시 끄기' : '시연 표시 켜기'}</button><span id="savest" class="savest"></span>`;
+  box.innerHTML = `<button class="kbtn no-print" id="kbtn" type="button" title="화면 이름으로 바로 가기(Ctrl+K)">바로 가기 <kbd>Ctrl K</kbd></button><span class="uchip"><b>${esc(u.name)}</b><span>${ROLE_NAME[u.role]}${u.no ? ' · ' + u.no : ''}${u.role === 'student' ? ' · ' + esc(state.dept) : ''}</span></span><button class="linkbtn" id="logout">로그아웃</button>`;
   sub.innerHTML = gi && gi.g.steps.length > 1 ? `<div class="subtabs" role="tablist">${gi.g.steps.map(([id, t]) => `<button role="tab" class="subtab" data-go="${id}" aria-selected="${id === cur}">${t}</button>`).join('')}</div>` : '';
   document.getElementById('phase').onchange = e => { state.phase = e.target.value; render(); };
   document.getElementById('logout').onclick = logout;
+  document.getElementById('kbtn').onclick = openPalette;
   document.getElementById('demotog').onclick = () => { lsSet('demo_ui', !demoOn()); render(); };
   saveState();
 }
@@ -4584,7 +4962,8 @@ function renderHome() {
   const termCr = plan ? plan.items.filter(i => i.term === planTerms(state.dept)[0]).reduce((a, i) => a + (i.cr || 0), 0) : 0;
   $view.innerHTML = `
   <div class="dash-grid">
-    <section class="panel p-sum">
+    <section class="panel p-sum has-terra">
+      ${last ? terraHtml({ frames: H.length > 1 ? [H[0].vals, last.vals] : [last.vals], cap: `내 역량 지형 · ${last.label}${H.length > 1 ? ' (입학 직후에서 바뀐 모습)' : ''}. 주황 점선 아래 언덕이 보완할 영역입니다.` }) : terraHtml({ frames: [[30, 22, 26, 20, 28, 24, 32]], tags: false, dots: false, cap: '진단을 마치면 내 점수로 역량 지형이 그려집니다.' })}
       <p class="eyebrow">${PHASES.find(x => x[0] === state.phase)[1]}</p>
       <p class="summary">${esc(u.name)}님, ${next ? `다음 할 일은 <b>${next.k}</b>입니다.` : '이번 학기 과정을 모두 마쳤습니다.'}</p>
       ${next ? `<div class="actions"><button class="btn" data-go="${next.go}">${next.k} ${next.done ? '보기' : '하러 가기'}</button></div>` : ''}
@@ -4628,8 +5007,9 @@ function renderAHome() {
   const st = (on, done) => (done ? 'done' : on ? 'now' : 'wait');
   $view.innerHTML = `
   <div class="dash-grid">
-    <section class="panel p-sum"><p class="eyebrow">${PHASES.find(x => x[0] === p)[1]} · 2026학년도 1학기</p>
+    <section class="panel p-sum has-terra"><p class="eyebrow">${PHASES.find(x => x[0] === p)[1]} · 2026학년도 1학기</p>
       <p class="summary">신입생 ${n}명의 대학 생활 설계 운영 현황입니다.</p>
+      ${terraHtml({ frames: p === 'end' ? [AREAS.map((_, k) => mean(co.map(s => s.traceArea[0][k]))), AREAS.map((_, k) => mean(co.map(s => s.traceArea[1][k])))] : [AREAS.map((_, k) => mean(co.map(s => s.traceArea[0][k])))], cap: p === 'end' ? '신입생 평균 역량 지형: 입학 직후에서 1학기말로 바뀐 모습' : '신입생 평균 역량 지형(입학 직후)' })}
       <p class="meta"><span class="badge amber">가상 예시 데이터</span> 오른쪽 위 '시연 시점'을 바꾸면 학기 진행에 따라 단계별 현황이 바뀝니다.</p></section>
     <section class="panel p-proc"><header class="phead"><h2>운영 프로세스</h2><span class="meta">시스템설계서 3장 순서</span></header><div class="pbody"><ol class="proc">
       ${box(1, '3종 진단', '학생', `${n}명 응시`, '직업기초·핵심·기초학습', 'diagops', st(p === 'start', p !== 'start'))}
@@ -4653,7 +5033,7 @@ const NEXT = {
 function nextBar() {
   const nx = NEXT[state.step];
   if (!nx || !state.user || state.user.role !== 'student') return;
-  $view.insertAdjacentHTML('beforeend', `<nav class="nextbar no-print" aria-label="다음 단계"><span class="meta">다음 단계</span>${nx.map(([g, t], i) => `<button class="btn ${i ? 'ghost' : ''}" data-go="${g}">${t} →</button>`).join('')}</nav>`);
+  $view.insertAdjacentHTML('beforeend', `<nav class="nextbar no-print" aria-label="다음 단계"><span class="meta">다음 단계</span>${nx.map(([g, t], i) => `<button class="btn ${i ? 'ghost' : ''}" data-go="${g}">${t}</button>`).join('')}</nav>`);
 }
 
 function demoFill() {
@@ -4676,6 +5056,7 @@ function render() {
     advisor: renderAdvisor, diagops: renderDiagOps, grades: renderGrades, analysis: renderAnalysis, gain: renderGain, itembank: renderItemBank, forms: renderForms, settings: renderSettings, notify: renderNotify, auditlog: renderAudit, axkpi: renderAxKpi, specmap: renderSpecMap, report: renderReport, ask: renderAsk, itemqa: renderItemQA, result: renderResult };
   (R[state.step] || renderResult)();
   nextBar();
+  mountTerra($view);
 }
 authInit().then(render);
 </script>
