@@ -1357,6 +1357,21 @@ body.no-demo .demostrip .phase { display: none !important; }
 .p-etck .tt { margin-top: 8px; }
 @media (max-width: 1000px) { .p-etlist, .p-etsec { grid-column: 1 / -1; } .etform { grid-template-columns: 1fr 1fr; } }
 .etform label > input, .etform label > select { width: 100%; min-width: 0; box-sizing: border-box; }
+/* 융합과정 현황: 목록(같은 높이 행) + 상세 */
+.p-mlist { grid-column: span 7; } .p-mdetail { grid-column: span 5; align-self: start; position: sticky; top: 76px; }
+.p-mdetail .mcard { border-radius: var(--radius); }
+.mrows { list-style: none; padding: 0; margin: 0; display: grid; }
+.mrows li + li { border-top: 1px solid var(--line); }
+.mrow { width: 100%; height: 64px; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(90px, 1fr) 5.2em 8.4em; gap: 14px; align-items: center; text-align: left; font: inherit; color: var(--ink); background: none; border: 0; border-radius: 10px; padding: 0 10px; cursor: pointer; }
+.mrow:hover { background: var(--paper); }
+.mrow.on { background: var(--signal-soft); box-shadow: inset 3px 0 0 var(--signal); }
+.mr-name { display: grid; min-width: 0; } .mr-name b { font-weight: 640; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .mr-name .meta { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mrow.mine .mr-name b::after { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--signal); margin-left: 6px; vertical-align: 2px; }
+.mprog.sm { height: 8px; margin: 0; }
+.mr-cr { font-size: 15px; font-weight: 650; font-variant-numeric: tabular-nums; white-space: nowrap; } .mr-cr .meta { font-weight: 400; font-size: 12px; }
+.mrow .mst { justify-self: start; } .mst.st-ok { background: var(--ok-soft); color: var(--ok-ink); }
+@media (max-width: 1000px) { .p-mlist, .p-mdetail { grid-column: 1 / -1; position: static; } }
+@media (max-width: 640px) { .mrow { grid-template-columns: minmax(0, 1fr) auto; height: auto; padding: 10px; row-gap: 6px; } .mrow .mprog.sm { grid-column: 1 / -1; grid-row: 2; } .mr-cr { grid-row: 1; grid-column: 2; } .mrow .mst { grid-column: 1 / -1; } }
 </style>
 </head>
 <body>
@@ -4352,7 +4367,7 @@ const TOUR = [
   { title: '④ 이수 로드맵', text: "고른 교육과정이 학년·학기별 단계로 펼쳐집니다. 층(학과 편성 교양·추천 교양·융합과정·비교과)과 학기 학점, 재진단·디그리 달성 같은 이정표를 한눈에 보고, 고칠 때는 '계획 고치기'에서 끌어 옮깁니다. 아래 졸업 요건 점검은 교양 학점과 직업기초 학점을 기준과 비교합니다.", sel: '.p-pmap', prep: async () => { go('recs'); const la = document.getElementById('rliball'); if (la && /추천 모두/.test(la.textContent)) la.click(); document.getElementById('rbuild').click(); await new Promise(r => setTimeout(r, 300)); } },
   { title: '④ 이번 학기 시간표', text: '이번 학기 계획을 전공 시간표(학사정보시스템 또는 직접 입력)의 빈 시간에 맞춰 확정합니다. 계획한 과목을 먼저 넣고 남는 시간은 목적에 맞는 교양으로 채우며, 수업 사이에는 자기주도 학습을 제안합니다.', sel: '.tt', prep: async () => { go('timetable'); await new Promise(r => setTimeout(r, 50)); document.getElementById('ttdb').click(); await new Promise(r => setTimeout(r, 900)); document.getElementById('ttgo').click(); for (let i = 0; i < 60 && state.ttPend; i++) await new Promise(r => setTimeout(r, 250)); if (state.step === 'timetable') renderTimetable(); } },
   { title: '추천 이유 · 수준별 분반과 정원', text: "과목마다 추천 이유와 내 점수에 맞는 기초·표준·심화 분반, 잔여 석을 보여 줍니다. 권장 분반이 시간 겹침이나 정원 마감이면 다른 분반을 넣고 이유를 밝힙니다.", sel: '.p-ttr', prep: async () => { if (!document.querySelector('.p-ttr')) go('timetable'); const r = document.querySelector('.p-ttr'); if (r) r.scrollIntoView({ block: 'start' }); } },
-  { title: '융합과정 현황', text: '수강 대상인 융합과정마다 나노·마이크로디그리 기준 대비 이수 완료, 수강 중, 계획 학점과 더 들어야 할 과목을 보여 줍니다. 이미 들은 과목이 다른 과정에 겹치면 그 진도에도 반영됩니다.', sel: '.mgrid', prep: async () => go('roadmap') },
+  { title: '융합과정 현황', text: '수강 대상인 융합과정을 진도순으로 한 줄씩 보여 주고, 고른 과정의 구성 과목과 더 들어야 할 과목은 오른쪽에서 봅니다. 나노·마이크로디그리 기준 대비 이수 완료, 수강 중, 계획 학점을 표시합니다. 이미 들은 과목이 다른 과정에 겹치면 그 진도에도 반영됩니다.', sel: '.p-mlist', prep: async () => go('roadmap') },
   { title: '홈 · 이번 주 자기주도 학습', text: '시간표 추천이 제안한 학습을 주마다 표시하고 최근 4주 실천률을 봅니다. 2주 연속 50% 미만이면 지도교수 화면에 상담 권장으로 표시됩니다.', sel: '.p-hck', prep: async () => { go('home'); const d = document.getElementById('ckdemo'); if (d) d.click(); } },
   { title: '학기말 재진단과 성장', text: '학기말에는 같은 능력을 다른 문항(B형)으로 재진단해 같은 척도로 비교합니다. 변화 재생을 누르면 입학 직후부터 영역별 점수가 어떻게 바뀌었는지 레이더로 보여 줍니다.', sel: '.morph', prep: async () => { state.phase = 'end'; if (!(state.history || []).some(h => h.end)) { fillDemo(false, true); state.pendingSnap = false; snapshot(); } go('growth'); await new Promise(r => setTimeout(r, 300)); const p = document.getElementById('mplay'); if (p) p.click(); } },
   { title: '교원 홈 · 지금 할 일', text: '남은 상담, 후속 점검일, 학기 시점별 할 일이 모입니다. 아래 이용 학생 표에서는 진단 결과와 자기주도 실천률을 함께 봅니다. 수준별 분반은 진단 점수로 자동 편성됩니다.', sel: '.p-fw', prep: async () => { await tourLogin('faculty'); state.phase = 'mid'; go('fhome'); } },
@@ -5837,6 +5852,18 @@ function renderRoadmap() {
   const plan = designPlan(), mine = plan.micro;
   const list = CURRICULUM.micro.filter(m => eligible(m, state.dept)).map(m => microProgress(m, plan)).sort((a, b) => (b.m.id === mine) - (a.m.id === mine) || b.score - a.score);
   const started = list.filter(x => x.done + x.now + x.planned > 0);
+  if (!list.some(x => x.m.id === state.mSel)) state.mSel = (mine && list.some(x => x.m.id === mine)) ? mine : (started[0] || list[0] || { m: {} }).m.id;
+  /* 목록: 모든 과정을 같은 높이의 한 줄로(진도 막대·학점·남은 학점), 고른 과정의 구성 과목은 오른쪽 상세에 */
+  const lineOf = x => {
+    const max = Math.max(x.total, ...(x.tiers.map(t => t[0])), 1), pct = v => Math.min(100, v / max * 100);
+    const left = x.goal ? Math.max(0, x.goal[0] - x.done - x.now - x.planned) : null;
+    const status = !x.tiers.length ? '<span class="mst">기준 미정</span>' : left === 0 ? `<span class="mst st-ok">${esc(x.goal[1])} 충족 예상</span>` : `<span class="mst">${esc(x.goal[1])}까지 ${left}학점</span>`;
+    return `<li><button class="mrow ${x.m.id === state.mSel ? 'on' : ''} ${x.m.id === mine ? 'mine' : ''}" data-msel="${x.m.id}" aria-pressed="${x.m.id === state.mSel}">
+      <span class="mr-name"><b>${esc(x.m.name)}</b><span class="meta">${esc(x.m.kind === '교내' ? x.m.tier : x.m.school || x.m.kind)}${x.m.id === mine ? ' · 목표' : ''} · ${x.rows.length}과목</span></span>
+      <span class="mprog sm">${x.tiers.length ? `<i class="d" style="width:${pct(x.done)}%"></i><i class="n" style="width:${pct(x.now)}%"></i><i class="p" style="width:${pct(x.planned)}%"></i>${x.tiers.map(t => `<b style="left:${pct(t[0])}%"></b>`).join('')}` : ''}</span>
+      <span class="mr-cr">${x.done + x.now + x.planned}<span class="meta">/${x.tiers.length ? x.tiers[x.tiers.length - 1][0] : '-'}학점</span></span>
+      ${status}</button></li>`;
+  };
   const card = x => {
     const max = Math.max(x.total, ...(x.tiers.map(t => t[0])), 1), pct = v => Math.min(100, v / max * 100);
     const next = x.rows.filter(r => r.st.s === 'none').slice(0, 2);
@@ -5846,7 +5873,7 @@ function renderRoadmap() {
       <div class="mprog" aria-label="이수 ${x.done}학점, 수강 중 ${x.now}학점, 계획 ${x.planned}학점"><i class="d" style="width:${pct(x.done)}%"></i><i class="n" style="width:${pct(x.now)}%"></i><i class="p" style="width:${pct(x.planned)}%"></i>${x.tiers.map(t => `<b style="left:${pct(t[0])}%" title="${t[1]} ${t[0]}학점"></b>`).join('')}</div>
       <p class="mline">${x.tiers.length ? x.tiers.map(t => `${t[1]} ${t[0]}학점`).join(' · ') : esc(x.m.cert)} <span class="meta">이수 ${x.done} · 수강 중 ${x.now} · 계획 ${x.planned}학점</span></p>
       <p class="mnext">${!x.tiers.length ? '학점 기준 자료가 없어 진도는 계산하지 않습니다.' : left === 0 && x.goal ? `계획대로 이수하면 <b>${x.goal[1]}</b> 요건을 채웁니다.` : x.goal ? `<b>${x.goal[1]}</b>까지 ${left}학점 더 필요${next.length ? `: ${next.map(r => esc(r.c.n)).join(', ')} 추천` : ''}` : ''}</p>
-      <details class="mdet" ${x.m.id === mine || x.done + x.now + x.planned > 0 ? 'open' : ''}><summary>구성 과목 ${x.rows.length}개 · 계획 없는 과목 ${x.rows.filter(r => r.st.s === 'none').length}개</summary>
+      <details class="mdet" open><summary>구성 과목 ${x.rows.length}개 · 계획 없는 과목 ${x.rows.filter(r => r.st.s === 'none').length}개</summary>
       <ul class="mcourses">${x.rows.map(r => `<li class="st-${r.st.s}"><label class="chk"><input type="checkbox" data-mdone="${esc(r.c.n)}" ${r.st.s === 'done' ? 'checked' : ''} ${r.st.s === 'done' && !(plan.done || {})[r.c.n] ? 'disabled' : ''}> ${esc(r.c.n)}</label><span class="meta">${r.c.cr != null ? r.c.cr + '학점' : '학점 미정'}</span><span class="mst">${r.st.t}</span>${r.st.s === 'none' ? `<button class="linkbtn" data-madd="${x.m.id}|${esc(r.c.n)}">계획에 넣기</button>` : ''}</li>`).join('')}</ul></details>
       ${x.m.id === mine ? '' : `<button class="btn ghost sm" data-mgoal="${x.m.id}">이 과정을 목표로 정하기</button>`}
     </article>`;
@@ -5858,9 +5885,11 @@ function renderRoadmap() {
       <p class="meta">수강 대상인 융합과정마다 나노·마이크로디그리 기준 대비 이수 완료, 수강 중, 계획 학점을 보여 줍니다. 이미 들은 과목이 다른 과정의 구성 과목이면 그 과정 진도에도 반영됩니다. 융합과정은 선택 과정이며, 이수 여부는 학사정보시스템 연동 후 자동으로 반영됩니다(지금은 계획 학기와 직접 표시로 계산).</p>
       <div class="stats"><div class="stat"><b>${list.length}개</b><span>수강 대상 과정</span></div><div class="stat"><b>${mine ? esc(CURRICULUM.micro.find(m => m.id === mine).name) : '없음'}</b><span>목표 과정</span></div><div class="stat"><b>${list.reduce((a, x) => a + x.done, 0)}학점</b><span>융합과정 이수 학점</span></div></div>
       <ul class="mlegend"><li><i class="d"></i>이수 완료</li><li><i class="n"></i>수강 중</li><li><i class="p"></i>계획</li><li><i class="t"></i>인증 기준</li></ul></section>
-    <section class="mgrid">${list.map(card).join('')}</section>
+    ${panelH('p-mlist', '융합과정', `수강 대상 ${list.length}개 · 진도순`, `<ul class="mrows">${list.map(lineOf).join('')}</ul>`)}
+    <section class="p-mdetail">${card(list.find(x => x.m.id === state.mSel) || list[0])}</section>
   </div>`;
   const P = designPlan();
+  $view.querySelectorAll('[data-msel]').forEach(b => b.onclick = () => { state.mSel = b.dataset.msel; renderRoadmap(); if (innerWidth <= 1000) document.querySelector('.p-mdetail').scrollIntoView({ block: 'start' }); });
   $view.querySelectorAll('[data-mdone]').forEach(c => c.onchange = () => { P.done = { ...(P.done || {}) }; if (c.checked) P.done[c.dataset.mdone] = true; else delete P.done[c.dataset.mdone]; savePlan(); renderRoadmap(); });
   $view.querySelectorAll('[data-mgoal]').forEach(b => b.onclick = () => { const keep = P.items.filter(i => i.kind === 'micro'); setMicro(P, b.dataset.mgoal); keep.forEach(i => { if (!P.items.some(x => x.n === i.n)) P.items.push(i); }); savePlan(); renderRoadmap(); });
   $view.querySelectorAll('[data-madd]').forEach(b => b.onclick = () => {
