@@ -1698,10 +1698,6 @@ i.rdk { display: inline-block; width: 10px; height: 10px; border-radius: 3px; }
 .kit-units li > span:last-child { color: var(--muted); font-size: 12.5px; }
 .kit-units li.done { border-color: var(--signal); background: var(--signal-soft); } .kit-units li.plan { border-style: dashed; border-color: var(--signal); }
 .kit-sheet h3 { margin: 18px 0 8px; font-size: 15px; }
-.panel.p-nodiag { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px 32px; padding: 24px 28px; border-color: var(--signal); }
-.p-nodiag > div:first-child { max-width: 62em; } .p-nodiag .eyebrow { margin: 0; } .p-nodiag .summary { font-size: 21px; line-height: 1.35; margin: 6px 0 8px; } .p-nodiag .meta { margin: 0; }
-.p-nodiag .actions { margin: 0; }
-@media (max-width: 700px) { .panel.p-nodiag { grid-template-columns: 1fr; padding: 20px; } }
 .dbpeek { background: var(--signal-soft); border-radius: 12px; padding: 12px 14px; max-width: 46em; } .dbpeek b { margin-right: 8px; }
 </style>
 </head>
@@ -5950,10 +5946,8 @@ function renderTimetable() {
   const row = b => `<li class="rrow k-${b.kind}"><div class="rr-main"><b>${esc(b.n)}</b><span class="meta">${b.kind === 'nc' ? esc(b.host || '비교과') : `${SEC_NAME[b.lv]} · ${b.cr}학점`} · ${slotText(b.d == null ? null : b)}</span></div>
       <div class="rr-why">${b.why.map(w => chip(w)).join('')}${b.kind === 'rec' || b.kind === 'base' ? chip(b.avg == null ? SEC_NAME[b.lv] : b.levelFit ? `${SEC_NAME[b.lv]}: 연계 능력 평균 ${b.avg}점` : `권장 ${SEC_NAME[b.want]}(평균 ${b.avg}점)이 ${b.wantWhy} ${SEC_NAME[b.lv]}`, b.levelFit ? 'lv' : 'warn') : ''}${b.scopeTxt ? chip(`${b.scopeTxt} 전용 분반`, 'lv') : ''}${b.kind === 'rec' ? chip(b.seats <= 3 ? `잔여 ${b.seats}석 · 서둘러 신청` : `잔여 ${b.seats}/${b.cap}석`, b.seats <= 3 ? 'warn' : '') : ''}${b.prefMiss ? chip('선호 조건과 다름', 'warn') : ''}</div>
       ${b.ai ? `<p class="rr-ai">${esc(b.ai)}</p>` : ''}</li>`;
-  $view.innerHTML = `${hasDiag() ? planModeHtml('timetable') : ''}
-  <div class="dash-grid tt-grid">${hasDiag() ? '' : `<section class="panel p-nodiag"><div><p class="eyebrow">진단 없이 쓰는 중</p><p class="summary">진단 전에도 이번 학기 시간표는 바로 짤 수 있습니다.</p>
-      <p class="meta">지금은 학과 편성 교양과 시간이 맞는 교양을 표준(중) 분반으로 추천합니다. 3종 진단을 받으면 내 수준에 맞는 분반과 보완할 능력을 채우는 과목까지 추천합니다. 진단은 직업기초(약 7분)부터 하나씩 나눠 받을 수 있습니다.</p></div>
-      <div class="actions"><button class="btn sm" data-go="intro" type="button">진단 받으러 가기</button></div></section>`}
+  $view.innerHTML = `${planModeHtml('timetable')}
+  <div class="dash-grid tt-grid">
     <section class="panel p-sum"><p class="eyebrow">${termName(tt.term)} · ${esc(state.dept)}</p>
       <p class="summary">이번 학기 계획을 전공 시간표의 빈 시간에 맞춰 확정합니다.</p>
       <p class="meta">전공 시간표는 학사정보시스템에서 불러오거나 직접 입력합니다. 이수 계획에서 이번 학기에 넣은 과목을 먼저 배치하고, 남는 시간은 목적·수준별 분반·학점 목표에 맞는 교양으로 채웁니다. 다음 학기 이후는 시간이 정해지지 않아 학기별 계획에서만 다룹니다.</p></section>
@@ -6988,7 +6982,7 @@ function phaseBySchedule() {
 
 /* 역할별 첫 사용 안내(홈 맨 위, 닫으면 다시 안 보임) · 도움말 */
 const ONBOARD = {
-  student: [['이번 학기 시간표', '진단 전에도 전공 시간표 빈 시간에 들을 교양을 바로 추천받습니다.', 'timetable'], ['내 진단', '3종 진단을 받습니다(약 20분, 하나씩 나눠 받기 가능). 결과에서 강점과 보완할 능력을 봅니다.', 'intro'], ['내 설계', '목표 직무 → 차이 분석 → 추천 교육과정 → 이수 계획·이번 학기 시간표 순서로 설계합니다.', 'career'], ['홈', '지금 할 일과 비교과 개설 알림을 여기서 확인합니다.', 'home']],
+  student: [['내 진단', '3종 진단을 받습니다(약 20분, 하나씩 나눠 받기 가능). 결과에서 강점과 보완할 능력을 봅니다.', 'intro'], ['내 설계', '목표 직무 → 차이 분석 → 추천 교육과정 → 이수 계획·이번 학기 시간표 순서로 설계합니다.', 'career'], ['홈', '지금 할 일과 비교과 개설 알림을 여기서 확인합니다.', 'home']],
   faculty: [['홈', '지도 학생 상담 알림과 지금 할 일을 확인합니다.', 'fhome'], ['지도 학생 상담', '알림 사유를 보고 상담 준비 카드를 출력한 뒤 상담 결과를 남깁니다.', 'advisor'], ['수준별 분반', '담당 교양의 기초·표준·심화반 배정을 확인합니다.', 'sections']],
   admin: [['홈', '지금 학기 단계에서 할 일과 진행 현황을 봅니다.', 'ahome'], ['학기 초 · 학기 중 · 학기말', '진단 운영, 시간표, 비교과 개설, 향상도 분석을 학기 흐름 순서대로 처리합니다.', 'diagops'], ['운영 설정', '판정 기준과 일정을 정하고, 실제 운영을 시작할 때 운영 모드를 켭니다.', 'settings']]
 };
@@ -7779,7 +7773,7 @@ function renderNav() {
   ensureInboxStaff(); setTimeout(inboxBadge, 0);
   saveState();
 }
-const NEEDS_DIAG = ['portfolio', 'result', 'analysis', 'plan', 'planmap', 'career', 'gap', 'recs', 'roadmap', 'counsel'];
+const NEEDS_DIAG = ['portfolio', 'result', 'analysis', 'plan', 'planmap', 'timetable', 'career', 'gap', 'recs', 'roadmap', 'counsel'];
 function go(step) {
   if (!state.user) { state.step = 'login'; render(); return; }
   if (roleOf(step) !== state.user.role && !['quiz', 'retake', 'needdiag', 'login'].includes(step)) step = HOME[state.user.role];
@@ -7853,14 +7847,13 @@ function renderHome() {
 function renderFirstHome() {
   $view.innerHTML = `<div class="dash-grid">${onbHtml()}${creqHtml()}
     <section class="panel p-sum p-first"><p class="eyebrow">시작하기</p>
-      <p class="summary">${esc(state.user.name)}님, 이번 학기 시간표부터 짜 볼까요?</p>
-      <p class="meta">진단 없이도 전공 시간표의 빈 시간에 들을 교양을 바로 추천받습니다. 진단을 받으면 내 수준에 맞는 분반과 목표 직무 준비도까지 나옵니다.</p>
+      <p class="summary">${esc(state.user.name)}님, 3종 진단부터 시작합니다.</p>
       <dl class="firstfacts">
         <div><dt>왜 하나요</dt><dd>내 강점과 보완할 능력을 알면 교양·융합과정·비교과를 나에게 맞게 고를 수 있습니다.</dd></div>
-        <div><dt>얼마나 걸리나요</dt><dd>모두 20분 정도입니다. 직업기초(약 7분)·핵심·기초학습 세 진단을 하나씩 나눠 받아도 됩니다.</dd></div>
+        <div><dt>얼마나 걸리나요</dt><dd>20분 정도입니다. 직업기초·핵심·기초학습역량을 차례로 답하며, 한 진단씩 나눠 받아도 됩니다.</dd></div>
         <div><dt>성적과 관계있나요</dt><dd>성적이나 평가에 반영되지 않습니다. 결과는 나의 설계와 지도교수 상담에 씁니다.</dd></div>
       </dl>
-      <div class="actions"><button class="btn" data-go="timetable">이번 학기 시간표 짜기</button><button class="btn ghost" data-go="intro">3종 진단 시작하기</button></div>
+      <div class="actions"><button class="btn" data-go="intro">3종 진단 시작하기</button></div>
       <p class="meta">진단을 마치면 홈에 내 역량 그래프, 목표 직무 준비도, 지금 할 일이 나타납니다.</p></section>
   </div>`;
 }
