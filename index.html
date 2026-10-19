@@ -1455,6 +1455,92 @@ details.tech summary { cursor: pointer; color: var(--muted); font-size: 13.5px; 
 @media (max-width: 640px) { .brand-mark { width: 40px; height: 22px; } .brand-text small { font-size: 10px; } .brand-text b { font-size: 14px; } .lockup-mark { width: 96px; height: 52px; } }
 @media (prefers-color-scheme: dark) { .brand-mark, .lockup-mark { filter: brightness(1.5) saturate(1.1); } }
 @media print { .brand-mark, .lockup-mark { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+/* v27: 고도화 */
+.rk { display: inline-block; font-size: 12px; font-weight: 650; padding: 1px 8px; border-radius: 8px; white-space: nowrap; }
+.rk-bad { background: var(--bad-soft); color: var(--bad-ink); } .rk-warn { background: var(--amber-soft); color: var(--warn-ink); } .rk-mild { background: var(--signal-soft); color: var(--signal-deep); } .rk-ok { background: var(--ok-soft); color: var(--ok-ink); }
+.p-rklist, .p-rkdept { grid-column: span 12; }
+.p-rkdept .rkbars { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+.tbl td.wrap:last-child { text-align: left; white-space: normal; }
+.p-rklist th:last-child, .p-evup th:last-child, .p-smncs th:last-child { text-align: left; }
+.glegend .lg.rk-bad, .glegend .lg.rk-warn, .glegend .lg.rk-mild { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.rkbars { display: grid; gap: 8px; }
+@media (max-width: 1000px) { .p-rkdept .rkbars { grid-template-columns: 1fr; } }
+.rkbar { display: grid; grid-template-columns: 9em 1fr 3em; gap: 8px; align-items: center; font-size: 13px; }
+.rktrack { display: flex; height: 10px; background: var(--track); border-radius: 5px; overflow: hidden; }
+.rktrack i { display: block; height: 100%; }
+.rktrack .rk-bad, .lg.rk-bad { background: var(--bad-ink); } .rktrack .rk-warn, .lg.rk-warn { background: var(--amber); } .rktrack .rk-mild, .lg.rk-mild { background: var(--signal); opacity: .55; }
+.p-pf { grid-column: span 12; } .pf-sheet { max-width: 900px; }
+.pf-sheet h2 { margin: 2px 0 4px; font-size: 22px; } .pf-sheet h3 { font-size: 14.5px; margin: 18px 0 6px; }
+.pf-org { margin: 0; font-size: 13px; color: var(--muted); }
+.pf-headline { font-size: 17px; font-weight: 620; margin: 12px 0; padding: 12px 14px; background: var(--signal-soft); border-radius: 10px; color: var(--signal-deep); }
+.pf-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; } .pf-cols ul { margin: 0; padding-left: 1.2em; }
+.pf-tbl td, .pf-tbl th { text-align: center; } .pf-tbl td:first-child { text-align: left; }
+.pf-exp { display: grid; grid-template-columns: 7em 1fr; gap: 6px 12px; margin: 0; font-size: 14px; } .pf-exp dt { color: var(--muted); } .pf-exp dd { margin: 0; }
+.pf-stories { padding-left: 1.2em; display: grid; gap: 10px; } .pf-stories p { margin: 2px 0; font-size: 14px; }
+.pf-src { margin-top: 14px; }
+.badges { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.badges li { display: grid; grid-template-columns: 30px 1fr auto; gap: 10px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; }
+.badges li.ok { border-color: var(--signal); background: var(--signal-soft); }
+.badges p { margin: 2px 0 0; }
+.bdg { width: 28px; height: 28px; border-radius: 50%; border: 2px dashed var(--line-strong); display: grid; place-items: center; font-weight: 700; color: #fff; }
+.badges li.ok .bdg { border: 0; background: var(--signal); }
+#certbox .cert { margin-top: 12px; } .cert-url { word-break: break-all; font-size: 11px; }
+.cert-qr img, .cert-qr canvas { width: 88px; height: 88px; }
+.verify { max-width: 560px; margin: 40px auto; } .verify .lform { display: flex; gap: 8px; margin: 16px 0; } .verify input { flex: 1; font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--panel); color: var(--ink); }
+.vok, .vno { padding: 16px 18px; border-radius: 14px; border: 1px solid var(--line); background: var(--panel); }
+.vbadge { font-weight: 700; font-size: 17px; margin: 0 0 10px; } .vbadge.ok { color: var(--ok-ink); } .vbadge.no { color: var(--bad-ink); }
+.vok dl { display: grid; grid-template-columns: 5em 1fr; gap: 6px 12px; margin: 0; } .vok dt { color: var(--muted); } .vok dd { margin: 0; font-weight: 600; }
+.p-smncs { grid-column: span 12; }
+.ucover { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 6px; }
+.ucover li { display: grid; gap: 1px; padding: 8px 12px; border-radius: 10px; background: var(--paper); border-left: 3px solid var(--line-strong); }
+.ucover li.on { border-left-color: var(--signal); }
+.p-ucover { grid-column: span 12; }
+.uhint { color: var(--signal); font-weight: 600; }
+.p-evq { grid-column: span 6; } .p-evup { grid-column: span 6; } .p-evquad, .p-equad { grid-column: span 12; }
+.evq { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; } .evq label { display: grid; gap: 2px; font-size: 12.5px; color: var(--muted); }
+.evq input { font: inherit; font-size: 14px; padding: 5px 8px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); color: var(--ink); }
+.evscale { grid-column: 1 / -1; display: grid; grid-template-columns: 6em 6em 1fr 9em; gap: 8px; margin-top: 6px; } .evq .actions { grid-column: 1 / -1; }
+.quad { width: 100%; max-width: 640px; height: auto; display: block; }
+.quad .qaxis { stroke: var(--line-strong); stroke-dasharray: 4 3; } .quad .qlab { font-size: 11px; fill: var(--muted); font-weight: 600; } .quad .qaxt { font-size: 10.5px; fill: var(--muted); }
+.qdot { stroke: var(--panel); stroke-width: 1.5; } .q-lib { fill: var(--signal); } .q-mic { fill: var(--amber); } .q-nc { fill: var(--ok); }
+.qgroups { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 10px; } .qgroups div { padding: 10px 12px; background: var(--paper); border-radius: 10px; } .qgroups p { margin: 2px 0 0; }
+.p-ddarea, .p-ddjob, .p-ddfix { grid-column: span 12; }
+.p-ddarea .ddbars { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+.p-ddfix td:last-child, .p-ddfix th:last-child, .p-ddjob td:last-child, .p-ddjob th:last-child { text-align: left; }
+.ddbars { display: grid; gap: 8px; } .ddbar { display: grid; grid-template-columns: 5em 1fr 6.5em; gap: 8px; align-items: center; font-size: 13px; }
+.ddtrack { position: relative; height: 12px; background: var(--track); border-radius: 6px; } .ddtrack i { display: block; height: 100%; background: var(--signal); border-radius: 6px; opacity: .8; }
+.ddtrack b { position: absolute; top: -3px; width: 2px; height: 18px; background: var(--ink); }
+.neg { color: var(--bad-ink); } .pos { color: var(--ok-ink); }
+.bar.sm { display: inline-block; width: 70px; height: 7px; vertical-align: middle; }
+@media (max-width: 1000px) { .p-ddarea .ddbars { grid-template-columns: 1fr; } .p-rklist, .p-rkdept, .p-pf, .p-badge, .p-evq, .p-evup, .p-ddarea, .p-ddjob { grid-column: 1 / -1; } .qgroups, .pf-cols, .evq { grid-template-columns: 1fr 1fr; } .evscale { grid-template-columns: 1fr 1fr; } }
+/* v28: 과정 보기 */
+.rinfo { margin: 4px 0 2px 28px; font-size: 13.5px; }
+.rinfo summary { cursor: pointer; color: var(--signal); font-size: 13px; width: max-content; }
+.rinfo-body { margin-top: 6px; padding: 10px 12px; background: var(--paper); border-radius: 10px; }
+.rinfo-body p { margin: 0 0 6px; } .rinfo-body ul { margin: 0 0 6px; padding-left: 1.2em; }
+.rinfo-dl { display: grid; grid-template-columns: 5.5em 1fr; gap: 3px 10px; margin: 6px 0; } .rinfo-dl dt { color: var(--muted); } .rinfo-dl dd { margin: 0; }
+.rinfo-courses li { margin-bottom: 2px; }
+.ncform textarea { font: inherit; font-size: 14px; color: var(--ink); background: var(--panel); border: 1px solid var(--line-strong); border-radius: 8px; padding: 6px 8px; resize: vertical; }
+/* v29: 줄바꿈 정리 — 끝줄에 한두 어절만 남지 않게, 넓은 곳에서 글 폭을 과하게 묶지 않게 */
+p, .lede, .fine { text-wrap: pretty; }
+li, dd, dt, td, th, label, figcaption, summary, .meta, .jobcard span, .chip, .badge { text-wrap: balance; }
+h1, h2, h3, .summary, .pf-headline, .vbadge, .empty-state .lede { text-wrap: balance; }
+.lede { max-width: 46em; } .login-intro .lede { max-width: 40em; }
+.facts { max-width: 56em; }
+.qtext { max-width: 36em; }
+.summary { max-width: 32em; } .p-sum .summary { max-width: 34em; }
+.prose p, .tips, .rec, .recsub, .micro, .road, .fine, .terra figcaption, .cmpwrap, .plan { max-width: 70em; }
+.panel .tips, .panel .prose p, .panel .rec, .panel .recsub, .panel .fine, .panel .tbl, .panel .micro, .panel .road, .panel .cmpwrap, .panel .plan { max-width: none; }
+.tbl { max-width: 72em; }
+.p-sum > .meta, .p-sum > p:not(.summary):not(.eyebrow) { max-width: 70em; }
+/* v30: 둘러보기 고르기 */
+.tourpick { position: fixed; inset: 0; z-index: 85; background: rgba(16, 21, 29, .45); display: grid; place-items: center; padding: 16px; }
+.tp-in { width: min(820px, 100%); max-height: 90vh; overflow-y: auto; background: var(--panel); border-radius: 16px; padding: 22px 24px 26px; box-shadow: 0 20px 50px rgba(16, 21, 29, .25); }
+.tp-in h3 { font-size: 14.5px; margin: 18px 0 8px; }
+.tp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-top: 10px; }
+.tpk { display: grid; gap: 4px; text-align: left; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer; }
+.tpk:hover, .tpk:focus-visible { border-color: var(--signal); box-shadow: inset 0 0 0 1px var(--signal); }
+.tpk b { font-size: 15.5px; } .tpk-n { font-size: 12.5px; color: var(--signal); font-weight: 600; }
 </style>
 </head>
 <body>
@@ -3234,9 +3320,9 @@ async function fillRealStudents(boxId) {
   const rows = (r.data && r.data.students) || [];
   const why = x => { const r = [], g = x.n >= 2 && x.first && x.last ? mean(x.last.vals) - mean(x.first.vals) : null; if (x.last && x.last.verdict === '재실시') r.push('재실시 판정'); if (g !== null && g < ((state.alertStd || {}).drop || 0)) r.push('향상도 기준 미만'); if (x.tt && x.tt.lowStreak >= 2) r.push('자기주도 실천 저조'); return r; };
   const flagged = rows.filter(x => why(x).length);
-  box.innerHTML = rows.length ? `<p class="realsum">${flagged.length ? `실제 이용 학생 중 <b>${flagged.length}명</b>이 상담 권장 대상입니다: ${flagged.slice(0, 5).map(x => `${esc(x.name)}(${why(x).join('·')})`).join(', ')}` : '실제 이용 학생 중 상담 권장 대상은 없습니다.'}</p><div class="scrollx"><table class="tbl"><thead><tr><th>학번</th><th>이름</th><th>학과</th><th>진단</th><th>최근 결과</th><th>향상도</th><th>신뢰성</th><th>이수 계획</th><th>자기주도 실천</th><th class="no-print">상담</th></tr></thead><tbody>${rows.map(x => {
+  box.innerHTML = rows.length ? `<p class="realsum">${flagged.length ? `실제 이용 학생 중 <b>${flagged.length}명</b>이 상담 권장 대상입니다: ${flagged.slice(0, 5).map(x => `${esc(x.name)}(${why(x).join('·')})`).join(', ')}` : '실제 이용 학생 중 상담 권장 대상은 없습니다.'}</p><div class="scrollx"><table class="tbl"><thead><tr><th>학번</th><th>이름</th><th>학과</th><th>진단</th><th>최근 결과</th><th>향상도</th><th>신뢰성</th><th>이수 계획</th><th>자기주도 실천</th><th>조기 경보</th><th class="no-print">상담</th></tr></thead><tbody>${rows.map(x => {
     const g = x.n >= 2 && x.first && x.last ? mean(x.last.vals) - mean(x.first.vals) : null;
-    return `<tr><td>${x.no.slice(0, 4)}****</td><td>${esc(x.name)}</td><td>${esc(x.dept)}</td><td>${x.n}회${x.inProgress ? ' · <span class="meta">응시 중</span>' : ''}</td><td>${x.last ? `${Math.round(mean(x.last.vals))}점 <span class="meta">${x.last.label}</span>` : '-'}</td><td class="${g !== null && g < ((state.alertStd || {}).drop || 0) ? 'low' : ''}">${g === null ? '-' : (g > 0 ? '+' : '') + g.toFixed(1)}</td><td>${x.last ? x.last.verdict : '-'}</td><td>${x.plan ? x.plan + '과목' : '없음'}</td><td class="${x.tt && x.tt.lowStreak >= 2 ? 'low' : ''}">${x.tt && x.tt.rate != null ? `${x.tt.rate}%${x.tt.lowStreak >= 2 ? ' · 상담 권장' : ''}` : '-'}</td><td class="no-print">${creqCell(x)}</td></tr>`;
+    return `<tr><td>${x.no.slice(0, 4)}****</td><td>${esc(x.name)}</td><td>${esc(x.dept)}</td><td>${x.n}회${x.inProgress ? ' · <span class="meta">응시 중</span>' : ''}</td><td>${x.last ? `${Math.round(mean(x.last.vals))}점 <span class="meta">${x.last.label}</span>` : '-'}</td><td class="${g !== null && g < ((state.alertStd || {}).drop || 0) ? 'low' : ''}">${g === null ? '-' : (g > 0 ? '+' : '') + g.toFixed(1)}</td><td>${x.last ? x.last.verdict : '-'}</td><td>${x.plan ? x.plan + '과목' : '없음'}</td><td class="${x.tt && x.tt.lowStreak >= 2 ? 'low' : ''}">${x.tt && x.tt.rate != null ? `${x.tt.rate}%${x.tt.lowStreak >= 2 ? ' · 상담 권장' : ''}` : '-'}</td><td>${(rk => `${riskChip(rk.score)}${rk.why.length ? `<br><span class="meta">${rk.why.join(' · ')}</span>` : ''}`)(riskOfReal(x))}</td><td class="no-print">${creqCell(x)}</td></tr>`;
   }).join('')}</tbody></table></div><div id="creqbox"></div><p class="meta">${state.user.role === 'faculty' ? `${esc(state.dept)} 학생만 보입니다. ` : ''}열람 기록이 남습니다. '상담 요청'을 누르면 희망 일시 후보를 보내고, 학생이 고른 일시가 이 표에 표시됩니다.</p>` : `<p class="meta">아직 플랫폼을 이용한 학생이 없습니다.${state.user.role === 'faculty' ? ` (${esc(state.dept)})` : ''}</p>`;
   box.querySelectorAll('[data-creq]').forEach(b => b.onclick = () => {
     const x = rows.find(y => y.no === b.dataset.creq), cb = document.getElementById('creqbox'); cb.innerHTML = creqFormHtml(x);
@@ -3870,6 +3956,7 @@ function renderImpact() {
       ${rows.map(r => `<tr><td class="no-print"><input type="checkbox" class="eag" data-nm="${esc(r.nm)}" ${state.effAgenda.includes(r.nm) ? 'checked' : ''} aria-label="${esc(r.nm)} 안건에 담기"></td><td>${r.kind}</td><td><b>${r.nm}</b></td><td class="meta">${r.link}</td><td>${r.n}</td><td>${sgn(r.naive)}</td><td><b>${sgn(r.eff)}</b> (±${r.ci.toFixed(1)})</td><td>${r.es.toFixed(2)}</td><td>${r.het ? `${sgn(r.het.low)} / ${sgn(r.het.other)}` : '-'}</td><td>${r.verdict}</td><td class="${decCls[r.decision]}">${r.decision}</td></tr>`).join('')}</tbody></table></div>
       <p class="meta" style="margin-top:6px">판정: 이수 ${EFF_N}명 미만은 표본 부족, 95% 구간 전체가 0보다 크고 효과가 ${EFF_MIN}점 이상이면 효과 뚜렷, 효과가 ${EFF_MIN}점 미만이면서 95% 구간이 0을 포함하면 효과 미미. 개편 판단은 같은 구분 안의 이수 인원 중앙값(교양 ${E.medN['교양']}명 · 융합 ${E.medN['융합과정']}명 · 비교과 ${E.medN['비교과']}명)으로 규모를 나눕니다. '입학 직후 하 / 그 외'는 처음 점수가 40점 미만인 학생과 그 외 학생에서의 효과로, 수준별 분반 편성에 씁니다.</p>
       <div class="actions no-print"><button class="btn" id="eagenda">선택한 ${state.effAgenda.length}개를 위원회 안건으로</button><button class="btn ghost" id="ecsv">효과성 분석표 CSV</button></div>`)}
+    ${panelH('p-equad', '효과 × 강의 만족도', '강의평가 연계', evalQuadHtml(true))}
     <section class="panel p-more no-print"><button class="btn ghost" id="emore" type="button" aria-expanded="${!!state.effMore}">${state.effMore ? '보조 분석 접기' : '보조 분석 펼치기 · 이수량별 효과와 해석 주의점'}</button></section>
     ${panelH('p-edose', '이수가 많을수록 더 오르는가', '하위능력별 관련 과목·융합과정 이수 수', `${E.dose.map(d => `<div class="sector wide-label"><span>${d.c === 3 ? '3개 이상' : d.c + '개'} 이수한 능력</span><div class="bar"><b style="width:${Math.max(0, d.m) / maxD * 100}%"></b></div><span class="lv">${sgn(d.m)}점</span></div>`).join('')}
       <p class="meta" style="margin-top:8px">'0개'는 이수 없이 오른 정도(시간에 따른 성장, 평균으로 돌아가는 현상)입니다. 이수 효과는 이 값을 넘는 부분입니다.</p>`)}
@@ -4204,7 +4291,7 @@ async function aiFetch(op, body) {
    로그인할 때 한 번 불러오고, 바꿀 때마다 저장합니다.
    ====================================================================== */
 const STORE = { user: {}, org: {}, pending: 0, failed: false };
-const USER_KEYS = ['hist', 'seen', 'plan', 'progress', 'chat', 'tt', 'creq'], ORG_KEYS = ['bank', 'settings', 'counsel', 'grades', 'notify_tpl', 'audit', 'outbox', 'catalog'];
+const USER_KEYS = ['hist', 'seen', 'plan', 'progress', 'chat', 'tt', 'creq'], ORG_KEYS = ['bank', 'settings', 'counsel', 'grades', 'notify_tpl', 'audit', 'outbox', 'catalog', 'specs', 'mapping', 'evals', 'ncsmap'];
 const localKey = (scope, key) => (scope === 'org' ? `store:org:${key}` : `store:u:${state.user ? state.user.no || state.user.role : 'guest'}:${key}`);
 async function storeLoad() {
   STORE.user = {}; STORE.org = {}; STORE.failed = false;
@@ -4541,7 +4628,7 @@ async function renderAxKpi() {
 /* ======================================================================
    ⑤ 심사위원 시연 투어: 학생 → 교원 → 관리자 흐름을 자동으로 안내
    ====================================================================== */
-const TOUR = [
+const TOUR_OVERVIEW = [
   { title: '대학 생활 설계 플랫폼', text: '학생은 3종 진단으로 내 역량을 확인하고, 전공 시간표의 빈 시간에 맞춰 교양·융합·비교과를 골라 학기별로 설계합니다. 교원과 관리자는 같은 데이터로 상담, 수준별 분반, 교육과정 개선을 합니다. 그림은 직업기초 7영역 점수를 보여 주는 역량 레이더입니다.', sel: '.login-intro' },
   { title: '로그인', text: '처음에는 학번+생년월일로 본인을 확인하고 이메일을 등록합니다. 다음부터는 이메일 인증번호로 로그인합니다. 투어에서는 가상 학생으로 바로 들어갑니다.', sel: '.login-card' },
   { title: '학생 홈 · 지금 할 일', text: "메뉴는 홈·내 진단·내 설계·상담 네 가지입니다. 홈에는 지금 할 일이 중요도 순으로 쌓이고, 누르면 그 화면으로 갑니다. 화면 위에는 현재 위치가 표시되고, Ctrl+K로 어느 화면이든 이름으로 찾아갈 수 있습니다.", sel: '.p-hal', prep: async () => { await tourLogin('student', '20261001'); state.phase = 'start'; fillDemo(); state.pendingSnap = true; go('result'); go('home'); } },
@@ -4556,23 +4643,27 @@ const TOUR = [
   { title: '융합과정 현황', text: '수강 대상인 융합과정을 진도순으로 한 줄씩 보여 주고, 고른 과정의 구성 과목과 더 들어야 할 과목은 오른쪽에서 봅니다. 나노·마이크로디그리 기준 대비 이수 완료, 수강 중, 계획 학점을 표시합니다. 이미 들은 과목이 다른 과정에 겹치면 그 진도에도 반영됩니다.', sel: '.p-mlist', prep: async () => go('roadmap') },
   { title: '홈 · 이번 주 자기주도 학습', text: '시간표 추천이 제안한 학습을 주마다 표시하고 최근 4주 실천률을 봅니다. 2주 연속 50% 미만이면 지도교수 화면에 상담 권장으로 표시됩니다.', sel: '.p-hck', prep: async () => { go('home'); const d = document.getElementById('ckdemo'); if (d) d.click(); } },
   { title: '학기말 재진단과 성장', text: '학기말에는 같은 능력을 다른 문항(B형)으로 재진단해 같은 척도로 비교합니다. 변화 재생을 누르면 입학 직후부터 영역별 점수가 어떻게 바뀌었는지 레이더로 보여 줍니다.', sel: '.morph', prep: async () => { state.phase = 'end'; if (!(state.history || []).some(h => h.end)) { fillDemo(false, true); state.pendingSnap = false; snapshot(); } go('growth'); await new Promise(r => setTimeout(r, 300)); const p = document.getElementById('mplay'); if (p) p.click(); } },
+  { title: '성장 포트폴리오', text: '진단 변화, 이수 과목, 비교과, 자기주도 실천을 한 장으로 모으고, AI가 자기소개서·면접 소재를 씁니다. 인쇄하거나 PDF로 저장해 진로 상담과 취업 준비에 씁니다.', sel: '.p-pf', prep: async () => go('portfolio') },
   { title: '교원 홈 · 지금 할 일', text: '남은 상담, 후속 점검일, 학기 시점별 할 일이 모입니다. 아래 이용 학생 표에서는 진단 결과와 자기주도 실천률을 함께 봅니다. 수준별 분반은 진단 점수로 자동 편성됩니다.', sel: '.p-fw', prep: async () => { await tourLogin('faculty'); state.phase = 'mid'; go('fhome'); } },
   { title: '교원 · 상담 준비 카드', text: '향상도가 기준에 못 미치거나 낮은 수준이 이어지는 학생을 지도교수에게 알리고, 상담 질문과 연계할 과목까지 준비해 줍니다. 상담 후 합의한 행동과 후속 점검일을 기록합니다.', sel: '.prep', prep: async () => go('advisor') },
+  { title: '교원 · 학과 개선 현황', text: '소속 학과의 영역별 역량을 대학 평균과 비교하고, 학과가 고른 직업별 직무 준비도와 효과·만족도가 낮은 교과목을 봅니다. 학생 표의 조기 경보 열에는 실제 이용 학생의 위험도와 사유가 나옵니다.', sel: '.p-ddjob', prep: async () => go('fdept') },
   { title: '관리자 홈 · 지금 할 일', text: '관리자 메뉴는 학기 흐름(학기 초 → 학기 중 → 학기말 → 교육과정 개선) 순서입니다. 홈에는 시점별로 할 일(안내 메일, 미연동 자료, 점검 필요 문항, 매핑 승인)이 모입니다.', sel: '.p-todo', prep: async () => { await tourLogin('admin'); state.phase = 'start'; go('ahome'); } },
   { title: '학기 초 · 전공 시간표', text: '학과마다 미리 편성된 전공 교과목 시간표를 학기별로 등록·수정·삭제합니다. 시간이 겹치면 표시하고, CSV로 한꺼번에 올릴 수도 있습니다. 학생 시간표 추천은 이 시간표의 빈 시간을 기준으로 합니다.', sel: '.p-mtlist', prep: async () => { go('majortt'); const d = document.getElementById('mtdemo'); if (d) d.click(); } },
   { title: '학기 중 · 비교과 개설과 수강 알림', text: '비교과는 해마다 개설 여부와 시기가 달라 학생 계획·시간표에 넣지 않습니다. 관리자가 연계 역량, 3-IN 단계, 신청·운영 기간, 정원, 대상을 넣어 개설을 등록하면, 관심 등록했거나 연계 역량이 부족한 학생의 홈에 신청 안내가 뜹니다. 해마다 반복되는 프로그램은 다음 해로 복사합니다.', sel: '.p-nclist', prep: async () => { go('ncopen'); const d = document.getElementById('ncdemo'); if (d) d.click(); } },
+  { title: '학기 중 · 이탈·부진 조기 경보', text: '진단 재실시, 향상도 하락, 낮은 수준 반복, 계획·비교과 미참여, 상담 무응답 같은 신호를 점수로 더해 위험·경고·주의 학생을 찾고, 사유를 함께 보여 줍니다.', sel: '.p-rkdept', prep: async () => go('risk') },
   { title: '학기 초 · 교양·융합 시간표', text: '교양과 융합과정 분반을 공통 또는 학과·학년·반 전용으로 배치합니다. 대상별 점검에서 그 반의 전공 시간표 위에 들을 수 있는 분반을 겹쳐 보고, 전공과 겹치는 분반을 찾아 고칩니다. 학생 추천은 자기에게 열린 분반만 씁니다.', sel: '.p-etck', prep: async () => go('electt') },
   { title: '학기 초 · 학사·수강편람 연동', text: '학사정보시스템 API를 연결하거나, 그 전에는 수강편람(분반·시간·정원)과 전공 시간표를 CSV로 올립니다. 올린 자료는 학생 시간표 추천에 바로 쓰입니다.', sel: '.intup', prep: async () => go('integration') },
   { title: '학기 초 · 문항 분석과 AI 고도화', text: "예비 시행 응답으로 난이도·변별도·신뢰도를 계산해 고칠 문항을 고릅니다. 'AI 고도화로'를 누르면 같은 능력을 재는 평행 문항 초안을 만들어 검토 후 학기말 B형에 넣습니다.", sel: '.p-qabad', prep: async () => go('itemqa') },
   { title: '학기말 · 교육과정 효과성', text: '교양·융합과정·비교과마다 입학 직후 점수를 맞춘 보정 효과를 구하고 유지·확대·개선·재설계 판단을 붙입니다. 역량 향상도와 AI 데이터 비서도 같은 화면에서 봅니다.', sel: '.p-escat', prep: async () => { state.phase = 'end'; go('impact'); } },
-  { title: '교육과정 개선 · 역량 매핑', text: '교과목 명세서를 읽어 AI가 과목이 기르는 능력을 근거 문장과 함께 고르고, 위원회가 승인하면 학생 추천에 반영됩니다.', sel: '.p-smed', prep: async () => go('specmap') },
+  { title: '학기말 · 강의평가 연계', text: '강의평가 문항 10개와 만족도 척도를 정하고 과목별 결과를 올리면, 교육과정 효과와 함께 네 칸(유지·운영 개선·내용 개선·재설계)으로 나눠 효과는 있는데 만족도가 낮은 과목까지 찾습니다.', sel: '.p-evq', prep: async () => go('evals') },
+  { title: '교육과정 개선 · 역량 매핑', text: '같은 화면에서 명세서와 NCS 능력단위도 매칭해 학생 차이 분석에 「교과로 채울 수 있는 능력단위」로 보여 줍니다. 교과목 명세서를 읽어 AI가 과목이 기르는 능력을 근거 문장과 함께 고르고, 위원회가 승인하면 학생 추천에 반영됩니다.', sel: '.p-smed', prep: async () => go('specmap') },
   { title: '교육과정 개선 · 위원회 보고서', text: '진단, 향상도, 효과성, 매핑 결과를 위원회 보고서로 정리해 PDF·Word로 내려받습니다. 투어를 마치면 이 계정으로 직접 둘러볼 수 있습니다.', sel: '.p-rdoc', prep: async () => go('report') }
 ];
 async function tourLogout() { await authCall('/api/auth/logout', {}); STORE.user = {}; STORE.org = {}; state.user = null; resetDiag(); useForm('A'); state.history = []; state.seen = {}; state.plan = null; state.chat = []; state.tt = null; state.step = 'login'; render(); }
-async function tourLogin(role, no) {
+async function tourLogin(role, no, duty) {
   if (!role) { await tourLogout(); return; }
   if (state.user) { await authCall('/api/auth/logout', {}); STORE.user = {}; STORE.org = {}; state.user = null; resetDiag(); useForm('A'); state.history = []; state.seen = {}; state.plan = null; state.chat = []; }
-  const r = await authCall(role === 'student' ? '/api/auth/student-demo' : '/api/auth/staff-demo', role === 'student' ? { no } : { role });
+  const r = await authCall(role === 'student' ? '/api/auth/student-demo' : '/api/auth/staff-demo', role === 'student' ? { no } : { role, duty: duty || 'all' });
   if (r.status !== 200) throw new Error(r.data.error || '로그인 실패');
   await enterUser(r.data.user);
 }
@@ -4593,22 +4684,170 @@ async function tourShow(i) {
     if (seen) {
       /* 이미 본 단계로 돌아가면: 그때의 역할로 다시 들어가(필요하면) 그때 화면·시점으로 이동 */
       const curRole = state.user ? state.user.role : null;
-      if (seen.role !== curRole) { if (seen.role) await tourLogin(seen.role, '20261001'); else await tourLogout(); }
+      const curDuty = state.user ? state.user.duty : null;
+      if (seen.role !== curRole || (seen.role === 'admin' && seen.duty !== curDuty)) { if (seen.role) await tourLogin(seen.role, '20261001', seen.duty); else await tourLogout(); }
       state.phase = seen.phase;
       if (seen.role) go(seen.step);
     } else if (s.prep) await s.prep();
-    T.done[T.i] = { step: state.user ? state.step : 'login', role: state.user ? state.user.role : null, phase: state.phase };
+    T.done[T.i] = { step: state.user ? state.step : 'login', role: state.user ? state.user.role : null, duty: state.user ? state.user.duty : null, phase: state.phase };
   } catch (e) { box.innerHTML = `<h2>투어를 계속할 수 없습니다</h2><p class="meta">${esc(e.message)}</p><div class="actions"><button class="btn sm" id="tend">끝내기</button></div>`; document.getElementById('tend').onclick = tourEnd; return; }
   await new Promise(r => setTimeout(r, 450));
   tourMark(s.sel);
-  box.innerHTML = `<p class="tour-n">${T.i + 1} / ${TOUR.length} <span class="tour-bar"><i style="width:${(T.i + 1) / TOUR.length * 100}%"></i></span></p><h2>${s.title}</h2><p>${s.text}</p>
+  box.innerHTML = `<p class="tour-n">${T.track && T.track !== 'overview' ? `${TOURS[T.track].t} · ` : ''}${T.i + 1} / ${TOUR.length} <span class="tour-bar"><i style="width:${(T.i + 1) / TOUR.length * 100}%"></i></span></p><h2>${s.title}</h2><p>${s.text}</p>
     <div class="actions"><button class="btn ghost sm" id="tprev" ${T.i ? '' : 'disabled'}>이전</button><button class="btn sm" id="tnext">${T.i === TOUR.length - 1 ? '직접 둘러보기' : '다음'}</button><button class="linkbtn" id="tend">끝내기</button></div>`;
   document.getElementById('tprev').onclick = () => tourShow(T.i - 1);
   document.getElementById('tnext').onclick = () => (T.i === TOUR.length - 1 ? tourEnd() : tourShow(T.i + 1));
   document.getElementById('tend').onclick = tourEnd;
   document.getElementById('tnext').focus();
 }
-function tourStart() { state.tour = { i: 0, done: {} }; tourShow(0); }
+/* ---------- 기능 둘러보기: 역할·담당별로 화면의 기능을 하나씩 ---------- */
+const wait = ms => new Promise(r => setTimeout(r, ms));
+async function tourStudentReady(end) {
+  /* 학생 둘러보기용 시연 자료: 진단 결과(필요하면 학기말 재진단까지) */
+  if (!(state.history || []).length) { state.phase = 'start'; fillDemo(); state.pendingSnap = true; go('result'); }
+  if (end && !(state.history || []).some(h => h.end)) { state.phase = 'end'; fillDemo(false, true); state.pendingSnap = false; snapshot(); }
+}
+async function tourPlanReady() {
+  if (loadPlan()) return;
+  state.designMode = 'undecided'; go('recs'); const la = document.getElementById('rliball'); if (la && /추천 모두/.test(la.textContent)) la.click();
+  const b = document.getElementById('rbuild'); if (b) b.click(); await wait(300);
+}
+const S_ = (title, text, sel, prep) => ({ title, text, sel, prep });
+const TOUR_STUDENT = [
+  S_('학생 · 처음 들어오면', "홈 맨 위에 '처음 오셨다면 이 순서로 쓰세요' 안내가 있습니다. 내 진단 → 내 설계 → 홈 순서로 쓰면 되고, 닫아도 오른쪽 위 '도움말'에서 다시 볼 수 있습니다.", '.p-onb', async () => { await tourLogin('student', '20261001'); state.phase = 'start'; await tourStudentReady(); go('home'); }),
+  S_('홈 · 진행 단계', '한 학기 흐름(3종 진단 → 결과·AI 분석 → 이수 계획 → 수강·이수 → 학기말 재진단 → 성장 확인) 중 어디까지 왔는지 보여 줍니다. 단계를 누르면 그 화면으로 갑니다.', '.stepper', async () => go('home')),
+  S_('홈 · 지금 할 일', '할 일을 중요도 순으로 모읍니다. 진단 재실시, 이수 계획 저장, 비교과 개설 알림, 지도교수 상담 요청 같은 일이 생기면 여기에 뜨고, 누르면 해당 화면으로 바로 갑니다.', '.p-hal', async () => go('home')),
+  S_('홈 · 나의 역량', '최근 진단의 직업기초 7영역 점수와 핵심역량·기초학습에서 보완할 축을 요약합니다. 낮은 영역은 노란 막대로 표시됩니다.', '.p-hme', async () => go('home')),
+  S_('홈 · 이수 계획과 진단 기록', '저장한 이수 계획의 과목 수와 이번 학기 학점, 지금까지 받은 진단 기록(회차·날짜·신뢰성)을 봅니다.', '.p-hgr', async () => go('home')),
+  S_('내 진단 · 진단 받기', '직업기초·핵심·기초학습 3종 진단을 한 번에 받습니다(약 20분). 중간에 나가도 자동 저장돼 이어서 할 수 있고, 응답 시간과 일관성으로 성의 있게 답했는지도 함께 봅니다.', '.facts', async () => go('intro')),
+  S_('진단 결과 · 3종 결과', '세 진단의 결과를 한 화면에서 먼저 보여 줍니다. 응답 신뢰성 판정도 함께 나오며, 재실시 판정이면 결과 대신 다시 응시를 안내합니다.', '.p-three', async () => go('result')),
+  S_('진단 결과 · 강점과 보완할 점', '강점 영역과 보완할 영역을 카드로 보여 주고, 보완할 점 안에 바로 들을 수 있는 교과·비교과 추천을 함께 둡니다.', '.p-cards', async () => go('result')),
+  S_('진단 결과 · 자세히 보기', '7영역 다이얼, 영역별 상세 점수, 우리 대학·학과에서의 내 위치, 학과 교양 교과목, 융합과정, 나와 비슷한 학생의 선택을 펼쳐 볼 수 있습니다.', 'details.pd', async () => go('result')),
+  S_('AI 분석 · 종합 해석', '규칙으로 근거 수치를 뽑고 AI가 해석 문장을 씁니다. AI가 연결되지 않으면 같은 형식의 규칙 기반 해석이 나옵니다.', '.p-ai', async () => go('analysis')),
+  S_('AI 분석 · 교차 확인', '3종 진단 결과를 서로 비교하고, 스스로 평가한 점수와 실제 수행 점수의 차이를 확인합니다.', '.p-cross', async () => go('analysis')),
+  S_('AI 분석 · 보완 우선순위와 처방', '무엇부터 보완할지 순서를 정하고, 각 능력마다 들을 교양과 비교과를 처방합니다.', '.p-pri', async () => go('analysis')),
+  S_('AI 분석 · 지도교수 공유 요약', '지도교수가 상담 전에 읽을 짧은 요약입니다. 학생이 확인한 내용만 공유됩니다.', '.p-adv', async () => go('analysis')),
+  S_('내 설계 ① 목표 직무 · 추천', "내 설계는 한 방향으로 진행합니다. 먼저 목표 직무를 정합니다. 맨 위에는 '아직 정하지 않았어요'와 내 학과·진단 점수로 본 추천 직무 3개가 있습니다.", '.p-jfirst', async () => go('career')),
+  S_('목표 직무 · 직접 고르기', '전공 관련 직무(한국고용직업분류 직업), 인천 6대 전략산업 직무, 기타 직무 탭에서 고릅니다. 직무마다 NCS 세분류와 필요 역량, 지금 적합도가 나옵니다.', '.p-jobs', async () => go('career')),
+  S_('② 차이 분석 · 목표와 내 점수', '목표 직무가 요구하는 역량과 내 점수, 지금 계획대로 이수하면 예상되는 점수를 막대로 비교합니다.', '.p-gap', async () => { const J = JOBS.find(j => j.id === 'k1513') || JOBS[0]; state.targetJob = J.id; state.designMode = 'job'; go('gap'); }),
+  S_('차이 분석 · AI 해석', '차이가 큰 능력부터 무엇을 해야 하는지 AI가 우선순위와 이유를 설명합니다.', '.p-gai', async () => go('gap')),
+  S_('차이 분석 · 직무의 능력단위', "목표 직무가 하는 일(NCS 능력단위)과, 그중 우리 대학 교과목으로 배울 수 있는 것을 보여 줍니다(교육과정위원회 승인 매칭 기준).", '.p-ncs', async () => go('gap')),
+  S_('③ 추천 교육과정 · 교양', "차이를 메우는 교양을 추천합니다. 항목마다 '과정 보기'로 교과목 명세서(개요·학습목표·주요 내용)를 확인하고 고릅니다.", '.p-rlib', async () => go('recs')),
+  S_('추천 교육과정 · 융합과정', "목표와 연계된 융합과정(나노·마이크로디그리) 중 하나를 고를 수 있습니다. '과정 보기'에 목적·대상·인증 기준·구성 과목이 있습니다. 듣지 않아도 됩니다.", '.p-rmic', async () => go('recs')),
+  S_('추천 교육과정 · 비교과', '비교과는 해마다 개설 시기가 달라 계획에 넣지 않고 관심 등록만 합니다. 개설되면 홈과 메일로 알려 줍니다.', '.p-rnc', async () => go('recs')),
+  S_('④ 이수 로드맵', '고른 교육과정이 학년·학기별 단계로 펼쳐집니다. 학과 편성 교양, 추천 교양, 융합과정이 층으로 쌓입니다.', '.p-pmap', async () => { await tourPlanReady(); go('planmap'); }),
+  S_('이수 로드맵 · 졸업 요건', '교양 학점, 영역별 학점 등 졸업 요건을 계획 기준으로 미리 점검하고, 부족하면 무엇을 더할지 알려 줍니다.', '.p-grad', async () => go('planmap')),
+  S_('이수 로드맵 · 비교과 알림', '관심 등록한 비교과의 개설 여부와 신청 기간을 보여 주고, 신청했는지 표시합니다.', '.p-ncal', async () => go('planmap')),
+  S_('계획 고치기 · 학기별 계획', '과목을 끌어 다른 학기로 옮기거나 빼면 바로 자동 저장되고, 바로 전 상태로 한 번 되돌릴 수 있습니다.', '.p-board', async () => { await tourPlanReady(); go('plan'); }),
+  S_('계획 고치기 · 과목 더하기', '오른쪽 목록에서 과목을 찾아 원하는 학기에 더합니다. 위쪽 점검표가 보완할 능력과 계획 현황을 같이 보여 줍니다.', '.p-add', async () => go('plan')),
+  S_('이번 학기 시간표 · 전공 시간표', '학사정보시스템(연동 시) 또는 직접 입력으로 전공 시간표를 불러옵니다. 아르바이트 같은 개인 일정은 ‘빈 칸 눌러 개인 일정 넣기’를 켠 뒤 칸을 눌러 막습니다.', '.p-ttg', async () => { go('timetable'); await wait(50); const d = document.getElementById('ttdb'); if (d) { d.click(); await wait(900); } }),
+  S_('시간표 · 추천 조건과 추천', '목적(약점 보완·강점 심화·목표 직무·융합과정)과 학점, 피할 시간을 정하고 추천을 받으면 빈 시간에 들을 교양과 수준별 분반이 들어갑니다.', '.p-ttc', async () => { go('timetable'); const g = document.getElementById('ttgo'); if (g && !(state.tt && state.tt.ran)) { g.click(); for (let i = 0; i < 60 && state.ttPend; i++) await wait(250); if (state.step === 'timetable') renderTimetable(); } }),
+  S_('융합과정 현황', '수강 대상인 융합과정을 진도순으로 보고, 고른 과정의 이수한 과목과 더 들어야 할 과목을 확인합니다. 이수한 과목은 여기서 표시합니다.', '.p-mlist', async () => go('roadmap')),
+  S_('홈 · 이번 주 자기주도 학습', '시간표 추천이 제안한 자기주도 학습을 주마다 실천했는지 표시하고, 최근 4주 실천률을 봅니다. 2주 연속 50% 미만이면 지도교수 상담 화면에 표시됩니다.', '.p-hck', async () => { go('home'); const d = document.getElementById('ckdemo'); if (d) d.click(); }),
+  S_('AI 진로 상담', '진단 결과와 계획을 근거로 AI와 진로를 상담합니다. 상담에 쓰는 내 정보가 오른쪽에 그대로 보이고, 이름·학번은 보내지 않습니다.', '.p-chat', async () => go('counsel')),
+  S_('학기말 재진단과 성장 리포트', '학기말에 같은 능력을 다른 문항으로 다시 재서 입학 직후와 비교합니다. 영역별 변화와 학기별 수강 과목을 함께 봅니다.', '.morph', async () => { await tourStudentReady(true); go('growth'); await wait(300); const p = document.getElementById('mplay'); if (p) p.click(); }),
+  S_('성장 포트폴리오', "진단 변화·이수·비교과·실천 기록을 한 장으로 모읍니다. 'AI로 문장 다듬기'를 누르면 자기소개서·면접 소재를 써 주고, 인쇄·PDF로 저장할 수 있습니다.", '.p-pf', async () => go('portfolio')),
+  S_('도움말과 용어', "오른쪽 위 '도움말'에는 지금 화면 설명, 사용 순서, 용어 사전이 있습니다. 화면의 점선 밑줄 용어는 올리거나 누르면 뜻이 나옵니다. 'Ctrl K'로 화면 이름을 쳐서 바로 갈 수 있습니다.", '#helpbtn', async () => { state.phase = 'start'; go('home'); })
+];
+const TOUR_FACULTY = [
+  S_('교원 · 홈 요약', '학기 시점, 지도 학생 상담 알림 수와 상담 완료 수, 수준별 분반 대상 교양 수를 한눈에 봅니다.', '.p-sum', async () => { await tourLogin('faculty'); state.phase = 'mid'; go('fhome'); }),
+  S_('교원 홈 · 상담 알림 미리 보기', '향상도가 기준에 못 미치거나 낮은 수준이 이어지는 학생을 알림으로 보여 줍니다(시연에서는 가상 예시 데이터).', '.p-fa', async () => go('fhome')),
+  S_('교원 홈 · 지금 할 일', '남은 상담, 후속 점검일, 학기 시점별 할 일이 모입니다.', '.p-fw', async () => go('fhome')),
+  S_('교원 홈 · 플랫폼 이용 학생', "실제로 플랫폼을 쓰는 지도 학생의 진단 결과, 향상도, 이수 계획, 자기주도 실천, 조기 경보 위험도와 사유가 나옵니다. '상담 요청'으로 희망 일시 후보를 보내면 학생 응답이 이 표에 표시됩니다.", '.p-freal', async () => go('fhome')),
+  S_('지도 학생 상담 · 알림 목록', '알림 사유별로 학생을 고르고, 상담을 마친 학생은 완료로 표시합니다.', '.p-alist', async () => go('advisor')),
+  S_('지도 학생 상담 · 상담 준비 카드', '학생의 강점·보완점, 이수 현황, 비교과 참여를 한 장으로 정리하고, 합의한 보완 활동과 후속 점검일을 기록합니다. 상담 준비 카드는 인쇄할 수 있습니다.', '.p-adet', async () => go('advisor')),
+  S_('수준별 분반 · 기준', '교과목에 연결된 하위능력 점수로 상·중·하 수준을 정해 분반을 나눕니다. 관리자가 교양·융합 시간표에 분반을 배치했으면 그 분반 번호·수준·정원을 그대로 씁니다.', '.p-sum', async () => go('sections')),
+  S_('수준별 분반 · 결과', '분반별 인원과 수준 구성을 보고, 학생 옆 선택 상자로 분반을 옮깁니다. 명단은 CSV로 내려받습니다.', '.p-board', async () => go('sections')),
+  S_('학과 현황 · 영역별 역량', '소속 학과 학생의 7영역 역량을 대학 평균과 비교합니다(10명 이상일 때만 집계).', '.p-ddarea', async () => go('fdept')),
+  S_('학과 현황 · 직무 준비도', '학과가 고른 직업마다 학생들의 평균 적합도와 준비된 학생 비율을 봅니다.', '.p-ddjob', async () => go('fdept')),
+  S_('학과 현황 · 개선할 교과목', '효과성 판정과 강의 만족도로 개선이 필요한 교과목과 제안을 보여 줍니다.', '.p-ddfix', async () => go('fdept'))
+];
+const adm = duty => async () => { await tourLogin('admin', null, duty); state.phase = 'start'; go('ahome'); };
+const TOUR_DIAG = [
+  S_('진단·성과 담당 · 홈', '이 계정은 진단 운영, 문항, 알림, 학점 연계, 성과 분석 메뉴만 보입니다. 홈의 지금 할 일과 운영 프로세스가 학기 시점에 맞춰 바뀝니다.', '.p-todo', adm('diag')),
+  S_('운영 프로세스', '학기 초 → 학기 중 → 학기말 단계별로 무엇을 했고 무엇이 남았는지 봅니다.', '.p-proc', async () => go('ahome')),
+  S_('진단 운영 · 신뢰성 기준', '응답 시간, 일관성 문항, 한쪽으로 몰아 답하기 같은 신뢰성 판정 기준값을 정합니다.', '.p-relstd', async () => go('diagops')),
+  S_('문항 은행 · 현행 문항', '현재 쓰는 문항을 입력하거나 파일로 올리고 목록에서 관리합니다.', '.p-ibin', async () => go('itembank')),
+  S_('문항 은행 · AI 고도화', '문항 하나를 골라 AI가 같은 능력을 재는 평행 문항(학기말 B형) 초안을 만들고, 담당자가 검토해 채택합니다.', '.p-ibed', async () => go('itembank')),
+  S_('문항 분석', '예비 시행 응답으로 난이도·변별도·신뢰도를 계산해 고칠 문항을 찾습니다.', '.p-qabad', async () => go('itemqa')),
+  S_('검사지 구성 · 동등화', 'A형·B형 검사지 설계표와 동등화 결과로 학기 초와 학기말 점수를 같은 척도로 맞춥니다.', '.p-feq', async () => go('forms')),
+  S_('조기 경보 · 학과별 비율', '진단 재실시, 향상도 하락, 낮은 수준 반복, 계획·비교과 미참여 신호를 점수로 더해 학과별 위험·경고·주의 비율을 봅니다.', '.p-rkdept', async () => go('risk')),
+  S_('조기 경보 · 경보 학생', '점수 높은 학생과 사유를 봅니다. 실제 이용 학생의 경보는 교원 화면에도 나옵니다.', '.p-rklist', async () => go('risk')),
+  S_('학점 연계', '학기말 이수 결과(학점) 파일을 검증해 반영하고, 향상도·효과성 분석에 씁니다.', '.p-board', async () => go('grades')),
+  S_('알림 발송 · 종류와 문안', '진단 기간 안내, 미응시 독려, 재진단 안내, 상담 안내를 고르고 문안을 고칩니다. 수신 대상을 미리 보고 보냅니다.', '.p-ned', async () => go('notify')),
+  S_('알림 발송 · 발송함', '보낸 알림의 기록을 봅니다. 메일 발송 설정 전에는 시연 기록으로 남습니다.', '.p-nout', async () => go('notify')),
+  S_('역량 향상도', '입학 직후와 학기말을 비교한 평균 변화와 학생별 분포를 보고, 기준 미만 학생에게 상담 안내를 보냅니다. 통계 지표는 접어 둘 수 있습니다.', '.p-ghist', async () => { state.phase = 'end'; go('gain'); }),
+  S_('교육과정 효과성', '교양·융합과정·비교과마다 입학 직후 점수를 맞춘 보정 효과와 개편 판단을 봅니다.', '.p-etbl', async () => go('impact')),
+  S_('AI 데이터 비서', '"기계공학과에서 디지털 점수가 떨어진 학생은 몇 명?"처럼 물으면 AI가 질의로 바꿔 집계합니다. 개인 데이터는 AI에 보내지 않습니다.', '.p-sum', async () => go('ask')),
+  S_('강의평가 연계', '강의평가 문항과 척도를 정하고 결과를 올려 효과와 만족도를 함께 봅니다.', '.p-evq', async () => go('evals'))
+];
+const TOUR_TT = [
+  S_('시간표·학사 담당 · 홈', '이 계정은 전공 시간표, 교양·융합 시간표, 학사·수강편람 연동 메뉴만 보입니다.', '.p-todo', adm('tt')),
+  S_('전공 시간표 · 학과·학기·반 고르기', '학과, 학기(1-1~3-2), 반을 골라 그 반의 전공 시간표를 관리합니다. CSV로 한꺼번에 올리고 내려받을 수 있습니다.', '.p-mtsel', async () => { go('majortt'); const d = document.getElementById('mtdemo'); if (d) d.click(); }),
+  S_('전공 시간표 · 주간 시간표', '빈 칸을 누르면 그 요일·교시로 추가 양식이 채워집니다. 시간이 겹치는 과목은 표시됩니다.', '.p-mtgrid', async () => go('majortt')),
+  S_('전공 시간표 · 일괄 복사·적용', "'일괄 복사·적용'을 누르면 다른 학기·반 시간표를 통째로 가져오거나, 지금 시간표를 여러 반에 한 번에 적용합니다. 같은 반을 다른 직원이 먼저 고쳤으면 덮어쓰지 않고 알려 줍니다.", '#mtbulk', async () => { go('majortt'); if (!state.mtBulk) { state.mtBulk = true; renderMajorTT(); } }),
+  S_('교양·융합 시간표 · 과목과 분반', '과목을 골라 분반의 학기, 수준, 요일·교시, 정원, 대상(공통 또는 학과·학년·반)을 배치합니다.', '.p-etsec', async () => { state.mtBulk = false; go('electt'); }),
+  S_('교양·융합 시간표 · 학기 복사', '1학기 분반 배치를 2학기로(또는 반대로) 통째로 복사합니다.', '.p-etcopy', async () => go('electt')),
+  S_('교양·융합 시간표 · 대상별 점검', '특정 학과·학년·반의 전공 시간표 위에 들을 수 있는 분반을 겹쳐 보고, 전공과 겹치는 분반을 찾습니다.', '.p-etck', async () => go('electt')),
+  S_('학사·수강편람 연동 · API', '학사정보시스템 API 주소와 인증 방식을 등록하면 전공 시간표와 수강편람이 자동으로 들어옵니다.', '.p-int1', async () => go('integration')),
+  S_('학사·수강편람 연동 · 파일로 올리기', 'API 연결 전에는 수강편람·전공 시간표 파일(CSV)을 양식에 맞춰 올립니다.', '.p-int2', async () => go('integration'))
+];
+const TOUR_NC = [
+  S_('비교과 담당 · 홈', '이 계정은 비교과 개설과 관련 화면만 보입니다.', '.p-todo', adm('nc')),
+  S_('비교과 개설 등록', '프로그램, 과정 개요, 3-IN 단계, 연계 역량, 신청·운영 기간, 정원, 대상 학년·학과를 등록합니다. 학생은 추천 화면의 ‘과정 보기’에서 과정 개요를 보고 관심 등록합니다.', '.p-ncform', async () => go('ncopen')),
+  S_('개설 목록과 개설 안내 메일', "개설 목록에서 상태(신청 전·신청 중·운영 중·종료)를 보고, '관심 학생에게 메일'로 관심 등록한 학생에게 안내를 보냅니다. '다음 해로 복사'로 매년 반복 프로그램을 쉽게 다시 엽니다.", '.p-nclist', async () => { go('ncopen'); const d = document.getElementById('ncdemo'); if (d) d.click(); }),
+  S_('비교과 효과 확인', '교육과정 효과성 화면에서 비교과의 보정 효과와 개편 판단을 함께 봅니다.', '.p-etbl', async () => { state.phase = 'end'; go('impact'); })
+];
+const TOUR_CUR = [
+  S_('교육과정 담당 · 홈', '이 계정은 역량 매핑, 학과별 개선, 교육과정 개선 설계, 위원회, 강의평가 연계 메뉴를 봅니다.', '.p-todo', adm('cur')),
+  S_('역량 매핑 · 과목과 명세서', '교과목 명세서(개요·학습목표·주요 내용)를 올리고, 과목별 매핑 상태(검토 대기·승인)를 봅니다.', '.p-smlist', async () => go('specmap')),
+  S_('역량 매핑 · AI 역량 매핑', 'AI가 명세서 문장을 근거로 과목이 기르는 하위능력을 고르고, 위원회가 채택한 연결만 승인합니다. 승인한 연결은 학생 추천과 분석에 반영됩니다.', '.p-smed', async () => go('specmap')),
+  S_('역량 매핑 · NCS 능력단위 매칭', '같은 명세서로 과목이 가르치는 NCS 능력단위를 근거와 함께 찾습니다. 승인하면 학생 차이 분석에 「교과로 채울 수 있는 능력단위」로 표시됩니다.', '.p-smncs', async () => go('specmap')),
+  S_('학과별 개선 · 영역별 역량', '학과를 골라 영역별 역량을 대학 평균과 비교합니다.', '.p-ddarea', async () => go('deptdash')),
+  S_('학과별 개선 · 직무 준비도와 개선할 교과목', '학과 직업별 준비도와, 효과성 판정·강의 만족도로 개선이 필요한 교과목을 봅니다.', '.p-ddfix', async () => go('deptdash')),
+  S_('개선 설계', '보완이 필요한 하위능력마다 개선안(신설·통합·편성 확대)을 고르고, 편성 학과와 수강 가능 학생이 어떻게 바뀌는지 시뮬레이션합니다.', '.p-gaps', async () => go('studio')),
+  S_('위원회 안건', '개선 설계와 효과성 분석에서 담은 안을 위원회 안건 초안으로 모읍니다.', 'section.block', async () => go('committee')),
+  S_('위원회 보고서', '진단·향상도·효과성·매핑 결과를 보고서로 정리해 PDF·Word로 내려받습니다. 문장은 AI(연결 시) 또는 규칙으로 씁니다.', '.p-rdoc', async () => go('report')),
+  S_('강의평가 연계 · 문항과 척도', '강의평가 문항 10개와 만족도 척도(최저·최고점, 척도 이름, 기준)를 정합니다.', '.p-evq', async () => go('evals')),
+  S_('강의평가 연계 · 효과 × 만족도', '과목별 결과를 올리면 효과와 만족도로 유지·확산, 수업 운영 개선, 내용 개선, 재설계 검토의 네 칸으로 나눕니다.', '.p-evquad', async () => go('evals'))
+];
+const TOUR_OPS = [
+  S_('총괄 · 홈', '총괄 계정은 모든 메뉴를 봅니다. 담당별 계정(진단·시간표·비교과·교육과정)은 맡은 메뉴만 보이고, 서버도 같은 기준으로 저장을 막습니다.', '.p-todo', adm('all')),
+  S_('운영 설정 · 판정 기준', '등급 기준, 응답 신뢰성, 상담 알림, 교육과정 효과성, 개인정보(최소 집계 인원) 기준값을 정합니다. 바뀐 칸은 색으로 표시되고 변경 이력에 남습니다.', '.p-set0', async () => go('settings')),
+  S_('운영 설정 · 졸업 요건과 AI 사용 한도', '교양·비교과 졸업 요건과 AI 월 예산·호출 한도를 정합니다. 한도를 넘으면 규칙 기반으로 바뀝니다.', '.p-set6', async () => go('settings')),
+  S_('운영 설정 · 학기 일정과 운영 모드', "진단·재진단 일정과 예약 알림을 정합니다. 실제 운영을 시작할 때 '운영 모드'를 켜면 시연 장치가 모두 숨겨지고 학기 시점은 일정으로 자동 판단합니다.", '.p-sched', async () => go('settings')),
+  S_('AX 성과', '업무별 연간 소요 시간을 도입 전·후로 비교해 행정 업무 절감 효과를 계산합니다(가정값은 직접 고칠 수 있음).', '.p-axchart', async () => go('axkpi')),
+  S_('변경 이력', '기준값 변경, 학사 자료 저장, 학생 목록 열람, 알림 발송 등 모든 변경과 열람 기록을 봅니다.', '.p-aud', async () => go('auditlog'))
+];
+const TOURS = {
+  overview: { t: '한눈에 보기', d: '학생 → 교원 → 관리자 핵심 기능을 빠르게', who: '처음 보는 분' },
+  student: { t: '학생', d: '진단부터 설계·시간표·포트폴리오까지 화면별로', steps: TOUR_STUDENT, who: '학생' },
+  faculty: { t: '교원', d: '상담 알림·상담 요청·수준별 분반·학과 현황', steps: TOUR_FACULTY, who: '교원' },
+  diag: { t: '진단·성과 담당', d: '진단 운영·문항·조기 경보·알림·성과 분석', steps: TOUR_DIAG, who: '직원' },
+  tt: { t: '시간표·학사 담당', d: '전공·교양·융합 시간표와 학사 연동', steps: TOUR_TT, who: '직원' },
+  nc: { t: '비교과 담당', d: '비교과 개설·과정 개요·안내 메일', steps: TOUR_NC, who: '직원' },
+  cur: { t: '교육과정 담당', d: '역량·NCS 매핑·학과별 개선·위원회·강의평가', steps: TOUR_CUR, who: '직원' },
+  ops: { t: '총괄·운영 설정', d: '기준값·일정·운영 모드·AX 성과·변경 이력', steps: TOUR_OPS, who: '직원' }
+};
+const tourMin = n => Math.max(1, Math.round(n * 0.3));
+function tourPick() {
+  tourPickClose();
+  TOURS.overview.steps = TOUR_OVERVIEW;
+  const grp = w => Object.entries(TOURS).filter(([, v]) => v.who === w).map(([k, v]) => `<button class="tpk" data-track="${k}" type="button"><b>${v.t}</b><span class="meta">${v.d}</span><span class="tpk-n">${v.steps.length}단계 · 약 ${tourMin(v.steps.length)}분</span></button>`).join('');
+  const d = Object.assign(document.createElement('div'), { id: 'tourpick', className: 'tourpick no-print' }); d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', '기능 둘러보기 고르기');
+  d.innerHTML = `<div class="tp-in"><div class="onb-head"><h2>기능 둘러보기</h2><button class="linkbtn" id="tpclose" type="button">닫기</button></div>
+    <p class="meta">보고 싶은 사용자를 고르세요. 화면마다 기능을 하나씩 짚어 가며, 언제든 '이전'으로 돌아가거나 끝낼 수 있습니다. 시연 계정으로 자동 로그인합니다.</p>
+    <div class="tp-grid">${grp('처음 보는 분')}${grp('학생')}${grp('교원')}</div><h3>직원(담당별)</h3><div class="tp-grid">${grp('직원')}</div></div>`;
+  document.body.appendChild(d);
+  document.getElementById('tpclose').onclick = tourPickClose;
+  d.querySelectorAll('[data-track]').forEach(b => b.onclick = () => { tourPickClose(); tourStart(b.dataset.track); });
+  d.querySelector('[data-track]').focus();
+}
+function tourPickClose() { const d = document.getElementById('tourpick'); if (d) d.remove(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.getElementById('tourpick')) tourPickClose(); });
+
+let TOUR = TOUR_OVERVIEW;
+function tourStart(track) { const k = TOURS[track] ? track : 'overview'; TOUR = k === 'overview' ? TOUR_OVERVIEW : TOURS[k].steps; state.tour = { i: 0, done: {}, track: k }; tourShow(0); }
 function tourEnd() {
   state.tour = null;
   document.querySelectorAll('.tour-hl').forEach(e => e.classList.remove('tour-hl'));
@@ -4727,7 +4966,9 @@ function renderSpecMap() {
         ${allSubs.map(sn => { const r = prop.find(x => x.sub === sn); const inBase = base.includes(sn); const on = M[sel] && !draft ? M[sel].subs.includes(sn) : !!r; return `<tr class="${r && !inBase ? 'add' : !r && inBase ? 'del' : ''}"><td><input type="checkbox" class="smchk" value="${sn}" ${on ? 'checked' : ''} aria-label="${sn} 채택"></td><td><b>${sn}</b><br><span class="meta">${AREAS[SUB_AREA[SUBNAMES.indexOf(sn)]].short}</span></td><td>${inBase ? '연결' : '-'}</td><td>${r ? `<span class="badge">${r.role}</span>` : '<span class="meta">근거 없음</span>'}${r && !inBase ? ' <span class="okc">새로 찾음</span>' : ''}</td><td class="meta">${r ? esc(r.evidence) : ''}</td></tr>`; }).join('')}</tbody></table>
         <p class="meta">'새로 찾음'은 과목명만으로는 몰랐던 연결입니다. 근거 없는 기존 연결은 위원회가 유지할지 정합니다.</p>
         <div class="actions no-print"><button class="btn" id="smok">선택한 연결로 승인</button>${M[sel] ? '<button class="linkbtn" id="smreset">승인 취소(과목명 기준으로)</button>' : ''}</div>` : '<p class="meta">아직 매핑하지 않았습니다. \'AI로 역량 매핑\'을 누르세요.</p>'}`)}
+    ${panelH('p-smncs', 'NCS 능력단위 매칭', esc(sel), ncsMatchHtml(sel))}
   </div>`;
+  bindNcsMatch(sel, sp, renderSpecMap);
   $view.querySelectorAll('[data-sm]').forEach(b => b.onclick = () => { state.smSel = b.dataset.sm; state.smMsg = ''; renderSpecMap(); });
   const gen = async n => { const s = specs[n]; let d = await aiMap(n, s); if (!d) d = { rows: specRule(s), src: 'AI 미연결 · 명세서 핵심어 기준 초안' }; state.smDraft[n] = d; return d; };
   document.getElementById('smgen').onclick = async () => { state.smPend = true; renderSpecMap(); await gen(sel); state.smPend = false; renderSpecMap(); };
@@ -5160,7 +5401,7 @@ function renderLogin() {
     <section class="login-intro">
       <div class="lockup"><p class="lockup-org">인하공업전문대학</p><h1>대학 생활 설계 플랫폼</h1></div>
       <p class="lede">3종 진단으로 내 역량을 확인하고, 교양·융합·비교과 교육과정을 추천받아 학기별 이수 계획을 세웁니다. 학기말 재진단으로 성장을 확인합니다.</p>
-      <button class="btn tourbtn no-print" id="tourgo" type="button">3분 둘러보기 <span>학생 → 교원 → 관리자</span></button>
+      <button class="btn tourbtn no-print" id="tourgo" type="button">기능 둘러보기 <span>학생 · 교원 · 직원(담당별)</span></button>
       ${terraHtml({ frames: [[58, 46, 52, 37, 63, 41, 74], [66, 55, 61, 48, 70, 57, 78]], labels: ['입학 직후', '1학기말'], start: 0, avg: true, cap: `예시 학생이 입학 직후에서 1학기말로 성장한 모습입니다. 꼭짓점이 안쪽 주황 띠에 있으면 보완, 바깥 파란 띠에 있으면 높음입니다.`, alt: '예시 학생의 직업기초 7영역 점수 변화' }, 'terra-login')}
       <ol class="cycle-line" aria-label="한 학기 흐름"><li><b>진단</b>3종</li><li><b>계획</b>추천·AI 분석</li><li><b>이수</b>분반·학점</li><li><b>재진단</b>성장 확인</li></ol>
     </section>
@@ -5177,7 +5418,7 @@ function renderLogin() {
   const set = o => { Object.assign(L, o); renderLogin(); };
   const done = async u => { state.login = null; await enterUser(u); state.step = HOME[u.role]; render(); window.scrollTo({ top: 0 }); };
   $view.querySelectorAll('[data-lt]').forEach(b => b.onclick = () => set({ tab: b.dataset.lt, msg: '', err: false }));
-  document.getElementById('tourgo').onclick = tourStart;
+  document.getElementById('tourgo').onclick = tourPick;
   const q = id => document.getElementById(id);
   if (q('tootp')) q('tootp').onclick = () => set({ mode: 'otp', stage: 'email', msg: '', err: false });
   if (q('tofirst')) q('tofirst').onclick = () => set({ mode: 'first', stage: 'id', msg: '', err: false });
@@ -5860,6 +6101,7 @@ function adminTodos() {
 
 /* ---------- 위치 표시: 역할 › 메뉴 › 화면 › 보기, 그리고 이 화면에서 하는 일 ---------- */
 const PAGE_JOB = {
+  portfolio: '진단·이수·비교과·실천 기록을 한 장으로 모으고 자기소개서 소재를 정리합니다.', risk: '이탈·부진 위험 학생을 신호별 점수와 사유로 미리 찾습니다.', evals: '강의평가 문항·척도를 정하고 결과를 교육과정 효과성과 함께 봅니다.', deptdash: '학과별 역량·직무 준비도·개선할 교과목을 한 화면에서 봅니다.', fdept: '소속 학과의 역량·직무 준비도·개선할 교과목을 봅니다.',
   home: '이번 학기에 할 일과 진행 단계를 봅니다.', intro: '직업기초·핵심·기초학습 3종 진단을 받습니다.', result: '3종 진단 결과와 강점·보완점을 봅니다.', analysis: 'AI가 진단 결과를 해석하고 보완 순서를 처방합니다.',
   growth: '입학 직후와 재진단을 비교해 성장을 확인합니다.', plan: '과목을 끌어 옮기거나 더하고 빼며 학기별 계획을 고칩니다.', planmap: '학년·학기별 이수 계획을 단계로 보고 졸업 요건을 점검합니다.', timetable: '이번 학기 계획을 전공 시간표의 빈 시간에 맞춰 확정합니다.', gap: '목표 직무에 필요한 역량과 내 점수의 차이를 AI로 분석합니다.', recs: '차이를 메우는 교양·융합과정·비교과 중 들을 것을 고릅니다.',
   career: 'NCS 기반 목표 직무를 정합니다(미정이면 진단 기반으로).', roadmap: '융합과정별 나노·마이크로디그리 이수 진도를 봅니다.', counsel: '진단 결과와 계획을 근거로 AI와 진로 상담을 합니다.',
@@ -5982,6 +6224,7 @@ function renderGap() {
     ${panelH('p-gap', '목표 역량과 내 점수', T.job ? 'NCS 세분류 기반 필요 역량' : "진단에서 '높음' 미만인 능력", `<div class="glegend meta"><span><i class="lg gt-now"></i>현재</span><span><i class="lg gt-after"></i>지금 계획 이수 후(예상)</span><span><i class="lg gt-target"></i>목표</span></div>${rows}`)}
     ${panelH('p-gai', '차이 분석', aiStatus(key), aiTextHtml(R) + dataPeek(gapData(T), 'AI에 보내는 근거 보기'))}
     ${T.job ? panelH('p-ncs', `${esc(T.job.name)}에서 하는 일`, 'NCS 능력단위', ncsHtml(T.job)) : ''}
+    ${T.job && T.job.nd ? panelH('p-ucover', '교과로 채울 수 있는 능력단위', '명세서 매칭 기준', unitCoverHtml(T.job)) : ''}
   </div>`;
 }
 /* ③ 추천 교육과정: 교양 · 융합과정 · 비교과 모두 선택 — 고른 것만 계획에 */
@@ -6002,11 +6245,12 @@ function renderRecs() {
     <section class="panel p-sum"><p class="eyebrow">설계 3단계 · 목표: ${esc(T.label)}</p>
       <p class="summary">목표와의 차이를 메우는 교육과정을 추천합니다.</p>
       <p class="meta layer">이수 구조: <b>전공</b>·<b>학과 편성 교양</b>(학과가 정함, 자동 ${R.base.length}과목) → <span>추천 교양(선택)</span> → <span>융합과정(선택)</span> → <span>비교과(관심 등록 · 개설 시 알림)</span>. 아래에서 고른 것만 이수 계획에 더해집니다.</p></section>
-    ${panelH('p-rlib', '교양 · 선택', `${S.lib.size}/${R.lib.length}과목 선택`, R.lib.length ? `<p class="meta">차이가 큰 능력을 다루는 교양입니다. 듣고 싶은 과목을 고르세요. <button class="linkbtn" id="rliball" type="button">${S.lib.size === R.lib.length ? '모두 해제' : '추천 모두 선택'}</button></p><ul class="rpick">${R.lib.map(x => `<li><label><input type="checkbox" data-rlib="${esc(x.c.n)}" ${S.lib.has(x.c.n) ? 'checked' : ''}><span><b>${esc(x.c.n)}</b><span class="meta">${esc(shortSub(x.sn))} 차이 ${x.gap}점 · ${esc(x.c.src)} · ${termText(x.c)}</span></span></label></li>`).join('')}</ul>` : '<p class="meta">차이를 메울 추가 교양이 없습니다. 학과 편성 교양만으로 계획합니다.</p>')}
-    ${panelH('p-rmic', '융합과정 · 선택', S.mic ? '1개 선택' : '선택 안 함', `<p class="meta">목표와 연계된 융합과정입니다. 하나만 고를 수 있고, 이수 진도는 '융합과정 현황'에서 봅니다.</p><ul class="rpick"><li><label><input type="radio" name="rmic" value="" ${S.mic ? '' : 'checked'}><span><b>선택하지 않음</b><span class="meta">융합과정은 필수가 아닙니다.</span></span></label></li>${R.mics.map(({ m, hit }) => `<li><label><input type="radio" name="rmic" value="${m.id}" ${S.mic === m.id ? 'checked' : ''}><span><b>${esc(m.name)}</b><span class="meta">${esc(m.cert)}${hit.length ? ` · ${hit.map(shortSub).join('·')} 보완` : ''}${T.job && T.job.micro.includes(m.id) ? ' · 목표 직무 연계' : ''}</span></span></label></li>`).join('')}</ul>`)}
-    ${panelH('p-rnc', '비교과 · 관심 등록', `${S.nc.size}개 등록`, `<p class="meta">진단과 연결된 비교과입니다. 개설 시기가 해마다 달라 계획에 넣지 않고, 개설되면 알려 드립니다.</p><ul class="rpick">${R.ncs.map(p => `<li><label><input type="checkbox" data-rnc="${esc(p.n)}" ${S.nc.has(p.n) ? 'checked' : ''}><span><b>${esc(p.n)}</b><span class="meta">${p.in}-IN ${IN_AXIS[p.in]} · ${esc(p.host)}${p.hit.length ? ` · ${p.hit.map(shortSub).join('·')} 보완` : ''}</span></span></label></li>`).join('')}</ul>`)}
+    ${panelH('p-rlib', '교양 · 선택', `${S.lib.size}/${R.lib.length}과목 선택`, R.lib.length ? `<p class="meta">차이가 큰 능력을 다루는 교양입니다. 듣고 싶은 과목을 고르세요. <button class="linkbtn" id="rliball" type="button">${S.lib.size === R.lib.length ? '모두 해제' : '추천 모두 선택'}</button></p><ul class="rpick">${R.lib.map(x => `<li><label><input type="checkbox" data-rlib="${esc(x.c.n)}" ${S.lib.has(x.c.n) ? 'checked' : ''}><span><b>${esc(x.c.n)}</b><span class="meta">${esc(shortSub(x.sn))} 차이 ${x.gap}점 · ${esc(x.c.src)} · ${termText(x.c)}${unitHint(x.c.n)}</span></span></label>${infoBox('lib:' + x.c.n, libInfo(x.c.n))}</li>`).join('')}</ul>` : '<p class="meta">차이를 메울 추가 교양이 없습니다. 학과 편성 교양만으로 계획합니다.</p>')}
+    ${panelH('p-rmic', '융합과정 · 선택', S.mic ? '1개 선택' : '선택 안 함', `<p class="meta">목표와 연계된 융합과정입니다. 하나만 고를 수 있고, 이수 진도는 '융합과정 현황'에서 봅니다.</p><ul class="rpick"><li><label><input type="radio" name="rmic" value="" ${S.mic ? '' : 'checked'}><span><b>선택하지 않음</b><span class="meta">융합과정은 필수가 아닙니다.</span></span></label></li>${R.mics.map(({ m, hit }) => `<li><label><input type="radio" name="rmic" value="${m.id}" ${S.mic === m.id ? 'checked' : ''}><span><b>${esc(m.name)}</b><span class="meta">${esc(m.cert)}${hit.length ? ` · ${hit.map(shortSub).join('·')} 보완` : ''}${T.job && T.job.micro.includes(m.id) ? ' · 목표 직무 연계' : ''}</span></span></label>${infoBox('mic:' + m.id, micInfo(m))}</li>`).join('')}</ul>`)}
+    ${panelH('p-rnc', '비교과 · 관심 등록', `${S.nc.size}개 등록`, `<p class="meta">진단과 연결된 비교과입니다. 개설 시기가 해마다 달라 계획에 넣지 않고, 개설되면 알려 드립니다.</p><ul class="rpick">${R.ncs.map(p => `<li><label><input type="checkbox" data-rnc="${esc(p.n)}" ${S.nc.has(p.n) ? 'checked' : ''}><span><b>${esc(p.n)}</b><span class="meta">${p.in}-IN ${IN_AXIS[p.in]} · ${esc(p.host)}${p.hit.length ? ` · ${p.hit.map(shortSub).join('·')} 보완` : ''}</span></span></label>${infoBox('nc:' + p.n, ncInfo(p))}</li>`).join('')}</ul>`)}
     <section class="panel p-act"><div class="pbody"><div class="actions no-print"><button class="btn" id="rbuild">고른 교육과정으로 이수 계획 만들기</button><span class="meta" id="rmsg">기존 계획에서 직접 옮기거나 넣은 내용은 새 계획으로 바뀝니다.</span></div></div></section>
   </div>`;
+  bindInfo();
   $view.querySelectorAll('[data-rlib]').forEach(c => c.onchange = () => { c.checked ? S.lib.add(c.dataset.rlib) : S.lib.delete(c.dataset.rlib); renderRecs(); });
   const la = document.getElementById('rliball'); if (la) la.onclick = () => { if (S.lib.size === R.lib.length) S.lib.clear(); else R.lib.forEach(x => S.lib.add(x.c.n)); renderRecs(); };
   $view.querySelectorAll('[data-rnc]').forEach(c => c.onchange = () => { c.checked ? S.nc.add(c.dataset.rnc) : S.nc.delete(c.dataset.rnc); renderRecs(); });
@@ -6316,7 +6560,7 @@ function renderNcOpen() {
   const F = state.ncForm = state.ncForm || (edit ? { ...edit } : { n: NONCURR[0].n, subs: [...NONCURR[0].subs], in: NONCURR[0].in, host: NONCURR[0].host, mode: '대면', applyFrom: todayISO(), applyTo: '', runFrom: '', runTo: '', cap: 30, grade: '전체', dept: '전체', link: '' });
   const yr = todayISO().slice(0, 4), thisYear = list.filter(o => (o.applyFrom || '').startsWith(yr) || (o.runFrom || '').startsWith(yr));
   const subsBox = CURRICULUM.subs.map(s => `<label class="chk ncsub"><input type="checkbox" data-ncsub="${s}" ${F.subs.includes(s) ? 'checked' : ''}> ${shortSub(s)}</label>`).join('');
-  const rows = list.map((o, i) => { const st = ncStatus(o); return `<tr><td><b>${esc(o.n)}</b><br><span class="meta">${esc(o.host || '')} · ${esc(o.mode || '')}</span></td><td>${o.in ? o.in + '-IN' : '-'}</td><td class="wrap">${(o.subs || []).map(shortSub).join('·')}</td><td>${esc(o.applyFrom || '-')} ~ ${esc(o.applyTo || '-')}</td><td>${esc(o.runFrom || '-')}${o.runTo && o.runTo !== o.runFrom ? ` ~ ${esc(o.runTo)}` : ''}</td><td>${o.cap || '-'}명</td><td><span class="ncst ncst-${st.k}">${st.t}</span></td><td>${ncReach(o.subs)}명</td><td><button class="linkbtn" data-ncmail="${i}">관심 학생에게 메일</button> <button class="linkbtn" data-ncedit="${i}">수정</button> <button class="linkbtn" data-nccopy="${i}">다음 해로 복사</button> <button class="linkbtn" data-ncdel="${i}">삭제</button></td></tr>`; }).join('');
+  const rows = list.map((o, i) => { const st = ncStatus(o); return `<tr><td><b>${esc(o.n)}</b><br><span class="meta">${esc(o.host || '')} · ${esc(o.mode || '')}</span>${o.summary ? `<br><span class="meta ncsumt">${esc(o.summary.length > 60 ? o.summary.slice(0, 60) + '…' : o.summary)}</span>` : ''}</td><td>${o.in ? o.in + '-IN' : '-'}</td><td class="wrap">${(o.subs || []).map(shortSub).join('·')}</td><td>${esc(o.applyFrom || '-')} ~ ${esc(o.applyTo || '-')}</td><td>${esc(o.runFrom || '-')}${o.runTo && o.runTo !== o.runFrom ? ` ~ ${esc(o.runTo)}` : ''}</td><td>${o.cap || '-'}명</td><td><span class="ncst ncst-${st.k}">${st.t}</span></td><td>${ncReach(o.subs)}명</td><td><button class="linkbtn" data-ncmail="${i}">관심 학생에게 메일</button> <button class="linkbtn" data-ncedit="${i}">수정</button> <button class="linkbtn" data-nccopy="${i}">다음 해로 복사</button> <button class="linkbtn" data-ncdel="${i}">삭제</button></td></tr>`; }).join('');
   $view.innerHTML = `
   <div class="dash-grid">
     <section class="panel p-sum"><p class="eyebrow">학기 중 · 비교과 개설</p>
@@ -6326,6 +6570,7 @@ function renderNcOpen() {
     ${panelH('p-ncform', edit ? '개설 정보 수정' : '비교과 개설 등록', edit ? esc(edit.n) : '', `<form class="ncform" id="ncf">
       <label class="full">프로그램<select id="ncpick"><option value="">직접 입력(새 프로그램)</option>${NONCURR.map(p => `<option ${p.n === F.n ? 'selected' : ''}>${esc(p.n)}</option>`).join('')}</select></label>
       <label class="full">프로그램명<input id="ncn" required maxlength="40" value="${esc(F.n)}"></label>
+      <label class="full">과정 개요<textarea id="ncsum" rows="3" maxlength="400" placeholder="학생이 신청 전에 볼 내용: 무엇을 하는지, 누구에게 맞는지, 무엇을 얻는지">${esc(F.summary != null ? F.summary : ((NONCURR.find(p => p.n === F.n) || {}).d || ''))}</textarea></label>
       <label>3-IN 단계<select id="ncin">${[1, 2, 3].map(k => `<option value="${k}" ${+F.in === k ? 'selected' : ''}>${k}-IN ${IN_AXIS[k]}</option>`).join('')}</select></label>
       <label>운영 방식<select id="ncmode">${['대면', '온라인', '혼합'].map(m => `<option ${m === F.mode ? 'selected' : ''}>${m}</option>`).join('')}</select></label>
       <label>주관<input id="nchost" maxlength="30" value="${esc(F.host || '')}"></label>
@@ -6343,8 +6588,8 @@ function renderNcOpen() {
     ${panelH('p-nclist', '개설 목록', `${list.length}개`, list.length ? `<div class="scrollx"><table class="tbl nctbl"><thead><tr><th>프로그램</th><th>단계</th><th>연계 역량</th><th>신청 기간</th><th>운영</th><th>정원</th><th>상태</th><th>알림 대상</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` : `<p class="meta">등록된 개설 정보가 없습니다. 왼쪽에서 개설을 등록하세요.</p><button class="btn ghost sm" id="ncdemo" type="button">시연용 개설 예시 채우기</button>`)}
   </div>`;
   const q = id => document.getElementById(id);
-  const read = () => ({ ...F, n: q('ncn').value.trim(), in: +q('ncin').value, mode: q('ncmode').value, host: q('nchost').value.trim(), cap: +q('nccap').value || null, applyFrom: q('ncaf').value, applyTo: q('ncat').value, runFrom: q('ncrf').value, runTo: q('ncrt').value, grade: q('ncgr').value, dept: q('ncdp').value, link: q('nclink').value.trim(), subs: [...$view.querySelectorAll('[data-ncsub]:checked')].map(c => c.dataset.ncsub) });
-  q('ncpick').onchange = e => { const p = NONCURR.find(x => x.n === e.target.value); state.ncForm = p ? { ...read(), n: p.n, subs: [...p.subs], in: p.in, host: p.host } : { ...read(), n: '', subs: [] }; renderNcOpen(); };
+  const read = () => ({ ...F, summary: q('ncsum').value.trim(), n: q('ncn').value.trim(), in: +q('ncin').value, mode: q('ncmode').value, host: q('nchost').value.trim(), cap: +q('nccap').value || null, applyFrom: q('ncaf').value, applyTo: q('ncat').value, runFrom: q('ncrf').value, runTo: q('ncrt').value, grade: q('ncgr').value, dept: q('ncdp').value, link: q('nclink').value.trim(), subs: [...$view.querySelectorAll('[data-ncsub]:checked')].map(c => c.dataset.ncsub) });
+  q('ncpick').onchange = e => { const p = NONCURR.find(x => x.n === e.target.value); state.ncForm = p ? { ...read(), n: p.n, subs: [...p.subs], in: p.in, host: p.host, summary: p.d || '' } : { ...read(), n: '', subs: [], summary: '' }; renderNcOpen(); };
   $view.querySelectorAll('[data-ncsub]').forEach(c => c.onchange = () => { q('ncreach').textContent = ncReach(read().subs); });
   q('ncf').onsubmit = e => {
     e.preventDefault(); const o = read();
@@ -6566,7 +6811,7 @@ const ONBOARD = {
 };
 const onbKey = () => `onb_${state.user.role}_${state.user.no || state.user.name || ''}`;
 function onbHtml() {
-  const u = state.user; if (!u || state.tour || lsGet(onbKey())) return '';
+  const u = state.user; if (!u || (lsGet(onbKey()) && !(state.tour && state.tour.track === 'student'))) return '';
   return `<section class="panel p-onb"><div class="onb-head"><h2>처음 오셨다면 이 순서로 쓰세요</h2><button class="linkbtn" id="onbclose" type="button">안내 닫기</button></div>
     <ol class="onb">${ONBOARD[u.role].map(([t, d, g], i) => `<li><span class="sn">${i + 1}</span><div><b>${t}</b><p class="meta">${d}</p></div>${g !== HOME[u.role] ? `<button class="btn ghost sm" data-go="${g}" type="button">열기</button>` : ''}</li>`).join('')}</ol>
     <p class="meta">점선 밑줄이 있는 용어는 마우스를 올리거나 누르면 뜻이 나옵니다. 언제든 오른쪽 위 '도움말'에서 다시 볼 수 있습니다.</p></section>`;
@@ -6581,9 +6826,12 @@ function openHelp() {
     <h3>지금 화면${st ? ` · ${esc(st[1])}` : ''}</h3><p>${esc(PAGE_JOB[cur] || '이 화면의 설명이 아직 없습니다.')}</p>
     <h3>${ROLE_NAME[u.role]} 사용 순서</h3><ol class="onb">${ONBOARD[u.role].map(([t, dd, g], i) => `<li><span class="sn">${i + 1}</span><div><b>${t}</b><p class="meta">${dd}</p></div><button class="btn ghost sm" data-go="${g}" type="button">열기</button></li>`).join('')}</ol>
     <h3>용어 사전</h3><dl class="gloss">${Object.entries(GLOSS).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+    <h3>기능 둘러보기</h3><p class="meta">화면마다 기능을 하나씩 짚어 줍니다. 시연 계정으로 바꿔 들어가니, 실제 작업 중이면 저장 후 시작하세요.</p><div class="actions"><button class="btn sm" id="helptour" type="button">${esc((TOURS[u.role === 'admin' ? ({ all: 'ops' }[u.duty || 'all'] || u.duty) : u.role] || TOURS.overview).t)} 둘러보기</button><button class="linkbtn" id="helptourall" type="button">다른 사용자 보기</button></div>
     ${lsGet(onbKey()) ? '<button class="btn ghost sm" id="onbreset" type="button">홈에 첫 사용 안내 다시 보이기</button>' : ''}</div>`;
   document.body.appendChild(d);
   const close = document.getElementById('helpclose'); close.onclick = closeHelp; close.focus();
+  document.getElementById('helptour').onclick = () => { closeHelp(); tourStart(u.role === 'admin' ? ({ all: 'ops' }[u.duty || 'all'] || u.duty) : u.role); };
+  document.getElementById('helptourall').onclick = () => { closeHelp(); tourPick(); };
   const rs = document.getElementById('onbreset'); if (rs) rs.onclick = () => { lsSet(onbKey(), false); closeHelp(); go(HOME[u.role]); };
   d.addEventListener('click', e => { if (e.target.closest('[data-go]')) closeHelp(); });
 }
@@ -6594,10 +6842,10 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.g
 /* A4. 관리자 담당(duty): 총괄은 모든 메뉴, 담당은 맡은 업무 메뉴만. 서버도 같은 기준으로 쓰기를 막음 */
 const DUTY_NAME = { all: '총괄', diag: '진단·성과 담당', tt: '시간표·학사 담당', nc: '비교과 담당', cur: '교육과정 담당' };
 const DUTY_STEPS = {
-  diag: ['ahome', 'axkpi', 'diagops', 'itembank', 'itemqa', 'forms', 'grades', 'notify', 'gain', 'impact', 'ask', 'auditlog'],
+  diag: ['ahome', 'axkpi', 'diagops', 'itembank', 'itemqa', 'forms', 'grades', 'notify', 'gain', 'impact', 'ask', 'risk', 'evals', 'deptdash', 'auditlog'],
   tt: ['ahome', 'majortt', 'electt', 'integration', 'auditlog'],
   nc: ['ahome', 'ncopen', 'notify', 'impact', 'auditlog'],
-  cur: ['ahome', 'specmap', 'coverage', 'studio', 'committee', 'report', 'impact', 'gain', 'auditlog']
+  cur: ['ahome', 'specmap', 'deptdash', 'evals', 'coverage', 'studio', 'committee', 'report', 'impact', 'gain', 'auditlog']
 };
 const DUTY_NOTIFY = { all: null, diag: ['diag_open', 'diag_remind', 'retest_open', 'counsel'], nc: ['nc_open'], tt: [], cur: [] };
 const dutyOf = () => (state.user && state.user.role === 'admin' ? state.user.duty || 'all' : null);
@@ -6699,19 +6947,309 @@ function creqFormHtml(x) {
     <div class="actions full"><button class="btn sm" type="submit">요청 보내기</button><button class="linkbtn" id="cqcancel" type="button">취소</button><span class="meta" id="cqmsgout" aria-live="polite">학생 홈의 '지금 할 일'에 뜨고, 등록 이메일이 있으면 메일도 갑니다.</span></div></form>`;
 }
 
+/* ======================================================================
+   고도화: 조기 경보 · AI 성장 포트폴리오 · NCS 능력단위 매칭 · 학과별 개선 대시보드 · 강의평가 연계
+   ====================================================================== */
+const RISK_LV = [[50, '위험', 'bad'], [30, '경고', 'warn'], [15, '주의', 'mild']];
+const riskLv = s => (RISK_LV.find(([c]) => s >= c) || [0, '안정', 'ok']);
+/* 이탈·부진 조기 경보: 신호별 가중치를 더해 0~100점. 사유를 함께 돌려 교원이 근거를 보고 판단 */
+function riskOfCohort(st) {
+  const A = state.alertStd || { drop: 0, lowCount: 3 }, why = [];
+  let s = 0; const add = (w, t) => { s += w; why.push(t); };
+  const m = a => a.reduce((x, y) => x + y, 0) / a.length, d = m(st.traceArea[1]) - m(st.traceArea[0]);
+  if (st.relCount >= 2) add(30, '진단 재실시 2회'); else if (st.relCount === 1) add(15, '진단 재실시');
+  if (d < A.drop - 5) add(30, `향상도 ${d.toFixed(1)}점(크게 하락)`); else if (d < A.drop) add(20, `향상도 ${d.toFixed(1)}점(기준 미만)`);
+  const lowBoth = SUBNAMES.filter((_, k) => st.traceSub[0][k] < MID && st.traceSub[1][k] < MID).length;
+  if (lowBoth >= A.lowCount) add(15, `'하' 수준 2회 연속 ${lowBoth}개 능력`);
+  if (st.basicLow && !st.suppDone) add(15, '기초학습 낮음·보충 미이수');
+  if (!st.picks.length) add(10, '이수 계획 없음');
+  if (!st.nc.length) add(5, '비교과 참여 없음');
+  return { score: Math.min(100, s), why };
+}
+function riskOfReal(x) {
+  const A = state.alertStd || { drop: 0 }, why = [];
+  let s = 0; const add = (w, t) => { s += w; why.push(t); };
+  const m = a => a.reduce((p, q) => p + q, 0) / a.length;
+  if (!x.n) add(25, '진단 미응시');
+  if (x.last && x.last.verdict === '재실시') add(25, '진단 재실시 판정');
+  if (x.n >= 2 && x.first && x.last) { const g = m(x.last.vals) - m(x.first.vals); if (g < A.drop) add(20, `향상도 ${g.toFixed(1)}점`); }
+  if (x.tt && x.tt.lowStreak >= 2) add(15, '자기주도 실천 2주 연속 저조');
+  if (x.n && !x.plan) add(10, '이수 계획 없음');
+  if (x.creq && x.creq.status === '요청' && (Date.now() - new Date(String(x.creq.at).replace(' ', 'T')).getTime()) > 3 * 864e5) add(15, '상담 요청 3일 넘게 무응답');
+  return { score: Math.min(100, s), why };
+}
+const riskChip = s => { const [, t, c] = riskLv(s); return `<span class="rk rk-${c}">${t} ${s}</span>`; };
+function renderRisk() {
+  const co = cohort(), depts = [...new Set(co.map(st => st.dept))].sort();
+  state.rkDept = state.rkDept || '전체';
+  const rows = co.map(st => ({ st, ...riskOfCohort(st) })), shown = rows.filter(r => state.rkDept === '전체' || r.st.dept === state.rkDept).sort((a, b) => b.score - a.score);
+  const cnt = (L, t) => L.filter(r => riskLv(r.score)[1] === t).length;
+  const byDept = depts.map(d => { const L = rows.filter(r => r.st.dept === d); return { d, n: L.length, bad: cnt(L, '위험'), warn: cnt(L, '경고'), mild: cnt(L, '주의') }; }).filter(x => x.n >= MIN_GROUP).sort((a, b) => (b.bad + b.warn) / b.n - (a.bad + a.warn) / a.n);
+  $view.innerHTML = `
+  <div class="dash-grid">
+    <section class="panel p-sum"><p class="eyebrow">학기 중 · 이탈·부진 조기 경보</p>
+      <p class="summary">${cnt(shown, '위험')}명이 위험, ${cnt(shown, '경고')}명이 경고 단계입니다.</p>
+      <div class="stats"><div class="stat"><b>${cnt(shown, '위험')}명</b><span>위험(50점 이상)</span></div><div class="stat"><b>${cnt(shown, '경고')}명</b><span>경고(30~49점)</span></div><div class="stat"><b>${cnt(shown, '주의')}명</b><span>주의(15~29점)</span></div></div>
+      <div class="pick no-print"><label>학과<select id="rkdept">${['전체', ...depts].map(d => `<option ${d === state.rkDept ? 'selected' : ''}>${esc(d)}</option>`).join('')}</select></label></div>
+      <p class="meta"><span class="badge amber">가상 예시 데이터</span> 실제 이용 학생의 경보는 교원 홈 '플랫폼 이용 학생' 표의 위험도 열에 나옵니다.</p>
+      <details class="tech"><summary>점수 계산 방법</summary><p class="meta">진단 재실시 15~30점, 향상도 기준 미만 20점(크게 하락 30점), '하' 수준 2회 연속 15점, 기초학습 낮음·보충 미이수 15점, 이수 계획 없음 10점, 비교과 참여 없음 5점을 더합니다(최대 100점). 실제 이용 학생은 진단 미응시 25점, 상담 요청 3일 넘게 무응답 15점, 자기주도 실천 2주 연속 저조 15점이 더해집니다. 가중치는 시범 운영 결과로 조정합니다.</p></details></section>
+    ${panelH('p-rkdept', '학과별 경보 비율', `${MIN_GROUP}명 이상 학과 · 위험+경고 비율 높은 순`, `<div class="rkbars">${byDept.slice(0, 12).map(x => `<div class="rkbar"><span>${esc(x.d)}</span><div class="rktrack" aria-label="위험 ${x.bad}명, 경고 ${x.warn}명, 주의 ${x.mild}명"><i class="rk-bad" style="width:${x.bad / x.n * 100}%"></i><i class="rk-warn" style="width:${x.warn / x.n * 100}%"></i><i class="rk-mild" style="width:${x.mild / x.n * 100}%"></i></div><span class="meta">${Math.round((x.bad + x.warn) / x.n * 100)}%</span></div>`).join('')}</div>
+      <div class="glegend meta"><span><i class="lg rk-bad"></i>위험</span><span><i class="lg rk-warn"></i>경고</span><span><i class="lg rk-mild"></i>주의</span></div>`)}
+    ${panelH('p-rklist', '경보 학생', `${state.rkDept} · 점수 높은 순 30명`, `<div class="scrollx"><table class="tbl"><thead><tr><th>학생</th><th>학과</th><th>위험도</th><th>사유</th></tr></thead><tbody>${shown.filter(r => r.score >= 15).slice(0, 30).map(r => `<tr><td><b>${r.st.alias}</b> <span class="meta">${r.st.no.slice(0, 4)}****</span></td><td>${esc(r.st.dept)}</td><td>${riskChip(r.score)}</td><td class="wrap">${r.why.join(' · ')}</td></tr>`).join('') || '<tr><td colspan="4" class="meta">경보 대상이 없습니다.</td></tr>'}</tbody></table></div>`)}
+  </div>`;
+  document.getElementById('rkdept').onchange = e => { state.rkDept = e.target.value; renderRisk(); };
+}
+
+function printNode(html) {
+  const el = document.getElementById('report') || document.body.appendChild(Object.assign(document.createElement('div'), { id: 'report' }));
+  el.innerHTML = html; document.body.classList.add('printing');
+  const off = () => { document.body.classList.remove('printing'); window.removeEventListener('afterprint', off); };
+  window.addEventListener('afterprint', off); window.print();
+}
+/* ---------- AI 성장 포트폴리오(학생) ---------- */
+function portfolioData() {
+  const H = state.history || [], plan = loadPlan() || designPlan() || { items: [] }, T = designTarget(), tt = state.tt || ttLoad();
+  const st = tt.ran ? ttStat(tt) : null, seen = plan.ncSeen || {};
+  const done = Object.keys(plan.done || {}), terms = planTerms(state.dept);
+  return {
+    dept: state.dept, target_job: T.job ? { job: T.job.name, ncs: T.job.ncs, required: T.job.core } : null,
+    diagnoses: H.map(h => ({ label: h.label, date: h.date, areas: Object.fromEntries(AREAS.map((a, k) => [a.short, h.vals[k]])), reliability: h.verdict })),
+    courses_done: done, courses_planned: terms.map(t => ({ term: termName(t), courses: plan.items.filter(i => i.term === t).map(i => i.n) })).filter(x => x.courses.length),
+    micro: CURRICULUM.micro.filter(m => eligible(m, state.dept) && m.crKnown).map(m => microProgress(m, plan)).filter(p => p.done + p.now + p.planned > 0).map(p => ({ program: p.m.name, done_credits: p.done, planned_credits: p.planned + p.now })),
+    noncurricular: ncOpenList().filter(o => seen[o.id] === 'applied').map(o => ({ program: o.n, stage: `${o.in}-IN` })), noncurricular_wish: ncWish(plan),
+    self_study: st ? { rate: st.rate, weeks_recorded: st.weeks.filter(w => w.total).length } : null,
+    job_fit: T.job ? jobFit(T.job, T.now) : null
+  };
+}
+function portfolioRule(D) {
+  const m = a => a.reduce((x, y) => x + y, 0) / a.length, f = D.diagnoses[0], l = D.diagnoses[D.diagnoses.length - 1];
+  const ar = l ? Object.entries(l.areas).sort((a, b) => b[1] - a[1]) : [];
+  const g = f && l && D.diagnoses.length > 1 ? m(Object.values(l.areas)) - m(Object.values(f.areas)) : null;
+  const stories = [];
+  if (D.micro[0]) stories.push({ title: `${D.micro[0].program} 이수`, situation: '전공 밖 역량을 넓히려고 융합과정을 골랐습니다.', action: `${D.micro[0].done_credits}학점을 이수했고 ${D.micro[0].planned_credits}학점을 더 계획했습니다.`, result: '여러 학과 과목을 묶어 듣는 경험을 쌓았습니다.' });
+  if (D.noncurricular[0]) stories.push({ title: `${D.noncurricular[0].program} 참여`, situation: '진단에서 보완할 능력을 확인했습니다.', action: `${D.noncurricular[0].stage} 단계 비교과에 신청해 참여했습니다.`, result: '수업 밖에서 보완 역량을 실습했습니다.' });
+  if (D.self_study && D.self_study.rate != null) stories.push({ title: '자기주도 학습 실천', situation: '수업 사이 빈 시간을 계획적으로 쓰기로 했습니다.', action: `${D.self_study.weeks_recorded}주 동안 실천을 기록했습니다.`, result: `실천률 ${D.self_study.rate}%를 기록했습니다.` });
+  if (!stories.length) stories.push({ title: '앞으로 채울 소재', situation: '아직 기록이 적습니다.', action: '이번 학기 계획한 과목과 비교과를 이수하고 실천을 기록하세요.', result: '학기말에 이 칸이 실제 경험으로 채워집니다.' });
+  return {
+    headline: g !== null ? `입학 직후보다 직업기초역량 평균 ${g > 0 ? '+' : ''}${g.toFixed(1)}점 변화가 있었습니다.` : l ? `${ar[0][0]} 영역이 가장 강한 출발점입니다.` : '진단을 받으면 포트폴리오가 채워집니다.',
+    strengths: ar.slice(0, 2).map(([k, v]) => `${k} ${v}점으로 상대적으로 강합니다.`),
+    growth: g !== null ? Object.keys(l.areas).map(k => [k, l.areas[k] - f.areas[k]]).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([k, v]) => `${k} ${v > 0 ? '+' : ''}${v}점`) : ['학기말 재진단 후 변화가 표시됩니다.'],
+    stories: stories.slice(0, 3),
+    next: [D.target_job ? `${D.target_job.job} 적합도 ${D.job_fit}%를 높이도록 차이가 큰 능력의 교양을 들으세요.` : '목표 직무를 정하면 다음 할 일이 더 구체적으로 나옵니다.', ar.length ? `${ar[ar.length - 1][0]} 영역 보완 과목이나 비교과를 계획에 넣으세요.` : '3종 진단을 받으세요.']
+  };
+}
+function renderPortfolio() {
+  const D = portfolioData(), key = 'pf:' + JSON.stringify([D.diagnoses.length, D.courses_done.length, D.noncurricular.length, D.micro.length]);
+  const P = (state.pfAI && state.pfAI.key === key && state.pfAI.res) || portfolioRule(D), viaAI = !!(state.pfAI && state.pfAI.key === key && state.pfAI.res);
+  const f = D.diagnoses[0], l = D.diagnoses[D.diagnoses.length - 1];
+  const body = `<section class="pf-sheet" id="pfdoc">
+      <header class="pf-head"><div><p class="pf-org">인하공업전문대학 · ${esc(state.dept)}</p><h2>${esc(state.user.name)} 성장 포트폴리오</h2><p class="meta">${f ? `${esc(f.date)} ~ ${esc(l.date)} · 진단 ${D.diagnoses.length}회` : '진단 기록 없음'}${D.target_job ? ` · 목표 직무 ${esc(D.target_job.job)}(적합도 ${D.job_fit}%)` : ''}</p></div></header>
+      <p class="pf-headline">${esc(P.headline)}</p>
+      <div class="pf-cols"><div><h3>강점</h3><ul>${P.strengths.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div><div><h3>성장</h3><ul>${P.growth.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></div>
+      ${f ? `<h3>역량 변화</h3><table class="tbl pf-tbl"><thead><tr><th>영역</th>${D.diagnoses.map(d => `<th>${esc(d.label)}</th>`).join('')}</tr></thead><tbody>${AREAS.map(a => `<tr><td>${a.short}</td>${D.diagnoses.map(d => `<td>${d.areas[a.short]}</td>`).join('')}</tr>`).join('')}</tbody></table>` : ''}
+      <h3>쌓은 경험</h3><dl class="pf-exp"><dt>이수한 교과</dt><dd>${D.courses_done.length ? D.courses_done.map(esc).join(', ') : "아직 표시한 이수 과목이 없습니다('융합과정 현황'에서 이수 표시)."}</dd>
+        <dt>계획한 교과</dt><dd>${D.courses_planned.map(x => `${esc(x.term)} ${x.courses.length}과목`).join(' · ') || '없음'}</dd>
+        <dt>융합과정</dt><dd>${D.micro.map(x => `${esc(x.program)} ${x.done_credits}학점 이수`).join(', ') || '없음'}</dd>
+        <dt>비교과</dt><dd>${D.noncurricular.map(x => `${esc(x.program)}(${x.stage})`).join(', ') || (D.noncurricular_wish.length ? `관심 등록 ${D.noncurricular_wish.length}개` : '없음')}</dd>
+        <dt>자기주도 학습</dt><dd>${D.self_study ? `실천률 ${D.self_study.rate ?? '-'}% · ${D.self_study.weeks_recorded}주 기록` : '기록 없음'}</dd></dl>
+      <h3>자기소개서·면접 소재</h3><ol class="pf-stories">${P.stories.map(s => `<li><b>${esc(s.title)}</b><p><span class="meta">상황</span> ${esc(s.situation)}</p><p><span class="meta">한 일</span> ${esc(s.action)}</p><p><span class="meta">결과</span> ${esc(s.result)}</p></li>`).join('')}</ol>
+      <h3>다음 학기에 할 일</h3><ul>${P.next.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      <p class="meta pf-src">${viaAI ? 'AI가 플랫폼 기록만 근거로 쓴 문장입니다. 사실과 다르면 고쳐 쓰세요.' : '플랫폼 기록으로 자동 정리한 문장입니다.'}</p></section>`;
+  $view.innerHTML = `
+  <div class="dash-grid">
+    <section class="panel p-sum"><p class="eyebrow">성장 포트폴리오 ${viaAI ? '<span class="aitag on">AI 작성</span>' : '<span class="aitag">규칙 기반</span>'}</p>
+      <p class="summary">진단·이수·비교과·실천 기록을 한 장으로 모았습니다.</p>
+      <div class="stats"><div class="stat"><b>${D.diagnoses.length}회</b><span>진단</span></div><div class="stat"><b>${D.courses_done.length}과목</b><span>이수 표시</span></div><div class="stat"><b>${D.noncurricular.length}개</b><span>비교과 참여</span></div><div class="stat"><b>${D.self_study && D.self_study.rate != null ? D.self_study.rate + '%' : '-'}</b><span>자기주도 실천률</span></div></div>
+      <div class="actions no-print"><button class="btn" id="pfai" type="button" ${state.pfPend ? 'disabled' : ''}>${state.pfPend ? 'AI가 쓰는 중…' : viaAI ? 'AI로 다시 쓰기' : 'AI로 문장 다듬기'}</button><button class="btn ghost" id="pfprint" type="button">인쇄·PDF 저장</button></div></section>
+    ${panelH('p-pf', '포트폴리오', '자기소개서 소재로 쓸 수 있습니다', body)}
+  
+  </div>`;
+  document.getElementById('pfprint').onclick = () => printNode(document.getElementById('pfdoc').outerHTML);
+  document.getElementById('pfai').onclick = async () => {
+    if (!(await checkAI())) { toast('AI 서버가 연결되지 않아 규칙 기반으로 정리합니다.'); return; }
+    state.pfPend = true; renderPortfolio();
+    try { const r = await aiFetch('portfolio', { data: D }); const j = await r.json(); if (r.ok && j.result) state.pfAI = { key, res: j.result }; else toast('AI 작성 실패: ' + (j.error || r.status)); }
+    catch (e) { toast('AI 작성 실패: 연결 오류'); }
+    state.pfPend = false; if (state.step === 'portfolio') renderPortfolio();
+  };
+}
+
+/* ---------- NCS 능력단위 ↔ 교과목 매칭 ---------- */
+let NCS_UNITS = null;
+function ncsUnits() {
+  /* 직무 목록(KECO·전략산업)에 연결된 NCS 세분류의 전문학사 수준 능력단위 */
+  if (NCS_UNITS) return NCS_UNITS;
+  const m = new Map();
+  JOBS.forEach(j => (j.nd ? j.nd.units : []).forEach(([u, lv]) => { const e = m.get(u) || { unit: u, lv, seg: (j.nd.ncs || []).map(x => x.name).join('·'), jobs: [] }; e.jobs.push(j.id); m.set(u, e); }));
+  return (NCS_UNITS = [...m.values()]);
+}
+const ncsMapNow = () => sGet('org', 'ncsmap') || {};
+const courseUnits = n => ((ncsMapNow()[n] || {}).units || []);
+function ncsCandidates(spec, k) {
+  const text = [spec.overview, ...(spec.goals || []), spec.weeks].join(' ');
+  /* 흔한 글자 조합(관리·업무·작성 등)은 빼고 겹치는 비율을 봄 */
+  const GEN = new Set(['관리', '업무', '작성', '활용', '기초', '실행', '운영', '계획', '수립', '지원', '정관', '리업', '일정']);
+  const bg = s => { const t = String(s).replace(/\s|[·,()]/g, ''); const o = new Set(); for (let i = 0; i < t.length - 1; i++) { const x = t.slice(i, i + 2); if (!GEN.has(x)) o.add(x); } return o; };
+  const T = bg(text);
+  return ncsUnits().map(u => { const U = bg(u.unit); let hit = 0; U.forEach(x => { if (T.has(x)) hit++; }); return { ...u, hit, score: U.size >= 2 ? hit / U.size : 0 }; }).filter(u => u.score > 0).sort((a, b) => b.score - a.score).slice(0, k || 40);
+}
+async function aiNcsMatch(name, spec) {
+  const cands = ncsCandidates(spec, 50);
+  if (!cands.length) return { rows: [], src: '후보 없음' };
+  if (await checkAI()) {
+    try { const r = await aiFetch('ncsmatch', { course: name, spec, candidates: cands.map(c => ({ unit: c.unit, seg: c.seg })) }); const j = await r.json(); if (r.ok && j.result) return { rows: j.result.matches.map(x => ({ ...x, seg: (cands.find(c => c.unit === x.unit) || {}).seg || '' })), note: j.result.note, src: 'AI 매칭 초안' }; } catch (e) { /* 규칙으로 */ }
+  }
+  return { rows: cands.filter(c => c.score >= 0.6 && c.hit >= 2).slice(0, 5).map(c => ({ unit: c.unit, seg: c.seg, level: c.score >= 0.75 ? '직접' : '부분', evidence: '명세서와 능력단위 이름의 핵심어 일치' })), src: 'AI 미연결 · 핵심어 일치 기준 초안' };
+}
+function ncsMatchHtml(sel) {
+  const d = (state.ncDraft || {})[sel], saved = ncsMapNow()[sel], rows = d ? d.rows : saved ? saved.units : null;
+  return `<p class="meta">이 과목이 가르치는 NCS 능력단위를 찾습니다. 후보는 직무 목록(한국고용직업분류·전략산업)에 연결된 NCS 세분류의 전문학사 수준(2~4수준) 능력단위 ${ncsUnits().length}개입니다. 승인하면 학생 '차이 분석'에서 목표 직무 능력단위를 채우는 과목으로 표시됩니다.</p>
+    <div class="actions no-print"><button class="btn sm" id="ncgen" type="button">${state.ncPend ? '찾는 중…' : 'AI로 능력단위 찾기'}</button><span class="meta">${d ? esc(d.src) : saved ? `승인 · ${esc(saved.by)} · ${esc(saved.at)}` : ''}</span></div>
+    ${rows ? (rows.length ? `<table class="tbl"><thead><tr><th>채택</th><th>능력단위</th><th>NCS 세분류</th><th>정도</th><th>근거</th></tr></thead><tbody>${rows.map((r, i) => `<tr><td><input type="checkbox" class="ncchk" value="${i}" ${saved && !d ? 'checked' : 'checked'} aria-label="${esc(r.unit)} 채택"></td><td><b>${esc(r.unit)}</b></td><td class="meta">${esc(r.seg || '')}</td><td>${esc(r.level)}</td><td class="wrap meta">${esc(r.evidence || '')}</td></tr>`).join('')}</tbody></table>
+      ${d && d.note ? `<p class="meta">${esc(d.note)}</p>` : ''}<div class="actions no-print">${d ? '<button class="btn sm" id="ncok" type="button">선택한 능력단위로 승인</button>' : ''}${saved ? '<button class="linkbtn" id="ncdel" type="button">승인 취소</button>' : ''}</div>` : '<p class="meta">맞는 능력단위를 찾지 못했습니다. 교양 과목은 직무 능력단위와 직접 맞지 않을 수 있습니다.</p>') : '<p class="meta">아직 매칭하지 않았습니다.</p>'}`;
+}
+function bindNcsMatch(sel, sp, rerender) {
+  const q = id => document.getElementById(id);
+  q('ncgen').onclick = async () => { state.ncPend = true; rerender(); const d = await aiNcsMatch(sel, sp); state.ncDraft = { ...(state.ncDraft || {}), [sel]: d }; state.ncPend = false; rerender(); };
+  if (q('ncok')) q('ncok').onclick = () => {
+    const d = state.ncDraft[sel], pick = [...document.querySelectorAll('.ncchk:checked')].map(x => d.rows[+x.value]);
+    const M = { ...ncsMapNow(), [sel]: { units: pick.map(r => ({ unit: r.unit, seg: r.seg, level: r.level })), by: state.user.name, at: localTime(), src: d.src } };
+    sSet('org', 'ncsmap', M, `${sel}: 능력단위 ${pick.length}개`); logLocal('NCS 능력단위 매칭 승인', sel, pick.map(r => r.unit).join(', '));
+    delete state.ncDraft[sel]; state.smMsg = `${sel}의 NCS 능력단위 ${pick.length}개를 승인했습니다.`; rerender();
+  };
+  if (q('ncdel')) q('ncdel').onclick = () => { const M = { ...ncsMapNow() }; delete M[sel]; sSet('org', 'ncsmap', M, `${sel}: 능력단위 매칭 취소`); rerender(); };
+}
+/* 학생: 목표 직무 능력단위 중 교과로 채울 수 있는 것 */
+function unitCoverHtml(job) {
+  if (!job || !job.nd) return '';
+  const M = ncsMapNow(), units = job.nd.units.map(([u]) => ({ u, by: Object.entries(M).filter(([, v]) => (v.units || []).some(x => x.unit === u)).map(([c]) => c) }));
+  const n = units.filter(x => x.by.length).length;
+  return `<p class="meta">목표 직무의 능력단위 ${units.length}개 중 <b>${n}개</b>를 우리 대학 교과목으로 배울 수 있습니다(교육과정위원회가 승인한 명세서 매칭 기준).</p>
+    <ul class="ucover">${units.map(x => `<li class="${x.by.length ? 'on' : ''}"><b>${esc(x.u)}</b><span class="meta">${x.by.length ? x.by.map(esc).join(', ') : '연결된 교과 없음 · 전공 교과·현장실습으로'}</span></li>`).join('')}</ul>`;
+}
+const unitHint = n => { const T = designTarget(); if (!T.job || !T.job.nd) return ''; const ju = new Set(T.job.nd.units.map(([u]) => u)), hit = courseUnits(n).filter(x => ju.has(x.unit)); return hit.length ? ` · <span class="uhint">직무 능력단위 ${hit.map(x => esc(x.unit)).join(', ')}</span>` : ''; };
+
+/* ---------- 강의평가 연계 ---------- */
+const EVAL_DEFAULT = { questions: Array.from({ length: 10 }, (_, i) => `문항 ${i + 1}`), scale: { min: 1, max: 5, labels: ['매우 그렇지 않다', '그렇지 않다', '보통이다', '그렇다', '매우 그렇다'] }, cut: 70, draft: true, rows: {} };
+const evalsNow = () => { const e = sGet('org', 'evals') || {}; return { ...EVAL_DEFAULT, ...e, scale: { ...EVAL_DEFAULT.scale, ...(e.scale || {}) }, rows: e.rows || {} }; };
+const evalPct = (E, v) => Math.round((v - E.scale.min) / Math.max(1, E.scale.max - E.scale.min) * 100);
+const evalOf = n => { const E = evalsNow(), r = E.rows[n]; if (!r) return null; const avg = r.q.reduce((a, b) => a + b, 0) / r.q.length; return { ...r, avg, pct: evalPct(E, avg) }; };
+function quadOf(r, ev, cut) {
+  const eff = r.verdict === '효과 뚜렷' || r.decision === '유지·확산' || r.decision === '확대 검토', sat = ev.pct >= cut;
+  return eff && sat ? ['유지·확산', '효과도 만족도도 높습니다.'] : eff ? ['수업 운영 개선', '효과는 있으나 만족도가 낮습니다. 수업 방식·과제량을 살핍니다.'] : sat ? ['내용 개선', '만족도는 높으나 역량 효과가 작습니다. 학습목표·평가를 역량에 맞춥니다.'] : ['재설계 검토', '효과와 만족도 모두 낮습니다.'];
+}
+function evalQuadHtml(withLink) {
+  const E = evalsNow(), F = effectiveness(), rows = F.rows.map(r => ({ r, ev: evalOf(r.nm) })).filter(x => x.ev);
+  if (!rows.length) return `<p class="meta">강의평가 결과가 아직 없습니다.${withLink ? ' <button class="linkbtn" data-go="evals" type="button">강의평가 연계</button>에서 올리세요.' : ''}</p>`;
+  const W = 520, Hh = 300, P = 36, maxE = Math.max(...rows.map(x => Math.abs(x.r.eff)), 4), x = v => P + v / 100 * (W - P * 2), y = v => Hh - P - (v + maxE) / (maxE * 2) * (Hh - P * 2);
+  const groups = {}; rows.forEach(o => { const [k] = quadOf(o.r, o.ev, E.cut); (groups[k] = groups[k] || []).push(o); });
+  return `<svg class="quad" viewBox="0 0 ${W} ${Hh}" role="img" aria-label="교육과정 효과와 강의 만족도"><line x1="${x(E.cut)}" x2="${x(E.cut)}" y1="${P}" y2="${Hh - P}" class="qaxis"/><line x1="${P}" x2="${W - P}" y1="${y(EFF_MIN)}" y2="${y(EFF_MIN)}" class="qaxis"/>
+      <text x="${W - P}" y="${P - 8}" text-anchor="end" class="qlab">유지·확산</text><text x="${P}" y="${P - 8}" class="qlab">수업 운영 개선</text><text x="${W - P}" y="${Hh - 8}" text-anchor="end" class="qlab">내용 개선</text><text x="${P}" y="${Hh - 8}" class="qlab">재설계 검토</text>
+      ${rows.map(o => `<circle cx="${x(o.ev.pct)}" cy="${y(o.r.eff)}" r="5" class="qdot q-${o.r.kind === '교양' ? 'lib' : o.r.kind === '융합과정' ? 'mic' : 'nc'}"><title>${esc(o.r.nm)} · 효과 ${o.r.eff.toFixed(1)}점 · 만족도 ${o.ev.pct}</title></circle>`).join('')}
+      <text x="${W / 2}" y="${Hh - 18}" text-anchor="middle" class="qaxt">강의 만족도(0~100, 기준 ${E.cut}) →</text><text x="12" y="${Hh / 2}" class="qaxt" transform="rotate(-90 12 ${Hh / 2})" text-anchor="middle">보정 효과(점) →</text></svg>
+    <div class="qgroups">${['유지·확산', '수업 운영 개선', '내용 개선', '재설계 검토'].map(k => `<div><b>${k} ${(groups[k] || []).length}개</b><p class="meta">${(groups[k] || []).slice(0, 4).map(o => esc(o.r.nm)).join(', ') || '-'}</p></div>`).join('')}</div>`;
+}
+function renderEvals() {
+  const E = evalsNow(), F = effectiveness(), names = F.rows.filter(r => r.kind !== '비교과').map(r => r.nm), D = state.evDraft || (state.evDraft = JSON.parse(JSON.stringify({ questions: E.questions, scale: E.scale, cut: E.cut })));
+  const rows = Object.entries(E.rows).map(([n, r]) => ({ n, ...evalOf(n) })).sort((a, b) => a.pct - b.pct);
+  $view.innerHTML = `
+  <div class="dash-grid">
+    <section class="panel p-sum"><p class="eyebrow">학기말 · 강의평가 연계</p>
+      <p class="summary">강의평가 만족도를 교육과정 효과성과 함께 보고, "효과는 있는데 만족도가 낮은 과목"까지 찾습니다.</p>
+      <div class="stats"><div class="stat"><b>${rows.length}과목</b><span>평가 결과 반영</span></div><div class="stat"><b>${rows.length ? Math.round(rows.reduce((a, r) => a + r.pct, 0) / rows.length) : '-'}</b><span>평균 만족도(0~100)</span></div><div class="stat"><b>${rows.filter(r => r.pct < E.cut).length}과목</b><span>기준(${E.cut}) 미만</span></div></div>
+      ${E.draft ? '<p class="meta"><span class="badge amber">문항·척도 가안</span> 확정된 강의평가 문항 10개와 만족도 척도를 받으면 아래 설정에서 바꿉니다.</p>' : ''}</section>
+    ${panelH('p-evq', '문항과 척도', '설정', `<form id="evqf" class="evq">${D.questions.map((q, i) => `<label>문항 ${i + 1}<input data-evq="${i}" value="${esc(q)}" maxlength="120"></label>`).join('')}
+      <div class="evscale"><label>최저점<input type="number" id="evmin" value="${D.scale.min}"></label><label>최고점<input type="number" id="evmax" value="${D.scale.max}"></label><label class="wide">척도 이름(낮은 점수부터, 쉼표로)<input id="evlab" value="${esc(D.scale.labels.join(', '))}"></label><label>만족도 기준(0~100)<input type="number" id="evcut" min="0" max="100" value="${D.cut}"></label></div>
+      <div class="actions"><button class="btn sm" type="submit">문항·척도 저장</button><span class="meta" id="evmsg" aria-live="polite">${esc(state.evMsg || '')}</span></div></form>`)}
+    ${panelH('p-evup', '결과 올리기', 'CSV', `<p class="meta">과목별 문항 평균을 올립니다. 열: 교과목, 응답 수, 문항1~문항10 평균(척도 점수).</p>
+      <div class="actions no-print"><button class="btn ghost sm" id="evtpl" type="button">양식 내려받기</button><label class="btn ghost sm filebtn">CSV 올리기<input type="file" accept=".csv" id="evfile" hidden></label><button class="btn ghost sm" id="evdemo" type="button">시연용 결과 채우기</button>${rows.length ? '<button class="linkbtn" id="evclear" type="button">결과 비우기</button>' : ''}</div>
+      ${rows.length ? `<div class="scrollx"><table class="tbl"><thead><tr><th>교과목</th><th>응답</th><th>만족도</th><th>가장 낮은 문항</th></tr></thead><tbody>${rows.slice(0, 40).map(r => { const lo = r.q.indexOf(Math.min(...r.q)); return `<tr class="${r.pct < E.cut ? 'conf' : ''}"><td><b>${esc(r.n)}</b></td><td>${r.cnt}명</td><td>${r.pct} <span class="meta">(${r.avg.toFixed(2)})</span></td><td class="wrap meta">${esc(E.questions[lo])} ${r.q[lo].toFixed(2)}</td></tr>`; }).join('')}</tbody></table></div>` : '<p class="meta">올린 결과가 없습니다.</p>'}`)}
+    ${panelH('p-evquad', '효과 × 만족도', '교육과정 효과성과 함께 보기', evalQuadHtml(false))}
+  </div>`;
+  const q = id => document.getElementById(id);
+  const save = (o, note) => { sSet('org', 'evals', o, note); logLocal('강의평가 반영', '강의평가', note); };
+  q('evqf').onsubmit = e => {
+    e.preventDefault();
+    const qs = [...document.querySelectorAll('[data-evq]')].map(x => x.value.trim() || x.placeholder), min = +q('evmin').value, max = +q('evmax').value, labels = q('evlab').value.split(',').map(s => s.trim()).filter(Boolean), cut = Math.max(0, Math.min(100, +q('evcut').value || 70));
+    if (!(max > min)) { q('evmsg').textContent = '최고점이 최저점보다 커야 합니다.'; return; }
+    state.evDraft = null; save({ ...evalsNow(), questions: qs, scale: { min, max, labels }, cut, draft: false }, `문항·척도 저장(${min}~${max}점, 기준 ${cut})`); state.evMsg = '문항과 척도를 저장했습니다.'; renderEvals();
+  };
+  q('evtpl').onclick = () => download('강의평가_결과_양식.csv', [['교과목', '응답 수', ...E.questions.map((_, i) => `문항${i + 1}`)], ...names.slice(0, 5).map(n => [n, '', ...E.questions.map(() => '')])]);
+  q('evfile').onchange = e => {
+    const f = e.target.files[0]; if (!f) return; const rd = new FileReader();
+    rd.onload = () => {
+      const R = { ...E.rows }, bad = []; let ok = 0;
+      parseCSV(String(rd.result)).slice(1).forEach((c, i) => { const n = (c[0] || '').trim(), qv = c.slice(2, 12).map(Number); if (!n || qv.length < 10 || qv.some(v => !(v >= E.scale.min && v <= E.scale.max))) { if (n) bad.push(`${i + 2}행`); return; } R[n] = { cnt: +c[1] || 0, q: qv, at: localTime().slice(0, 10) }; ok++; });
+      save({ ...evalsNow(), rows: R }, `강의평가 ${ok}과목 반영`); state.evMsg = `${ok}과목을 반영했습니다.${bad.length ? ` 범위를 벗어나 건너뛴 줄: ${bad.slice(0, 3).join(', ')}` : ''}`; renderEvals();
+    };
+    rd.readAsText(f, 'utf-8');
+  };
+  q('evdemo').onclick = () => {
+    const R = {}, span = E.scale.max - E.scale.min;
+    F.rows.filter(r => r.kind !== '비교과').forEach(r => { const h = hashStr(r.nm), base = 0.66 + ((h % 29) / 100) + (r.eff > 2 ? 0.04 : -0.04); R[r.nm] = { cnt: 20 + (h % 40), q: E.questions.map((_, i) => +(E.scale.min + span * Math.min(0.98, Math.max(0.2, base + (((h >> i) % 9) - 4) / 60))).toFixed(2)), at: localTime().slice(0, 10) }; });
+    save({ ...evalsNow(), rows: R }, `시연용 강의평가 ${Object.keys(R).length}과목`); state.evMsg = '시연용 결과를 채웠습니다(가상 값).'; renderEvals();
+  };
+  if (q('evclear')) q('evclear').onclick = () => { if (!confirm('올린 강의평가 결과를 모두 지울까요?')) return; save({ ...evalsNow(), rows: {} }, '강의평가 결과 비움'); renderEvals(); };
+}
+
+/* ---------- 학과별 개선 대시보드(관리자: 학과 선택, 교원: 소속 학과) ---------- */
+function renderDeptDash() {
+  const co = cohort(), fac = state.user.role === 'faculty', depts = [...new Set(co.map(st => st.dept))].sort();
+  const D = fac ? state.dept : (depts.includes(state.ddDept) ? state.ddDept : (depts.includes(state.dept) ? state.dept : depts[0])); state.ddDept = D;
+  const S = co.filter(st => st.dept === D), m = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0;
+  const ar = k => m(S.map(st => st.area[k])), arAll = k => m(co.map(st => st.area[k]));
+  const gain = L => m(L.map(st => m(st.traceArea[1]) - m(st.traceArea[0])));
+  const risks = S.map(st => riskOfCohort(st).score), nRisk = risks.filter(s => s >= 30).length;
+  const jobs = (DEPT_KECO[D] || []).map(c => JOBS.find(j => j.id === 'k' + c)).filter(Boolean).map(j => { const fits = S.map(st => jobFit(j, Object.fromEntries(SUBNAMES.map((sn, k) => [sn, st.sub[k]])))); return { j, avg: Math.round(m(fits)), ready: Math.round(fits.filter(f => f >= 80).length / Math.max(1, fits.length) * 100) }; }).sort((a, b) => b.avg - a.avg);
+  const offeredNames = new Set(offered(D, 1).map(c => c.n)), E = effectiveness(), EV = evalsNow();
+  const fix = E.rows.filter(r => r.kind !== '비교과' && offeredNames.has(r.nm)).map(r => ({ r, ev: evalOf(r.nm) })).map(o => ({ ...o, q: o.ev ? quadOf(o.r, o.ev, EV.cut) : null })).filter(o => /개선|재설계/.test(o.r.decision) || (o.q && o.q[0] !== '유지·확산')).slice(0, 12);
+  const small = S.length < MIN_GROUP;
+  $view.innerHTML = `
+  <div class="dash-grid">
+    <section class="panel p-sum"><p class="eyebrow">학과별 개선 현황 · ${esc(D)}</p>
+      <p class="summary">${small ? `학생 수가 ${MIN_GROUP}명 미만이라 통계를 보여 주지 않습니다.` : `${esc(D)} 학생 ${S.length}명의 역량과 직무 준비도, 개선할 교과목을 한눈에 봅니다.`}</p>
+      ${fac ? '' : `<div class="pick no-print"><label>학과<select id="dddept">${depts.map(d => `<option ${d === D ? 'selected' : ''}>${esc(d)}</option>`).join('')}</select></label></div>`}
+      ${small ? '' : `<div class="stats"><div class="stat"><b>${Math.round(m(S.map(st => m(st.area))))}점</b><span>직업기초 평균(대학 ${Math.round(m(co.map(st => m(st.area))))})</span></div><div class="stat"><b>${gain(S) >= 0 ? '+' : ''}${gain(S).toFixed(1)}점</b><span>1학기 향상도(대학 ${gain(co) >= 0 ? '+' : ''}${gain(co).toFixed(1)})</span></div><div class="stat"><b>${nRisk}명</b><span>조기 경보(경고 이상)</span></div><div class="stat"><b>${fix.length}과목</b><span>개선 검토 교과목</span></div></div>`}
+      <p class="meta"><span class="badge amber">가상 예시 데이터</span> 개인을 알아볼 수 없도록 ${MIN_GROUP}명 이상일 때만 집계합니다.</p></section>
+    ${small ? '' : panelH('p-ddarea', '영역별 역량', '학과 vs 대학 평균', `<div class="ddbars">${AREAS.map((a, k) => `<div class="ddbar"><span>${a.short}</span><div class="ddtrack"><i style="width:${ar(k)}%"></i><b style="left:${arAll(k)}%" title="대학 평균 ${Math.round(arAll(k))}"></b></div><span class="meta">${Math.round(ar(k))} <span class="${ar(k) < arAll(k) ? 'neg' : 'pos'}">(${ar(k) - arAll(k) >= 0 ? '+' : ''}${(ar(k) - arAll(k)).toFixed(1)})</span></span></div>`).join('')}</div><p class="meta">막대는 학과 평균, 세로 선은 대학 평균입니다.</p>`)}
+    ${small ? '' : panelH('p-ddjob', '전공 관련 직무 준비도', '학과가 고른 한국고용직업분류 직업', jobs.length ? `<table class="tbl"><thead><tr><th>직무</th><th>평균 적합도</th><th>준비된 학생(80% 이상)</th></tr></thead><tbody>${jobs.map(x => `<tr><td><b>${esc(x.j.name)}</b><br><span class="meta">${esc(x.j.ncs)}</span></td><td><span class="bar sm"><b style="width:${x.avg}%"></b></span> ${x.avg}%</td><td>${x.ready}%</td></tr>`).join('')}</tbody></table><p class="meta">적합도는 직무의 NCS 필요 역량을 학생 진단 점수가 얼마나 채웠는지입니다. 낮은 직무의 필요 역량을 교과에서 보강합니다.</p>` : '<p class="meta">학과 직무가 등록되지 않았습니다.</p>')}
+    ${small ? '' : panelH('p-ddfix', '개선할 교과목', '효과성 판정 + 강의 만족도', fix.length ? `<div class="scrollx"><table class="tbl"><thead><tr><th>교과목</th><th>효과 판정</th><th>만족도</th><th>제안</th></tr></thead><tbody>${fix.map(o => `<tr><td><b>${esc(o.r.nm)}</b></td><td>${esc(o.r.decision)}</td><td>${o.ev ? o.ev.pct : '-'}</td><td class="wrap meta">${o.q ? esc(o.q[1]) : esc(o.r.decision === '재설계·통합 검토' ? '재설계·통합을 검토합니다.' : '내용·운영 개선을 논의합니다.')}</td></tr>`).join('')}</tbody></table></div>${fac ? '' : '<div class="actions no-print"><button class="btn ghost sm" data-go="impact" type="button">교육과정 효과성 전체</button><button class="btn ghost sm" data-go="evals" type="button">강의평가 연계</button></div>'}` : '<p class="meta">개선 검토가 필요한 교과목이 없습니다.</p>')}
+  </div>`;
+  const dd = document.getElementById('dddept'); if (dd) dd.onchange = e => { state.ddDept = e.target.value; renderDeptDash(); };
+}
+
+/* 추천 교육과정의 '과정 보기': 교양은 교과목 명세서, 융합과정은 과정 정보, 비교과는 관리자가 등록한 과정 개요 */
+const rOpen = () => (state.rOpen = state.rOpen || new Set());
+const infoBox = (key, html) => `<details class="rinfo" data-rinfo="${esc(key)}" ${rOpen().has(key) ? 'open' : ''}><summary>과정 보기</summary><div class="rinfo-body">${html}</div></details>`;
+function libInfo(n) {
+  const s = specsNow()[n];
+  if (!s) return '<p class="meta">교과목 명세서를 준비하고 있습니다. 명세서가 등록되면 개요·학습목표·주요 내용이 여기에 나옵니다.</p>';
+  return `${s.overview ? `<p>${esc(s.overview)}</p>` : ''}${(s.goals || []).length ? `<p class="meta">학습목표</p><ul>${s.goals.map(g => `<li>${esc(g)}</li>`).join('')}</ul>` : ''}${s.weeks ? `<p class="meta">주요 내용</p><p>${esc(s.weeks)}</p>` : ''}<p class="meta">${esc(s.cat || '')}${s.cr ? ` · ${s.cr}학점` : ''}${!sGet('org', 'specs') ? ' · 시연용 예시 명세서' : ''}</p>`;
+}
+function micInfo(m) {
+  return `${m.aim ? `<p>${esc(m.aim)}</p>` : ''}<dl class="rinfo-dl"><dt>대상</dt><dd>${esc(m.target || '-')}</dd><dt>주관</dt><dd>${esc(m.host || '-')}${(m.parts || []).length ? ` · 참여 ${esc(m.parts.join(', '))}` : ''}</dd><dt>인증</dt><dd>${m.cert ? esc(m.cert) : (m.tiers || []).map(t => `${t[1]} ${t[0]}학점`).join(' · ') || '-'}</dd>${m.y25 ? `<dt>2025 운영</dt><dd>${m.y25.depts}개 학과 참여 · 수강 ${m.y25.students}명</dd>` : ''}</dl>
+    <p class="meta">구성 과목 ${m.courses.length}개</p><ul class="rinfo-courses">${m.courses.map(c => `<li>${esc(c.n)} <span class="meta">${c.cr != null ? c.cr + '학점' : '학점 미정'}${c.yr ? ' · ' + esc(c.yr) : ''}${c.type ? ' · ' + esc(c.type) : ''}</span></li>`).join('')}</ul>`;
+}
+function ncInfo(p) {
+  const o = ncOpenList().find(x => x.n === p.n), sum = (o && o.summary) || p.d || '', st = o ? ncStatus(o) : null;
+  return `${sum ? `<p>${esc(sum)}</p>` : '<p class="meta">과정 개요가 아직 등록되지 않았습니다.</p>'}<dl class="rinfo-dl"><dt>단계</dt><dd>${p.in}-IN ${IN_AXIS[p.in]}</dd><dt>연계 역량</dt><dd>${(p.subs || []).map(shortSub).join(', ')}</dd><dt>주관</dt><dd>${esc(p.host || '-')}</dd>
+    ${o ? `<dt>올해 개설</dt><dd>${esc(st.t || '')} · 신청 ${esc(o.applyFrom || '-')} ~ ${esc(o.applyTo || '-')} · 운영 ${esc(o.runFrom || '-')} ~ ${esc(o.runTo || '-')}${o.cap ? ` · 정원 ${o.cap}명` : ''}${o.mode ? ` · ${esc(o.mode)}` : ''}</dd>` : '<dt>올해 개설</dt><dd>아직 개설 전입니다. 관심 등록하면 개설될 때 알려 드립니다.</dd>'}</dl>`;
+}
+function bindInfo() { $view.querySelectorAll('[data-rinfo]').forEach(d => d.addEventListener('toggle', () => { d.open ? rOpen().add(d.dataset.rinfo) : rOpen().delete(d.dataset.rinfo); })); }
+
 /* ---------- 메뉴: 역할별 운영 프로세스 순서 ---------- */
 const NAV = {
   /* steps: [화면 id, 이름, 부모 화면(있으면 그 화면 안의 보기), 부모 화면의 첫 보기 이름] */
   student: [{ id: 'home', t: '홈', steps: [['home', '홈']] },
-    { id: 'diag', t: '내 진단', steps: [['intro', '진단 받기'], ['result', '진단 결과', null, '결과 요약'], ['analysis', 'AI 분석', 'result'], ['growth', '성장 리포트']] },
+    { id: 'diag', t: '내 진단', steps: [['intro', '진단 받기'], ['result', '진단 결과', null, '결과 요약'], ['analysis', 'AI 분석', 'result'], ['growth', '성장 리포트'], ['portfolio', '성장 포트폴리오']] },
     { id: 'plan', t: '내 설계', steps: [['career', '설계하기', null, '① 목표 직무'], ['gap', '② 차이 분석', 'career'], ['recs', '③ 추천 교육과정', 'career'], ['planmap', '④ 이수 계획·시간표', 'career'], ['plan', '계획 고치기', 'career', null, 'planmap'], ['timetable', '이번 학기 시간표', 'career', null, 'planmap'], ['roadmap', '융합과정 현황']] },
     { id: 'cns', t: '상담', steps: [['counsel', 'AI 상담']] }],
-  faculty: [{ id: 'fhome', t: '홈', steps: [['fhome', '홈']] }, { id: 'sec', t: '수준별 분반', steps: [['sections', '수준별 분반']] }, { id: 'adv', t: '지도 학생', steps: [['advisor', '지도 학생 상담']] }],
+  faculty: [{ id: 'fhome', t: '홈', steps: [['fhome', '홈']] }, { id: 'sec', t: '수준별 분반', steps: [['sections', '수준별 분반']] }, { id: 'adv', t: '지도 학생', steps: [['advisor', '지도 학생 상담']] }, { id: 'fdp', t: '학과 현황', steps: [['fdept', '학과 개선 현황']] }],
   admin: [{ id: 'ahome', t: '홈', steps: [['ahome', '지금 할 일'], ['axkpi', 'AX 성과']] },
     { id: 'tstart', t: '학기 초', steps: [['diagops', '진단 운영'], ['itembank', '문항 관리', null, '문항 은행·AI 고도화'], ['itemqa', '문항 분석', 'itembank'], ['forms', 'B형 검사지·동등화', 'itembank'], ['majortt', '전공 시간표'], ['electt', '교양·융합 시간표'], ['integration', '학사·수강편람 연동']] },
-    { id: 'tmid', t: '학기 중', steps: [['ncopen', '비교과 개설'], ['grades', '학점 연계'], ['notify', '알림 발송']] },
-    { id: 'tend', t: '학기말', steps: [['gain', '성과 분석', null, '역량 향상도'], ['impact', '교육과정 효과성', 'gain'], ['ask', 'AI 데이터 비서', 'gain']] },
-    { id: 'imp', t: '교육과정 개선', steps: [['specmap', '역량 매핑'], ['coverage', '개선 설계', null, '교과과정 점검'], ['studio', '개선안 설계', 'coverage'], ['committee', '위원회', null, '위원회 안건'], ['report', '위원회 보고서', 'committee']] },
+    { id: 'tmid', t: '학기 중', steps: [['ncopen', '비교과 개설'], ['risk', '조기 경보'], ['grades', '학점 연계'], ['notify', '알림 발송']] },
+    { id: 'tend', t: '학기말', steps: [['gain', '성과 분석', null, '역량 향상도'], ['impact', '교육과정 효과성', 'gain'], ['ask', 'AI 데이터 비서', 'gain'], ['evals', '강의평가 연계']] },
+    { id: 'imp', t: '교육과정 개선', steps: [['specmap', '역량 매핑'], ['deptdash', '학과별 개선'], ['coverage', '개선 설계', null, '교과과정 점검'], ['studio', '개선안 설계', 'coverage'], ['committee', '위원회', null, '위원회 안건'], ['report', '위원회 보고서', 'committee']] },
     { id: 'cfg', t: '운영 설정', steps: [['settings', '기준값·일정'], ['auditlog', '변경 이력']] }]
 };
 const ROLE_NAME = { student: '학생', faculty: '교원', admin: '관리자' };
@@ -6743,7 +7281,7 @@ function renderNav() {
   document.getElementById('helpbtn').onclick = openHelp;
   saveState();
 }
-const NEEDS_DIAG = ['result', 'analysis', 'plan', 'planmap', 'timetable', 'career', 'gap', 'recs', 'roadmap', 'counsel'];
+const NEEDS_DIAG = ['portfolio', 'result', 'analysis', 'plan', 'planmap', 'timetable', 'career', 'gap', 'recs', 'roadmap', 'counsel'];
 function go(step) {
   if (!state.user) { state.step = 'login'; render(); return; }
   if (roleOf(step) !== state.user.role && !['quiz', 'retake', 'needdiag', 'login'].includes(step)) step = HOME[state.user.role];
@@ -6924,9 +7462,9 @@ function render() {
   document.body.classList.toggle('no-demo', !demoOn());
   document.body.classList.toggle('ops', !!u && opsMode());
   watchTerms(); closeHelp();
-  document.body.classList.toggle('dash', ['home', 'fhome', 'ahome', 'result', 'analysis', 'plan', 'planmap', 'timetable', 'gap', 'recs', 'roadmap', 'studio', 'counsel', 'career', 'sections', 'advisor', 'diagops', 'grades', 'gain', 'impact', 'itembank', 'forms', 'settings', 'integration', 'majortt', 'electt', 'ncopen', 'notify', 'auditlog', 'axkpi', 'specmap', 'report', 'ask', 'itemqa'].includes(state.step));
+  document.body.classList.toggle('dash', ['home', 'fhome', 'ahome', 'result', 'analysis', 'plan', 'planmap', 'timetable', 'gap', 'recs', 'roadmap', 'studio', 'counsel', 'career', 'sections', 'advisor', 'diagops', 'grades', 'gain', 'impact', 'itembank', 'forms', 'settings', 'integration', 'majortt', 'electt', 'ncopen', 'notify', 'auditlog', 'axkpi', 'specmap', 'report', 'ask', 'itemqa', 'portfolio', 'risk', 'evals', 'deptdash', 'fdept'].includes(state.step));
   renderNav();
-  const R = { login: renderLogin, home: renderHome, fhome: renderFHome, ahome: renderAHome, needdiag: renderNeedDiag, intro: renderIntro, quiz: renderQuiz, coverage: renderCoverage, roadmap: renderRoadmap,
+  const R = { portfolio: renderPortfolio, risk: renderRisk, evals: renderEvals, deptdash: renderDeptDash, fdept: renderDeptDash, login: renderLogin, home: renderHome, fhome: renderFHome, ahome: renderAHome, needdiag: renderNeedDiag, intro: renderIntro, quiz: renderQuiz, coverage: renderCoverage, roadmap: renderRoadmap,
     committee: renderCommittee, growth: renderGrowth, impact: renderImpact, plan: renderPlan, studio: renderStudio, counsel: renderCounsel, career: renderCareer, sections: renderSections,
     advisor: renderAdvisor, diagops: renderDiagOps, grades: renderGrades, analysis: renderAnalysis, timetable: renderTimetable, gap: renderGap, recs: renderRecs, planmap: renderPlanMap, gain: renderGain, itembank: renderItemBank, forms: renderForms, settings: renderSettings, integration: renderIntegration, majortt: renderMajorTT, electt: renderElectTT, ncopen: renderNcOpen, notify: renderNotify, auditlog: renderAudit, axkpi: renderAxKpi, specmap: renderSpecMap, report: renderReport, ask: renderAsk, itemqa: renderItemQA, result: renderResult };
   const ph = document.getElementById('pagehead'); if (ph) ph.innerHTML = u ? crumbHtml() + viewSwitchHtml() : '';
