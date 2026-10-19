@@ -599,7 +599,7 @@ html { scrollbar-gutter: stable; }
 .p-adet .tbl { display: table; }
 .logform { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
 .logform .full { grid-column: 1 / -1; }
-.logform select, .logform textarea, .pick input { font: inherit; display: block; margin-top: 4px; padding: 6px 8px; border: 1.5px solid var(--ink); border-radius: 6px; background: var(--paper); color: var(--ink); width: 100%; box-sizing: border-box; }
+.logform select, .logform textarea, .logform input[type=date], .pick input { font: inherit; display: block; margin-top: 4px; padding: 6px 8px; border: 1.5px solid var(--ink); border-radius: 6px; background: var(--paper); color: var(--ink); width: 100%; box-sizing: border-box; }
 .pick input { min-width: 0; width: 9em; }
 .logform .btn { justify-self: start; }
 /* 관리자 */
@@ -1555,6 +1555,16 @@ h1, h2, h3, .summary, .pf-headline, .vbadge, .empty-state .lede { text-wrap: bal
 .tw { font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; color: #fff; }
 .tw-a { background: var(--signal); } .tw-s { background: var(--ok); } .tw-f { background: var(--amber); } .tw-x { background: var(--muted); }
 @media (prefers-color-scheme: dark) { .tw { color: #0E1420; } }
+/* v35: 상담 기록 */
+.statbtn { font: inherit; text-align: left; background: none; border: 0; border-top: 1px solid var(--line); cursor: pointer; color: inherit; border-radius: 0; }
+.statbtn:hover b, .statbtn.on b { color: var(--signal); } .statbtn.on { border-top: 3px solid var(--signal); }
+.statbtn:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.logn { display: inline-block; margin-left: 6px; font-size: 12px; color: var(--signal); font-weight: 600; }
+.loglist { list-style: none; padding: 0; margin: 6px 0 14px; display: grid; gap: 8px; }
+.loglist li { padding: 10px 12px; border-left: 3px solid var(--signal); background: var(--paper); border-radius: 0 10px 10px 0; }
+.loglist p { margin: 4px 0 0; } .logh { display: flex; gap: 10px; align-items: baseline; } .logh .linkbtn { margin-left: auto; }
+.logform h4 { margin: 0; font-size: 14px; }
+.p-csf, .p-csd { grid-column: span 6; } @media (max-width: 1000px) { .p-csf, .p-csd { grid-column: 1 / -1; } }
 </style>
 </head>
 <body>
@@ -3354,48 +3364,6 @@ async function fillRealStudents(boxId) {
     };
   });
 }
-function renderAdvisor() {
-  state.counselLog = sGet('org', 'counsel') || {};
-  const A = state.alertStd || (state.alertStd = { drop: 0, lowCount: 3 });
-  const al = advisorAlerts();
-  const open = al.filter(x => !state.counselLog[x.st.no]), done = al.filter(x => state.counselLog[x.st.no]);
-  const sel = al.find(x => x.st.no === state.advSel) || open[0] || al[0];
-  const row = x => `<li class="alrow ${sel && x.st.no === sel.st.no ? 'on' : ''}"><button data-adv="${x.st.no}"><b>${x.st.alias}</b> <span class="meta">${x.st.no.slice(0, 4)}****</span><br>${x.why.map(w => `<span class="chipw">${w}</span>`).join('')}</button></li>`;
-  let detail = '<p class="meta">알림 대상이 없습니다.</p>';
-  if (sel) {
-    const st = sel.st, log = state.counselLog[st.no];
-    const rows = AREAS.map((a, k) => `<tr><td>${a.short}</td><td>${st.traceArea[0][k]}</td><td>${st.traceArea[1][k]}</td><td class="${st.traceArea[1][k] < st.traceArea[0][k] ? 'low' : 'ok'}">${st.traceArea[1][k] - st.traceArea[0][k] > 0 ? '+' : ''}${st.traceArea[1][k] - st.traceArea[0][k]}</td></tr>`).join('');
-    detail = `<h3 class="sub3">${st.alias} · 알림 사유</h3><p>${sel.why.map(w => `<span class="chipw">${w}</span>`).join(' ')}</p>
-      ${prepCardHtml(sel)}
-      <table class="tbl"><thead><tr><th>영역</th><th>입학 직후</th><th>1학기말</th><th>변화</th></tr></thead><tbody>${rows}</tbody></table>
-      <p class="meta" style="margin-top:6px">1학기 수강: ${st.taken[0].join(', ') || '추천 과목 미수강'}${sel.lowBoth.length ? ` · '하' 지속 능력: ${sel.lowBoth.slice(0, 5).join(', ')}` : ''}</p>
-      <h3 class="sub3">상담 기록</h3>
-      ${log ? `<div class="logview"><p class="okc">상담 완료 · ${log.date} · ${log.type}</p><p>${esc(log.memo)}</p><p class="meta">합의한 행동: ${(log.agree || [log.next]).filter(Boolean).join(', ') || '-'}${log.follow ? ` · 후속 점검 ${log.follow}` : ''}</p><button class="linkbtn" id="logedit">기록 수정</button></div>`
-        : `<div class="logform"><label class="meta">상담 방식<select id="ltype"><option>대면</option><option>비대면(화상)</option><option>전화</option></select></label>
-          <label class="meta">상담일<input type="date" id="ldate" value="${localTime().slice(0, 10)}"></label>
-          <label class="meta full">주요 내용<textarea id="lmemo" rows="3" placeholder="학생이 말한 어려움, 확인한 점"></textarea></label>
-          <fieldset class="full agreeset"><legend class="meta">합의한 행동</legend>${AGREE.map(a => `<label class="chk"><input type="checkbox" class="lag" value="${a}"> ${a}</label>`).join('')}</fieldset>
-          <label class="meta">후속 점검일<input type="date" id="lfollow"></label>
-          <button class="btn" id="lsave">상담 완료로 기록</button></div>`}`;
-  }
-  $view.innerHTML = `
-  <div class="dash-grid">
-    <section class="panel p-sum"><p class="summary">지도 학생 상담 알림</p>
-      <p class="meta">학기말 재진단 결과로 상담이 필요한 학생을 자동으로 고릅니다. 지도 학생은 ${state.dept} 신입생(가상)이며, 학생 이름은 가명입니다. <span class="badge amber">가상 예시 데이터</span></p>
-      <div class="stats"><div class="stat"><b>${al.length}명</b><span>알림 대상</span></div><div class="stat"><b>${open.length}명</b><span>상담 전</span></div><div class="stat"><b>${done.length}명</b><span>상담 완료</span></div><div class="stat"><b>${cohort().filter(st => st.dept === state.dept).length}명</b><span>지도 학생</span></div></div>
-      <p class="meta" style="margin-top:8px">알림 기준: 향상도 ${A.drop}점 미만 · '하' 수준 2회 연속 ${A.lowCount}개 이상 · 재실시 2회 · 기초학습 낮음·보충 미이수 (관리자 운영 설정)</p>
-    </section>
-    <section class="panel p-alist"><header class="phead"><h2>알림 목록</h2><span class="meta">상담 전 ${open.length} · 완료 ${done.length}</span></header><div class="pbody scroll" tabindex="0"><ul class="alist">${open.map(row).join('')}${done.length ? `<li class="meta" style="margin:8px 0 4px">상담 완료</li>${done.map(row).join('')}` : ''}</ul></div></section>
-    <section class="panel p-adet"><header class="phead"><h2>학생 상세와 상담</h2></header><div class="pbody">${detail}</div></section>
-  </div>`;
-  $view.querySelectorAll('[data-adv]').forEach(b => b.onclick = () => { state.advSel = b.dataset.adv; renderAdvisor(); });
-  const sv = document.getElementById('lsave');
-  if (sv) sv.onclick = () => { state.counselLog[sel.st.no] = { date: document.getElementById('ldate').value || localTime().slice(0, 10), type: document.getElementById('ltype').value, memo: document.getElementById('lmemo').value.trim() || '(내용 없음)', agree: [...document.querySelectorAll('.lag:checked')].map(x => x.value), follow: document.getElementById('lfollow').value, by: state.user.name }; state.advSel = sel.st.no; sSet('org', 'counsel', state.counselLog); renderAdvisor(); };
-  const pp = document.getElementById('prepprint');
-  if (pp) pp.onclick = () => printPrep(sel);
-  const ed = document.getElementById('logedit');
-  if (ed) ed.onclick = () => { delete state.counselLog[sel.st.no]; sSet('org', 'counsel', state.counselLog); renderAdvisor(); };
-}
 
 /* ---------- 관리자: 진단 운영 ---------- */
 function renderDiagOps() {
@@ -4661,7 +4629,8 @@ const TOUR_OVERVIEW = [
   { who: '학생', when: '학기 중', title: '알림 받고 신청 · 자기주도 학습 실천', text: "학생 홈에 비교과 신청 알림이 뜨고, 시간표 추천이 제안한 자기주도 학습을 주마다 실천했는지 표시합니다. 2주 연속 저조하면 지도교수 화면에 표시됩니다.", sel: '.p-hck', prep: async () => { await tourLogin('student', '20261001'); state.phase = 'mid'; await tourStudentReady(); go('home'); const d = document.getElementById('ckdemo'); if (d) d.click(); } },
   { who: '관리자', when: '학기 중', title: '이탈·부진 조기 경보', text: '진단 재실시, 향상도 하락, 낮은 수준 반복, 계획·비교과 미참여, 상담 무응답을 점수로 더해 위험 학생과 학과별 비율을 봅니다.', sel: '.p-rkdept', prep: async () => { await tourLogin('admin', null, 'all'); state.phase = 'mid'; go('risk'); } },
   { who: '교원', when: '학기 중', title: '상담 알림과 상담 요청', text: "지도 학생의 위험도와 사유를 보고 '상담 요청'으로 희망 일시 후보를 보냅니다. 학생은 홈에서 일시를 골라 응답하고, 응답이 이 표에 표시됩니다.", sel: '.p-freal', prep: async () => { await tourLogin('faculty'); state.phase = 'mid'; go('fhome'); } },
-  { who: '교원', when: '학기 중', title: '상담 준비 카드', text: '학생의 강점·보완점과 이수 현황을 한 장으로 보고 상담한 뒤, 합의한 보완 활동과 후속 점검일을 기록합니다.', sel: '.p-adet', prep: async () => go('advisor') },
+  { who: '교원', when: '학기 중', title: '상담 준비 카드와 상담 기록', text: '알림 대상·상담 전·상담 완료 숫자를 누르면 해당 학생이 나옵니다. 학생을 고르면 상담 준비 카드와 그동안의 상담 기록이 함께 보이고, 기록은 학기가 바뀌어도 남습니다. 상담 메모는 기록한 교원 본인만 봅니다.', sel: '.p-adet', prep: async () => go('advisor') },
+  { who: '관리자', when: '학기 중', title: '상담 현황 집계', text: '교원별·학과별 상담 건수와 상담 학생 수만 집계로 봅니다. 관리자는 상담 메모를 볼 수 없습니다.', sel: '.p-csf', prep: async () => { await tourLogin('admin', null, 'all'); state.phase = 'mid'; go('counselstat'); } },
   { who: '관리자', when: '학기말', title: '학점 연계와 재진단 안내', text: '학기말 이수 결과(학점)를 반영하고, 재진단 기간 안내를 보냅니다. 이수 결과는 향상도·효과성 분석에 쓰입니다.', sel: '.p-board', prep: async () => { await tourLogin('admin', null, 'all'); state.phase = 'end'; go('grades'); } },
   { who: '학생', when: '학기말', title: '재진단과 성장 리포트', text: '같은 능력을 다른 문항(B형)으로 다시 재서 입학 직후와 비교합니다. 영역별 변화와 학기별 수강 과목을 함께 봅니다.', sel: '.morph', prep: async () => { await tourLogin('student', '20261001'); await tourStudentReady(true); go('growth'); await wait(300); const p = document.getElementById('mplay'); if (p) p.click(); } },
   { who: '학생', when: '학기말', title: '성장 포트폴리오', text: '진단 변화·이수·비교과·실천 기록을 한 장으로 모으고 AI가 자기소개서·면접 소재를 씁니다. 다음 학기 계획의 출발점이 됩니다.', sel: '.p-pf', prep: async () => go('portfolio') },
@@ -4766,8 +4735,8 @@ const TOUR_FACULTY = [
   S_('교원 홈 · 상담 알림 미리 보기', '향상도가 기준에 못 미치거나 낮은 수준이 이어지는 학생을 알림으로 보여 줍니다(시연에서는 가상 예시 데이터).', '.p-fa', async () => go('fhome')),
   S_('교원 홈 · 지금 할 일', '남은 상담, 후속 점검일, 학기 시점별 할 일이 모입니다.', '.p-fw', async () => go('fhome')),
   S_('교원 홈 · 플랫폼 이용 학생', "실제로 플랫폼을 쓰는 지도 학생의 진단 결과, 향상도, 이수 계획, 자기주도 실천, 조기 경보 위험도와 사유가 나옵니다. '상담 요청'으로 희망 일시 후보를 보내면 학생 응답이 이 표에 표시됩니다.", '.p-freal', async () => go('fhome')),
-  S_('지도 학생 상담 · 알림 목록', '알림 사유별로 학생을 고르고, 상담을 마친 학생은 완료로 표시합니다.', '.p-alist', async () => go('advisor')),
-  S_('지도 학생 상담 · 상담 준비 카드', '학생의 강점·보완점, 이수 현황, 비교과 참여를 한 장으로 정리하고, 합의한 보완 활동과 후속 점검일을 기록합니다. 상담 준비 카드는 인쇄할 수 있습니다.', '.p-adet', async () => go('advisor')),
+  S_('지도 학생 상담 · 단계별 학생', '알림 대상·상담 전·상담 완료·지도 학생 숫자를 누르면 해당 학생 목록이 나옵니다. 지도 학생은 학기마다 새로 정해지고, 상담 완료에는 이전 학기에 상담한 학생도 남습니다.', '.p-alist', async () => go('advisor')),
+  S_('지도 학생 상담 · 상담 준비 카드', '학생의 강점·보완점, 이수 현황, 비교과 참여를 한 장으로 정리하고, 합의한 보완 활동과 후속 점검일을 기록합니다. 학생별 상담 기록이 날짜순으로 쌓이고 고칠 수 있으며, 메모는 기록한 교원 본인만 봅니다.', '.p-adet', async () => go('advisor')),
   S_('수준별 분반 · 기준', '교과목에 연결된 하위능력 점수로 상·중·하 수준을 정해 분반을 나눕니다. 관리자가 교양·융합 시간표에 분반을 배치했으면 그 분반 번호·수준·정원을 그대로 씁니다.', '.p-sum', async () => go('sections')),
   S_('수준별 분반 · 결과', '분반별 인원과 수준 구성을 보고, 학생 옆 선택 상자로 분반을 옮깁니다. 명단은 CSV로 내려받습니다.', '.p-board', async () => go('sections')),
   S_('학과 현황 · 영역별 역량', '소속 학과 학생의 7영역 역량을 대학 평균과 비교합니다(10명 이상일 때만 집계).', '.p-ddarea', async () => go('fdept')),
@@ -4785,6 +4754,7 @@ const TOUR_DIAG = [
   S_('검사지 구성 · 동등화', 'A형·B형 검사지 설계표와 동등화 결과로 학기 초와 학기말 점수를 같은 척도로 맞춥니다.', '.p-feq', async () => go('forms')),
   S_('조기 경보 · 학과별 비율', '진단 재실시, 향상도 하락, 낮은 수준 반복, 계획·비교과 미참여 신호를 점수로 더해 학과별 위험·경고·주의 비율을 봅니다.', '.p-rkdept', async () => go('risk')),
   S_('조기 경보 · 경보 학생', '점수 높은 학생과 사유를 봅니다. 실제 이용 학생의 경보는 교원 화면에도 나옵니다.', '.p-rklist', async () => go('risk')),
+  S_('상담 현황 · 교원별·학과별 건수', '지도교수 상담 건수와 상담 학생 수를 교원별·학과별로 봅니다. 상담 메모는 관리자에게 보이지 않습니다.', '.p-csf', async () => go('counselstat')),
   S_('학점 연계', '학기말 이수 결과(학점) 파일을 검증해 반영하고, 향상도·효과성 분석에 씁니다.', '.p-board', async () => go('grades')),
   S_('알림 발송 · 종류와 문안', '진단 기간 안내, 미응시 독려, 재진단 안내, 상담 안내를 고르고 문안을 고칩니다. 수신 대상을 미리 보고 보냅니다.', '.p-ned', async () => go('notify')),
   S_('알림 발송 · 발송함', '보낸 알림의 기록을 봅니다. 메일 발송 설정 전에는 시연 기록으로 남습니다.', '.p-nout', async () => go('notify')),
@@ -5356,7 +5326,7 @@ async function enterUser(u) {
   setUser(u);
 }
 function setUser(u) {
-  state.user = u; state.tt = null; state.ttMsg = ''; state.recSel = null; state.planSig = null; state.planPrev = null; state.planUndo = null; state.ttCellMode = false; state.careerTab = null; state.careerSel = null; state.careerInd = null; state.jobG = ''; state.jobQ = '';
+  state.user = u; state.tt = null; state.ttMsg = ''; state.recSel = null; state.planSig = null; state.planPrev = null; state.planUndo = null; state.ttCellMode = false; state.careerTab = null; state.careerSel = null; state.careerInd = null; state.jobG = ''; state.jobQ = ''; state.myLogs = null; state.advFilter = null; state.advSel = null; state.logEdit = null;
   state.phase = state.phase || 'start';
   if (u.role === 'student') {
     state.dept = CURRICULUM.depts.includes(u.dept) ? u.dept : state.dept;
@@ -6113,6 +6083,7 @@ function adminTodos() {
 
 /* ---------- 위치 표시: 역할 › 메뉴 › 화면 › 보기, 그리고 이 화면에서 하는 일 ---------- */
 const PAGE_JOB = {
+  counselstat: '지도교수 상담 건수를 교원별·학과별로 집계합니다(상담 메모는 보지 않음).',
   portfolio: '진단·이수·비교과·실천 기록을 한 장으로 모으고 자기소개서 소재를 정리합니다.', risk: '이탈·부진 위험 학생을 신호별 점수와 사유로 미리 찾습니다.', evals: '강의평가 문항·척도를 정하고 결과를 교육과정 효과성과 함께 봅니다.', deptdash: '학과별 역량·직무 준비도·개선할 교과목을 한 화면에서 봅니다.', fdept: '소속 학과의 역량·직무 준비도·개선할 교과목을 봅니다.',
   home: '이번 학기에 할 일과 진행 단계를 봅니다.', intro: '직업기초·핵심·기초학습 3종 진단을 받습니다.', result: '3종 진단 결과와 강점·보완점을 봅니다.', analysis: 'AI가 진단 결과를 해석하고 보완 순서를 처방합니다.',
   growth: '입학 직후와 재진단을 비교해 성장을 확인합니다.', plan: '과목을 끌어 옮기거나 더하고 빼며 학기별 계획을 고칩니다.', planmap: '학년·학기별 이수 계획을 단계로 보고 졸업 요건을 점검합니다.', timetable: '이번 학기 계획을 전공 시간표의 빈 시간에 맞춰 확정합니다.', gap: '목표 직무에 필요한 역량과 내 점수의 차이를 AI로 분석합니다.', recs: '차이를 메우는 교양·융합과정·비교과 중 들을 것을 고릅니다.',
@@ -6853,7 +6824,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.g
 /* A4. 관리자 담당(duty): 총괄은 모든 메뉴, 담당은 맡은 업무 메뉴만. 서버도 같은 기준으로 쓰기를 막음 */
 const DUTY_NAME = { all: '총괄', diag: '진단·성과 담당', tt: '시간표·학사 담당', nc: '비교과 담당', cur: '교육과정 담당' };
 const DUTY_STEPS = {
-  diag: ['ahome', 'axkpi', 'diagops', 'itembank', 'itemqa', 'forms', 'grades', 'notify', 'gain', 'impact', 'ask', 'risk', 'evals', 'deptdash', 'auditlog'],
+  diag: ['ahome', 'axkpi', 'diagops', 'itembank', 'itemqa', 'forms', 'grades', 'notify', 'gain', 'impact', 'ask', 'risk', 'counselstat', 'evals', 'deptdash', 'auditlog'],
   tt: ['ahome', 'majortt', 'electt', 'integration', 'auditlog'],
   nc: ['ahome', 'ncopen', 'notify', 'impact', 'auditlog'],
   cur: ['ahome', 'specmap', 'deptdash', 'evals', 'coverage', 'studio', 'committee', 'report', 'impact', 'gain', 'auditlog']
@@ -7248,6 +7219,129 @@ function ncInfo(p) {
 }
 function bindInfo() { $view.querySelectorAll('[data-rinfo]').forEach(d => d.addEventListener('toggle', () => { d.open ? rOpen().add(d.dataset.rinfo) : rOpen().delete(d.dataset.rinfo); })); }
 
+/* ---------- 지도교수 상담 기록: 학생별 누적, 학기가 바뀌어도 보존, 메모는 기록한 교원 본인만 ---------- */
+/* 학년도·학기(3~8월 1학기, 9~2월 2학기) */
+function termLabel(d = new Date()) { const m = d.getMonth() + 1, y = m <= 2 ? d.getFullYear() - 1 : d.getFullYear(); return `${y}학년도 ${m >= 3 && m <= 8 ? 1 : 2}학기`; }
+const LOGS_LOCAL = 'counsel_logs_demo';
+const logRow = r => ({ id: r.id, no: r.student_no, label: r.student_label, dept: r.dept, term: r.term, date: r.c_date, type: r.c_type, memo: r.memo, agree: r.agree || [], follow: r.follow, at: r.updated_at || r.created_at });
+async function loadMyLogs() {
+  if (AUTH.mode === 'supa') {
+    const { data, error } = await sb.from('counsel_logs').select('id,student_no,student_label,dept,term,c_date,c_type,memo,agree,follow,created_at,updated_at').order('c_date', { ascending: false }).order('id', { ascending: false });
+    state.myLogs = error ? [] : (data || []).map(logRow); state.myLogsErr = error ? error.message : '';
+  } else {
+    state.myLogs = (lsGet(LOGS_LOCAL) || []).filter(r => r.faculty === state.user.name).map(logRow).sort((a, b) => String(b.date).localeCompare(String(a.date)) || b.id - a.id);
+  }
+  return state.myLogs;
+}
+async function saveLog(rec, id) {
+  const row = { student_no: rec.no, student_label: rec.label, dept: rec.dept, term: rec.term, c_date: rec.date, c_type: rec.type, memo: rec.memo, agree: rec.agree, follow: rec.follow || null };
+  if (AUTH.mode === 'supa') {
+    const { error } = id ? await sb.from('counsel_logs').update(row).eq('id', id) : await sb.from('counsel_logs').insert(row);
+    if (error) return error.message;
+  } else {
+    const all = lsGet(LOGS_LOCAL) || [], now = new Date().toISOString();
+    if (id) { const i = all.findIndex(r => r.id === id && r.faculty === state.user.name); if (i >= 0) all[i] = { ...all[i], ...row, updated_at: now }; }
+    else all.push({ ...row, id: Date.now(), faculty: state.user.name, faculty_dept: state.dept, created_at: now, updated_at: now });
+    lsSet(LOGS_LOCAL, all); if (!id) logLocal('상담 기록', rec.no.slice(0, 4) + '****', rec.term);
+  }
+  await loadMyLogs(); return '';
+}
+async function counselStats(term) {
+  if (AUTH.mode === 'supa') { const { data, error } = await sb.rpc('counsel_stats', { p_term: term }); return error ? { error: error.message } : data; }
+  const all = lsGet(LOGS_LOCAL) || [], grp = (key, f) => { const m = new Map(); all.forEach(r => { const k = key(r); const e = m.get(k) || f(r); e.total++; if (r.term === term) e.this_term++; e._s.add(r.student_no); if (e._f) e._f.add(r.faculty); m.set(k, e); }); return [...m.values()].map(({ _s, _f, ...e }) => ({ ...e, students: _s.size, ...(_f ? { faculty: _f.size } : {}) })); };
+  return { by_faculty: grp(r => r.faculty, r => ({ faculty: r.faculty, dept: r.faculty_dept, total: 0, this_term: 0, _s: new Set() })), by_dept: grp(r => r.dept || '미상', r => ({ dept: r.dept || '미상', total: 0, this_term: 0, _s: new Set(), _f: new Set() })), total: all.length, this_term: all.filter(r => r.term === term).length, students: new Set(all.map(r => r.student_no)).size, faculty: new Set(all.map(r => r.faculty)).size };
+}
+/* 학생별 최근 기록(이번 학기) — 교원 홈·할 일에서 씀 */
+function counselMap(term) { const o = {}; (state.myLogs || []).filter(l => !term || l.term === term).forEach(l => { if (!o[l.no]) o[l.no] = l; }); return o; }
+function ensureLogs(rerender) { if (state.myLogs || state.myLogsLoading) return; state.myLogsLoading = true; loadMyLogs().finally(() => { state.myLogsLoading = false; rerender(); }); }
+/* 지도 학생 전체(알림 사유 포함) */
+function advisorAll() {
+  const co = cohort(), A = state.alertStd || { drop: 0, lowCount: 3 };
+  return co.filter(st => st.dept === state.dept).map(st => {
+    const t0 = st.traceArea[0], t1 = st.traceArea[1], d = t1.reduce((a, v, i) => a + v - t0[i], 0) / t1.length;
+    const lowBoth = SUBNAMES.filter((_, k) => st.traceSub[0][k] < MID && st.traceSub[1][k] < MID), why = [];
+    if (d < A.drop) why.push(`향상도 ${d.toFixed(1)}점(기준 ${A.drop}점 미만)`);
+    if (lowBoth.length >= A.lowCount) why.push(`'하' 수준 2회 연속 ${lowBoth.length}개 능력`);
+    if (st.relCount >= 2) why.push('진단 재실시 2회');
+    if (st.basicLow && !st.suppDone) why.push('기초학습 낮음·보충 미이수');
+    return { st, d, lowBoth, why };
+  });
+}
+function renderAdvisor() {
+  if (!state.myLogs) { ensureLogs(() => { if (state.step === 'advisor') renderAdvisor(); }); }
+  const logs = state.myLogs || [], term = termLabel(), A = state.alertStd || (state.alertStd = { drop: 0, lowCount: 3 });
+  const all = advisorAll(), al = all.filter(x => x.why.length), byNo = new Map(); logs.forEach(l => { if (!byNo.has(l.no)) byNo.set(l.no, []); byNo.get(l.no).push(l); });
+  const doneTerm = new Set(logs.filter(l => l.term === term).map(l => l.no)), open = al.filter(x => !doneTerm.has(x.st.no));
+  /* 상담 완료: 이 교원이 상담한 학생 전체(지난 학기·지금은 지도 학생이 아닌 학생 포함) */
+  const done = [...byNo.keys()].map(no => all.find(x => x.st.no === no) || { st: { no, alias: byNo.get(no)[0].label || '학생', dept: byNo.get(no)[0].dept }, why: [], former: true });
+  const F = state.advFilter = state.advFilter || 'open';
+  const lists = { alert: al, open, done, all }, list = lists[F];
+  const names = { alert: '알림 대상', open: '상담 전', done: '상담 완료', all: '지도 학생' };
+  const sel = list.find(x => x.st.no === state.advSel) || list[0] || null;
+  const stat = (k, n, sub) => `<button class="stat statbtn ${F === k ? 'on' : ''}" data-advf="${k}" type="button" aria-pressed="${F === k}"><b>${n}명</b><span>${names[k]}${sub ? ` · ${sub}` : ''}</span></button>`;
+  const row = x => { const L = byNo.get(x.st.no) || []; return `<li class="alrow ${sel && x.st.no === sel.st.no ? 'on' : ''}"><button data-adv="${esc(x.st.no)}"><b>${esc(x.st.alias)}</b> <span class="meta">${esc(String(x.st.no).slice(0, 4))}****${x.former ? ' · 지금은 지도 학생 아님' : ''}</span>${L.length ? `<span class="logn">상담 ${L.length}회 · 최근 ${esc(L[0].date)}</span>` : ''}<br>${x.why.map(w => `<span class="chipw">${w}</span>`).join('')}</button></li>`; };
+  let detail = `<p class="meta">${names[F]} 학생이 없습니다.</p>`;
+  if (sel) {
+    const st = sel.st, L = byNo.get(st.no) || [], ed = state.logEdit != null ? L.find(l => l.id === state.logEdit) : null, E = ed || {};
+    const areaRows = st.traceArea ? AREAS.map((a, k) => `<tr><td>${a.short}</td><td>${st.traceArea[0][k]}</td><td>${st.traceArea[1][k]}</td><td class="${st.traceArea[1][k] < st.traceArea[0][k] ? 'low' : 'ok'}">${st.traceArea[1][k] - st.traceArea[0][k] > 0 ? '+' : ''}${st.traceArea[1][k] - st.traceArea[0][k]}</td></tr>`).join('') : '';
+    detail = `<h3 class="sub3">${esc(st.alias)}${sel.why.length ? ' · 알림 사유' : ''}</h3>${sel.why.length ? `<p>${sel.why.map(w => `<span class="chipw">${w}</span>`).join(' ')}</p>` : ''}
+      ${sel.former ? '<p class="meta">이번 학기에는 지도 학생이 아니어서 진단 정보는 보이지 않고, 지난 상담 기록만 볼 수 있습니다.</p>' : `${prepCardHtml(sel)}
+      <table class="tbl"><thead><tr><th>영역</th><th>입학 직후</th><th>1학기말</th><th>변화</th></tr></thead><tbody>${areaRows}</tbody></table>`}
+      <h3 class="sub3">상담 기록 <span class="meta">${L.length}회 · 학기가 바뀌어도 보관</span></h3>
+      ${L.length ? `<ol class="loglist">${L.map(l => `<li><div class="logh"><b>${esc(l.date)}</b><span class="meta">${esc(l.term)} · ${esc(l.type || '')}</span><button class="linkbtn" data-logedit="${l.id}" type="button">수정</button></div><p>${esc(l.memo || '')}</p><p class="meta">합의한 행동: ${(l.agree || []).map(esc).join(', ') || '-'}${l.follow ? ` · 후속 점검 ${esc(l.follow)}` : ''}</p></li>`).join('')}</ol>` : '<p class="meta">아직 상담 기록이 없습니다.</p>'}
+      <div class="logform"><h4 class="full">${ed ? `${esc(ed.date)} 기록 수정` : '새 상담 기록'}</h4>
+        <label class="meta">상담 방식<select id="ltype">${['대면', '비대면(화상)', '전화'].map(t => `<option ${t === E.type ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
+        <label class="meta">상담일<input type="date" id="ldate" value="${esc(E.date || localTime().slice(0, 10))}"></label>
+        <label class="meta full">주요 내용<textarea id="lmemo" rows="3" placeholder="학생이 말한 어려움, 확인한 점">${esc(E.memo || '')}</textarea></label>
+        <fieldset class="full agreeset"><legend class="meta">합의한 행동</legend>${AGREE.map(a => `<label class="chk"><input type="checkbox" class="lag" value="${a}" ${(E.agree || []).includes(a) ? 'checked' : ''}> ${a}</label>`).join('')}</fieldset>
+        <label class="meta">후속 점검일<input type="date" id="lfollow" value="${esc(E.follow || '')}"></label>
+        <div class="actions full"><button class="btn" id="lsave" type="button">${ed ? '수정 저장' : '상담 기록 추가'}</button>${ed ? '<button class="linkbtn" id="lcancel" type="button">취소</button>' : ''}<span class="meta" id="lmsg" aria-live="polite"></span></div>
+        <p class="meta full">상담 메모는 기록한 교원 본인만 볼 수 있습니다. 관리자에게는 교원별·학과별 상담 건수만 집계됩니다.</p></div>`;
+  }
+  $view.innerHTML = `
+  <div class="dash-grid">
+    <section class="panel p-sum"><p class="summary">지도 학생 상담</p>
+      <p class="meta">${esc(term)} · 학기말 재진단 결과로 상담이 필요한 학생을 자동으로 고릅니다. 숫자를 누르면 해당 학생 목록이 나옵니다. 지도 학생은 ${esc(state.dept)} 신입생(가상)이며 이름은 가명입니다. <span class="badge amber">가상 예시 데이터</span></p>
+      <div class="stats">${stat('alert', al.length)}${stat('open', open.length, '이번 학기')}${stat('done', done.length, `누적 ${logs.length}회`)}${stat('all', all.length)}</div>
+      <p class="meta" style="margin-top:8px">알림 기준: 향상도 ${A.drop}점 미만 · '하' 수준 2회 연속 ${A.lowCount}개 이상 · 재실시 2회 · 기초학습 낮음·보충 미이수 (관리자 운영 설정)${state.myLogsErr ? ` · 기록을 불러오지 못했습니다: ${esc(state.myLogsErr)}` : ''}</p>
+    </section>
+    <section class="panel p-alist"><header class="phead"><h2>${names[F]}</h2><span class="meta">${list.length}명</span></header><div class="pbody scroll" tabindex="0"><ul class="alist">${list.map(row).join('') || `<li class="meta">${names[F]} 학생이 없습니다.</li>`}</ul></div></section>
+    <section class="panel p-adet"><header class="phead"><h2>학생 상세와 상담 기록</h2></header><div class="pbody">${detail}</div></section>
+  </div>`;
+  $view.querySelectorAll('[data-advf]').forEach(b => b.onclick = () => { state.advFilter = b.dataset.advf; state.advSel = null; state.logEdit = null; renderAdvisor(); });
+  $view.querySelectorAll('[data-adv]').forEach(b => b.onclick = () => { state.advSel = b.dataset.adv; state.logEdit = null; renderAdvisor(); });
+  $view.querySelectorAll('[data-logedit]').forEach(b => b.onclick = () => { state.logEdit = +b.dataset.logedit; state.advSel = sel.st.no; renderAdvisor(); document.getElementById('lmemo').focus(); });
+  const pp = document.getElementById('prepprint'); if (pp) pp.onclick = () => printPrep(sel);
+  const lc = document.getElementById('lcancel'); if (lc) lc.onclick = () => { state.logEdit = null; renderAdvisor(); };
+  const sv = document.getElementById('lsave');
+  if (sv) sv.onclick = async () => {
+    const memo = document.getElementById('lmemo').value.trim();
+    if (!memo) { document.getElementById('lmsg').textContent = '주요 내용을 적어 주세요.'; return; }
+    sv.disabled = true;
+    const ed = state.logEdit != null ? (state.myLogs || []).find(l => l.id === state.logEdit) : null;
+    const err = await saveLog({ no: sel.st.no, label: sel.st.alias, dept: sel.st.dept || state.dept, term: ed ? ed.term : termLabel(), date: document.getElementById('ldate').value || localTime().slice(0, 10), type: document.getElementById('ltype').value, memo, agree: [...document.querySelectorAll('.lag:checked')].map(x => x.value), follow: document.getElementById('lfollow').value }, ed ? ed.id : null);
+    if (err) { sv.disabled = false; document.getElementById('lmsg').textContent = `저장하지 못했습니다: ${err}`; return; }
+    state.advSel = sel.st.no; state.logEdit = null; toast(ed ? '상담 기록을 고쳤습니다.' : '상담 기록을 추가했습니다.'); renderAdvisor();
+  };
+}
+/* 관리자: 교원별·학과별 상담 건수(메모는 보지 않음) */
+async function renderCounselStat() {
+  const term = termLabel();
+  $view.innerHTML = '<div class="dash-grid"><section class="panel p-sum"><p class="summary">상담 현황</p><p class="meta">불러오는 중…</p></section></div>';
+  const S = await counselStats(term); if (state.step !== 'counselstat') return;
+  if (S.error) { $view.innerHTML = `<div class="dash-grid"><section class="panel p-sum"><p class="summary">상담 현황</p><p class="meta">불러오지 못했습니다: ${esc(S.error)}</p></section></div>`; return; }
+  const tbl = (rows, cols) => rows.length ? `<div class="scrollx"><table class="tbl"><thead><tr>${cols.map(c => `<th>${c[0]}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${cols.map(c => `<td>${c[1](r)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : '<p class="meta">아직 상담 기록이 없습니다.</p>';
+  $view.innerHTML = `
+  <div class="dash-grid">
+    <section class="panel p-sum"><p class="eyebrow">학기 중 · 지도교수 상담 현황</p>
+      <p class="summary">${esc(term)} 상담 ${S.this_term}건, 누적 ${S.total}건입니다.</p>
+      <div class="stats"><div class="stat"><b>${S.this_term}건</b><span>이번 학기 상담</span></div><div class="stat"><b>${S.total}건</b><span>누적 상담</span></div><div class="stat"><b>${S.students}명</b><span>상담한 학생</span></div><div class="stat"><b>${S.faculty}명</b><span>상담한 교원</span></div></div>
+      <p class="meta">상담 메모와 학생 정보는 기록한 교원 본인만 볼 수 있고, 이 화면은 건수만 집계합니다.</p></section>
+    ${panelH('p-csf', '교원별', '', tbl(S.by_faculty || [], [['교원', r => esc(r.faculty)], ['소속', r => esc(r.dept || '-')], ['이번 학기', r => r.this_term + '건'], ['누적', r => r.total + '건'], ['상담한 학생', r => r.students + '명']]))}
+    ${panelH('p-csd', '학과별', '학생 소속 학과 기준', tbl(S.by_dept || [], [['학과', r => esc(r.dept)], ['이번 학기', r => r.this_term + '건'], ['누적', r => r.total + '건'], ['상담한 학생', r => r.students + '명'], ['상담 교원', r => r.faculty + '명']]))}
+  </div>`;
+}
+
 /* ---------- 메뉴: 역할별 운영 프로세스 순서 ---------- */
 const NAV = {
   /* steps: [화면 id, 이름, 부모 화면(있으면 그 화면 안의 보기), 부모 화면의 첫 보기 이름] */
@@ -7258,7 +7352,7 @@ const NAV = {
   faculty: [{ id: 'fhome', t: '홈', steps: [['fhome', '홈']] }, { id: 'sec', t: '수준별 분반', steps: [['sections', '수준별 분반']] }, { id: 'adv', t: '지도 학생', steps: [['advisor', '지도 학생 상담']] }, { id: 'fdp', t: '학과 현황', steps: [['fdept', '학과 개선 현황']] }],
   admin: [{ id: 'ahome', t: '홈', steps: [['ahome', '지금 할 일'], ['axkpi', 'AX 성과']] },
     { id: 'tstart', t: '학기 초', steps: [['diagops', '진단 운영'], ['itembank', '문항 관리', null, '문항 은행·AI 고도화'], ['itemqa', '문항 분석', 'itembank'], ['forms', 'B형 검사지·동등화', 'itembank'], ['majortt', '전공 시간표'], ['electt', '교양·융합 시간표'], ['integration', '학사·수강편람 연동']] },
-    { id: 'tmid', t: '학기 중', steps: [['ncopen', '비교과 개설'], ['risk', '조기 경보'], ['grades', '학점 연계'], ['notify', '알림 발송']] },
+    { id: 'tmid', t: '학기 중', steps: [['ncopen', '비교과 개설'], ['risk', '조기 경보'], ['counselstat', '상담 현황'], ['grades', '학점 연계'], ['notify', '알림 발송']] },
     { id: 'tend', t: '학기말', steps: [['gain', '성과 분석', null, '역량 향상도'], ['impact', '교육과정 효과성', 'gain'], ['ask', 'AI 데이터 비서', 'gain'], ['evals', '강의평가 연계']] },
     { id: 'imp', t: '교육과정 개선', steps: [['specmap', '역량 매핑'], ['deptdash', '학과별 개선'], ['coverage', '개선 설계', null, '교과과정 점검'], ['studio', '개선안 설계', 'coverage'], ['committee', '위원회', null, '위원회 안건'], ['report', '위원회 보고서', 'committee']] },
     { id: 'cfg', t: '운영 설정', steps: [['settings', '기준값·일정'], ['auditlog', '변경 이력']] }]
@@ -7378,7 +7472,8 @@ function renderFirstHome() {
 }
 /* ---------- 교원 홈 ---------- */
 function renderFHome() {
-  const al = advisorAlerts(), log = sGet('org', 'counsel') || {};
+  ensureLogs(() => { if (state.step === 'fhome') renderFHome(); });
+  const al = advisorAlerts(), log = counselMap(termLabel());
   const doneN = al.filter(a => log[a.st.no]).length;
   const courses = offered(state.dept, 1).filter(c => c.src === '소속 학과 교과과정').slice(0, 6);
   $view.innerHTML = `
@@ -7473,9 +7568,9 @@ function render() {
   document.body.classList.toggle('no-demo', !demoOn());
   document.body.classList.toggle('ops', !!u && opsMode());
   watchTerms(); closeHelp();
-  document.body.classList.toggle('dash', ['home', 'fhome', 'ahome', 'result', 'analysis', 'plan', 'planmap', 'timetable', 'gap', 'recs', 'roadmap', 'studio', 'counsel', 'career', 'sections', 'advisor', 'diagops', 'grades', 'gain', 'impact', 'itembank', 'forms', 'settings', 'integration', 'majortt', 'electt', 'ncopen', 'notify', 'auditlog', 'axkpi', 'specmap', 'report', 'ask', 'itemqa', 'portfolio', 'risk', 'evals', 'deptdash', 'fdept'].includes(state.step));
+  document.body.classList.toggle('dash', ['home', 'fhome', 'ahome', 'result', 'analysis', 'plan', 'planmap', 'timetable', 'gap', 'recs', 'roadmap', 'studio', 'counsel', 'career', 'sections', 'advisor', 'diagops', 'grades', 'gain', 'impact', 'itembank', 'forms', 'settings', 'integration', 'majortt', 'electt', 'ncopen', 'notify', 'auditlog', 'axkpi', 'specmap', 'report', 'ask', 'itemqa', 'portfolio', 'risk', 'evals', 'deptdash', 'fdept', 'counselstat'].includes(state.step));
   renderNav();
-  const R = { portfolio: renderPortfolio, risk: renderRisk, evals: renderEvals, deptdash: renderDeptDash, fdept: renderDeptDash, login: renderLogin, home: renderHome, fhome: renderFHome, ahome: renderAHome, needdiag: renderNeedDiag, intro: renderIntro, quiz: renderQuiz, coverage: renderCoverage, roadmap: renderRoadmap,
+  const R = { counselstat: renderCounselStat, portfolio: renderPortfolio, risk: renderRisk, evals: renderEvals, deptdash: renderDeptDash, fdept: renderDeptDash, login: renderLogin, home: renderHome, fhome: renderFHome, ahome: renderAHome, needdiag: renderNeedDiag, intro: renderIntro, quiz: renderQuiz, coverage: renderCoverage, roadmap: renderRoadmap,
     committee: renderCommittee, growth: renderGrowth, impact: renderImpact, plan: renderPlan, studio: renderStudio, counsel: renderCounsel, career: renderCareer, sections: renderSections,
     advisor: renderAdvisor, diagops: renderDiagOps, grades: renderGrades, analysis: renderAnalysis, timetable: renderTimetable, gap: renderGap, recs: renderRecs, planmap: renderPlanMap, gain: renderGain, itembank: renderItemBank, forms: renderForms, settings: renderSettings, integration: renderIntegration, majortt: renderMajorTT, electt: renderElectTT, ncopen: renderNcOpen, notify: renderNotify, auditlog: renderAudit, axkpi: renderAxKpi, specmap: renderSpecMap, report: renderReport, ask: renderAsk, itemqa: renderItemQA, result: renderResult };
   const ph = document.getElementById('pagehead'); if (ph) ph.innerHTML = u ? crumbHtml() + viewSwitchHtml() : '';
