@@ -1541,6 +1541,16 @@ h1, h2, h3, .summary, .pf-headline, .vbadge, .empty-state .lede { text-wrap: bal
 .tpk { display: grid; gap: 4px; text-align: left; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer; }
 .tpk:hover, .tpk:focus-visible { border-color: var(--signal); box-shadow: inset 0 0 0 1px var(--signal); }
 .tpk b { font-size: 15.5px; } .tpk-n { font-size: 12.5px; color: var(--signal); font-weight: 600; }
+.etscope label.chk { display: inline-flex; align-items: center; gap: 6px; margin: 0; }
+.etform input[type=radio], .etform input[type=checkbox] { width: auto; padding: 0; border: 0; margin: 0; accent-color: var(--signal); }
+.etscope label.chk { color: var(--ink); font-size: 14px; }
+/* v33: 교양·융합 시간표 — 목록과 분반 편집을 한 줄에, 목록은 편집 패널 높이에 맞춰 스크롤 */
+.p-etsec { grid-column: span 8; }
+.p-etlist .pbody { display: flex; flex-direction: column; }
+.p-etlist .etcourses { flex: 1 1 0; min-height: 260px; max-height: none; overflow-y: auto; }
+.et-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 14px; padding: 10px 14px; background: var(--paper); border-radius: 12px; }
+.et-tools > .meta:first-of-type { flex: 1 1 22em; }
+@media (max-width: 1000px) { .p-etlist .etcourses { flex: none; max-height: 360px; } }
 </style>
 </head>
 <body>
@@ -4787,7 +4797,7 @@ const TOUR_TT = [
   S_('전공 시간표 · 주간 시간표', '빈 칸을 누르면 그 요일·교시로 추가 양식이 채워집니다. 시간이 겹치는 과목은 표시됩니다.', '.p-mtgrid', async () => go('majortt')),
   S_('전공 시간표 · 일괄 복사·적용', "'일괄 복사·적용'을 누르면 다른 학기·반 시간표를 통째로 가져오거나, 지금 시간표를 여러 반에 한 번에 적용합니다. 같은 반을 다른 직원이 먼저 고쳤으면 덮어쓰지 않고 알려 줍니다.", '#mtbulk', async () => { go('majortt'); if (!state.mtBulk) { state.mtBulk = true; renderMajorTT(); } }),
   S_('교양·융합 시간표 · 과목과 분반', '과목을 골라 분반의 학기, 수준, 요일·교시, 정원, 대상(공통 또는 학과·학년·반)을 배치합니다.', '.p-etsec', async () => { state.mtBulk = false; go('electt'); }),
-  S_('교양·융합 시간표 · 학기 복사', '1학기 분반 배치를 2학기로(또는 반대로) 통째로 복사합니다.', '.p-etcopy', async () => go('electt')),
+  S_('교양·융합 시간표 · 학기 복사', '맨 위 도구 줄에서 1학기 분반 배치를 2학기로(또는 반대로) 통째로 복사합니다.', '.et-tools', async () => go('electt')),
   S_('교양·융합 시간표 · 대상별 점검', '특정 학과·학년·반의 전공 시간표 위에 들을 수 있는 분반을 겹쳐 보고, 전공과 겹치는 분반을 찾습니다.', '.p-etck', async () => go('electt')),
   S_('학사·수강편람 연동 · API', '학사정보시스템 API 주소와 인증 방식을 등록하면 전공 시간표와 수강편람이 자동으로 들어옵니다.', '.p-int1', async () => go('integration')),
   S_('학사·수강편람 연동 · 파일로 올리기', 'API 연결 전에는 수강편람·전공 시간표 파일(CSV)을 양식에 맞춰 올립니다.', '.p-int2', async () => go('integration'))
@@ -6688,12 +6698,11 @@ function renderElectTT() {
     <section class="panel p-sum"><p class="eyebrow">학기 초 · 교양·융합 시간표</p>
       <p class="summary">교양과 융합과정 분반을 대상(공통 또는 학과·학년·반)과 함께 배치합니다.</p>
       <p class="meta">분반마다 공통으로 열지, 특정 학과·학년·반 전용으로 열지 정합니다. 학생의 이번 학기 시간표 추천은 그 학생이 들을 수 있는 분반만 쓰고, 분반이 하나도 없으면 그 학기에는 추천하지 않습니다. 등록하지 않은 과목은 시연용 분반으로 대신합니다.</p>
-      <div class="stats"><div class="stat"><b>${Object.keys(C).length}과목</b><span>분반을 등록한 과목</span></div><div class="stat"><b>${Object.values(C).flat().length}개</b><span>분반(공통 ${Object.values(C).flat().filter(s => s.scope !== '학과').length} · 학과 지정 ${Object.values(C).flat().filter(s => s.scope === '학과').length})</span></div><div class="stat"><b>${Object.values(C).flat().filter(s => seatsLeft(s) === 0).length}개</b><span>정원 마감 분반</span></div></div></section>
+      <div class="stats"><div class="stat"><b>${Object.keys(C).length}과목</b><span>분반을 등록한 과목</span></div><div class="stat"><b>${Object.values(C).flat().length}개</b><span>분반(공통 ${Object.values(C).flat().filter(s => s.scope !== '학과').length} · 학과 지정 ${Object.values(C).flat().filter(s => s.scope === '학과').length})</span></div><div class="stat"><b>${Object.values(C).flat().filter(s => seatsLeft(s) === 0).length}개</b><span>정원 마감 분반</span></div></div>
+      <div class="et-tools no-print"><b>학기 복사</b><span class="meta">한 학기의 분반 배치를 다른 학기로 통째로 복사합니다(요일·교시·정원·대상 그대로, 신청 인원은 0).</span><button class="btn ghost sm" data-etcopy="1:2" type="button">1학기 → 2학기 (${semN('1')}개 분반)</button><button class="btn ghost sm" data-etcopy="2:1" type="button">2학기 → 1학기 (${semN('2')}개 분반)</button><span class="meta" id="etcmsg" aria-live="polite"></span></div></section>
     ${panelH('p-etlist', '과목', `${shown.length}개`, `<div class="etkind" role="tablist">${['교양', '융합'].map(k => `<button role="tab" class="pm" data-etkind="${k}" aria-selected="${state.etKind === k}">${k === '융합' ? '융합과정' : '교양'}</button>`).join('')}</div>
       <input class="etq" id="etq" placeholder="과목명 검색" value="${esc(state.etQ)}">
       <ul class="etcourses">${shown.slice(0, 80).map(x => `<li><button class="${x.n === cur.n ? 'on' : ''}" data-etsel="${esc(x.n)}"><b>${esc(x.n)}</b><span class="meta">${x.micro ? esc(x.micro) + ' · ' : ''}${(C[x.n] || []).length ? `분반 ${(C[x.n] || []).length}개` : '미등록'}</span></button></li>`).join('')}</ul>`)}
-    ${panelH('p-etcopy', '학기 복사', '분반 일괄 복사', `<p class="meta">한 학기의 분반 배치를 다른 학기로 통째로 복사합니다(요일·교시·정원·대상 그대로, 신청 인원은 0). 복사한 뒤 바뀐 분반만 고치면 됩니다.</p>
-      <div class="actions"><button class="btn ghost sm" data-etcopy="1:2" type="button">1학기 → 2학기 (${semN('1')}개 분반)</button><button class="btn ghost sm" data-etcopy="2:1" type="button">2학기 → 1학기 (${semN('2')}개 분반)</button><span class="meta" id="etcmsg" aria-live="polite"></span></div>`)}
     ${panelH('p-etsec', esc(cur.n), `${cur.kind === '융합' ? '융합과정 · ' : '교양 · '}${cur.cr}학점 · 분반 ${secs.length}개`, `<div class="scrollx"><table class="tbl"><thead><tr><th>분반</th><th>학기</th><th>대상</th><th>수준</th><th>시간</th><th>신청/정원</th><th></th></tr></thead><tbody>${rows || '<tr><td colspan="7" class="meta">등록된 분반이 없습니다. 아래에서 추가하세요.</td></tr>'}</tbody></table></div>${formHtml}<p class="meta" id="etmsg" aria-live="polite">${esc(state.etMsg || '')}</p>`)}
     ${panelH('p-etck', '대상별 점검', `${clash.length ? `전공과 겹치는 분반 ${clash.length}개` : '겹침 없음'}`, `<div class="mt-tools no-print">
       <label>학과<select id="ckdept">${depts.map(d => `<option ${d === state.ckDept ? 'selected' : ''}>${esc(d)}</option>`).join('')}</select></label>
@@ -7271,7 +7280,7 @@ function renderNav() {
   nav.innerHTML = `<div class="navgroup" role="group" aria-label="${ROLE_NAME[u.role]} 메뉴">${navOf(u.role).map(g => `<button class="navlink" data-go="${g.steps[0][0]}" ${gi && gi.g.id === g.id ? 'aria-current="page"' : ''}>${g.t}</button>`).join('')}</div>`;
   strip.innerHTML = opsMode() ? `<span class="meta opsnote">${PHASES.find(x => x[0] === state.phase)[1]}</span><span id="savest" class="savest"></span>` : `<label class="phase" title="시연용: 학기 시점을 바꿔 흐름을 확인합니다">시연 시점<select id="phase">${PHASES.map(([k, t]) => `<option value="${k}" ${state.phase === k ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
     <button class="linkbtn demotog" id="demotog" title="가상 데이터 안내와 시연 시점 선택을 숨기거나 보입니다">${demoOn() ? '시연 표시 끄기' : '시연 표시 켜기'}</button><span id="savest" class="savest"></span>`;
-  box.innerHTML = `<button class="kbtn no-print" id="helpbtn" type="button" title="이 화면 사용법과 용어 사전">도움말</button><button class="kbtn no-print" id="kbtn" type="button" title="화면 이름으로 바로 가기(Ctrl+K)">바로 가기 <kbd>Ctrl K</kbd></button><span class="uchip"><b>${esc(u.name)}</b><span>${ROLE_NAME[u.role]}${u.role === 'admin' && u.duty && u.duty !== 'all' ? ' · ' + DUTY_NAME[u.duty] : ''}${u.no ? ' · ' + u.no : ''}${u.role === 'student' ? ' · ' + esc(state.dept) : ''}</span></span><button class="linkbtn" id="logout">로그아웃</button>`;
+  box.innerHTML = `<button class="kbtn no-print" id="helpbtn" type="button" title="이 화면 사용법과 용어 사전">도움말</button><button class="kbtn no-print" id="kbtn" type="button" title="화면 이름으로 바로 가기(Ctrl+K)">바로 가기 <kbd>Ctrl K</kbd></button><span class="uchip"><b>${esc(u.name)}</b><span>${ROLE_NAME[u.role]}${u.role === 'admin' && u.duty && u.duty !== 'all' && !String(u.name).includes(DUTY_NAME[u.duty]) ? ' · ' + DUTY_NAME[u.duty] : ''}${u.no ? ' · ' + u.no : ''}${u.role === 'student' ? ' · ' + esc(state.dept) : ''}</span></span><button class="linkbtn" id="logout">로그아웃</button>`;
   const tabs = gi ? gi.g.steps.filter(s => !s[2] && stepAllowed(s[0])) : [], curSt = gi && gi.g.steps.find(s => s[0] === cur), curRoot = curSt ? curSt[2] || curSt[0] : cur;
   sub.innerHTML = tabs.length > 1 ? `<div class="subtabs" role="tablist">${tabs.map(([id, t]) => `<button role="tab" class="subtab" data-go="${id}" aria-selected="${id === curRoot}">${t}</button>`).join('')}</div>` : '';
   if (document.getElementById('phase')) document.getElementById('phase').onchange = e => { state.phase = e.target.value; render(); };
