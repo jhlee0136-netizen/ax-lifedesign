@@ -1698,8 +1698,10 @@ i.rdk { display: inline-block; width: 10px; height: 10px; border-radius: 3px; }
 .kit-units li > span:last-child { color: var(--muted); font-size: 12.5px; }
 .kit-units li.done { border-color: var(--signal); background: var(--signal-soft); } .kit-units li.plan { border-style: dashed; border-color: var(--signal); }
 .kit-sheet h3 { margin: 18px 0 8px; font-size: 15px; }
-.p-nodiag { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; border-color: var(--signal); }
-.p-nodiag > div:first-child { max-width: 60em; } .p-nodiag .summary { margin: 2px 0 4px; }
+.panel.p-nodiag { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px 32px; padding: 24px 28px; border-color: var(--signal); }
+.p-nodiag > div:first-child { max-width: 62em; } .p-nodiag .eyebrow { margin: 0; } .p-nodiag .summary { font-size: 21px; line-height: 1.35; margin: 6px 0 8px; } .p-nodiag .meta { margin: 0; }
+.p-nodiag .actions { margin: 0; }
+@media (max-width: 700px) { .panel.p-nodiag { grid-template-columns: 1fr; padding: 20px; } }
 .dbpeek { background: var(--signal-soft); border-radius: 12px; padding: 12px 14px; max-width: 46em; } .dbpeek b { margin-right: 8px; }
 </style>
 </head>
