@@ -1610,7 +1610,7 @@ h1, h2, h3, .summary, .pf-headline, .vbadge, .empty-state .lede { text-wrap: bal
 .shtab:hover b { color: var(--ink); }
 .shtab:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; border-radius: 4px; }
 .shprog { position: absolute; left: 0; right: 6px; top: -1px; height: 2px; background: var(--signal); transform: scaleX(0); transform-origin: left; }
-.shtab[aria-selected=true] .shprog { transform: scaleX(1); animation: shprog 7s linear; }
+.shtab[aria-selected=true] .shprog { transform: scaleX(1); animation: shprog 3s linear; }
 .showc.paused .shtab[aria-selected=true] .shprog { animation-play-state: paused; }
 @keyframes shprog { from { transform: scaleX(0); } }
 .shpause { font: inherit; font-size: 11px; align-self: center; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); color: var(--muted); cursor: pointer; flex: none; margin-top: 8px; }
@@ -1629,9 +1629,9 @@ h1, h2, h3, .summary, .pf-headline, .vbadge, .empty-state .lede { text-wrap: bal
 .recl li { font-size: 13px; padding: 5px 10px; border-radius: 999px; background: var(--signal-soft); color: var(--ink); }
 .recl b { color: var(--signal); margin-right: 6px; font-weight: 640; }
 .kme { background: var(--signal); } .kgap { background: repeating-linear-gradient(135deg, var(--amber-soft) 0 3px, var(--amber) 3px 4px); } .kneed { width: 2px !important; background: var(--ink); }
-.shs.on .gme { animation: shgrow .9s cubic-bezier(.2, .7, .2, 1) calc(.2s + var(--k) * .12s) both; }
-.shs.on .ggap { animation: shfade .5s ease calc(1.2s + var(--k) * .12s) both; }
-.shs.on .recl li { animation: shrise .5s ease calc(2.2s + var(--k) * .35s) both; }
+.shs.on .gme { animation: shgrow .7s cubic-bezier(.2, .7, .2, 1) calc(.15s + var(--k) * .08s) both; }
+.shs.on .ggap { animation: shfade .4s ease calc(.8s + var(--k) * .08s) both; }
+.shs.on .recl li { animation: shrise .4s ease calc(1.3s + var(--k) * .2s) both; }
 @keyframes shgrow { from { width: 0; } }
 @keyframes shfade { from { opacity: 0; } }
 @keyframes shrise { from { opacity: 0; transform: translateY(8px); } }
@@ -1643,20 +1643,20 @@ h1, h2, h3, .summary, .pf-headline, .vbadge, .empty-state .lede { text-wrap: bal
 .ttb.maj, .kmaj { background: var(--paper); color: var(--muted); border: 1px solid var(--line); }
 .ttb.lib, .klib { background: var(--signal); color: #fff; font-weight: 600; }
 .ttb.study, .kstudy { background: transparent; border: 1.5px dashed var(--signal); color: var(--signal); }
-.shs.on .ttb.lib, .shs.on .ttb.study { animation: shpop .45s cubic-bezier(.2, .8, .3, 1.3) calc(.9s + var(--k) * .55s) both; }
+.shs.on .ttb.lib, .shs.on .ttb.study { animation: shpop .45s cubic-bezier(.2, .8, .3, 1.3) calc(.3s + var(--k) * .3s) both; }
 @keyframes shpop { from { opacity: 0; transform: scale(.7); } }
 /* 분반·상담 */
 .sv-sec { height: 430px; }
 .secl { position: absolute; top: 0; transform: translateX(-50%); font-size: 13px; color: var(--ink); }
 .dot { position: absolute; left: var(--x1); top: var(--y1); width: 16px; height: 16px; margin: -8px; border-radius: 50%; background: var(--signal); opacity: .85; }
 .dot.alert { background: var(--amber); box-shadow: 0 0 0 3px var(--panel), 0 0 0 5px var(--amber); }
-.shs.on .dot { animation: shsort 1.1s cubic-bezier(.5, 0, .2, 1) calc(.4s + var(--k) * .06s) both; }
-.shs.on .dot.alert { animation: shsort 1.1s cubic-bezier(.5, 0, .2, 1) calc(.4s + var(--k) * .06s) both, shring .6s ease 2.8s both; }
+.shs.on .dot { animation: shsort .9s cubic-bezier(.5, 0, .2, 1) calc(.15s + var(--k) * .03s) both; }
+.shs.on .dot.alert { animation: shsort .9s cubic-bezier(.5, 0, .2, 1) calc(.15s + var(--k) * .03s) both, shring .5s ease 1.6s both; }
 @keyframes shsort { from { left: var(--x0); top: var(--y0); background: var(--muted); } }
 @keyframes shring { from { box-shadow: 0 0 0 3px var(--panel), 0 0 0 3px var(--amber); } }
 .secal { position: absolute; right: 0; bottom: 0; margin: 0; font-size: 13px; color: var(--muted); background: var(--panel); border: 1px solid var(--amber); border-radius: 10px; padding: 8px 12px; display: grid; gap: 2px; max-width: 260px; }
 .secal b { color: var(--warn-ink); }
-.shs.on .secal { animation: shrise .5s ease 3.1s both; }
+.shs.on .secal { animation: shrise .4s ease 1.8s both; }
 /* 성장·개선 */
 .effl { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 34px; }
 .effl li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) 40px 70px; align-items: center; gap: 10px; font-size: 13.5px; }
@@ -1668,8 +1668,8 @@ h1, h2, h3, .summary, .pf-headline, .vbadge, .empty-state .lede { text-wrap: bal
 .ev { font-weight: 640; font-variant-numeric: tabular-nums; text-align: right; }
 .ed { font-size: 12px; text-align: center; padding: 3px 6px; border-radius: 999px; white-space: nowrap; }
 .ed-ok { background: var(--signal-soft); color: var(--signal); } .ed-mid { background: var(--amber-soft); color: var(--warn-ink); } .ed-bad { background: var(--paper); color: var(--bad-ink); border: 1px solid var(--bad-ink); }
-.shs.on .ebar { animation: shgrow .9s cubic-bezier(.2, .7, .2, 1) calc(.3s + var(--k) * .2s) both; }
-.shs.on .ed { animation: shrise .4s ease calc(1.6s + var(--k) * .3s) both; }
+.shs.on .ebar { animation: shgrow .7s cubic-bezier(.2, .7, .2, 1) calc(.15s + var(--k) * .12s) both; }
+.shs.on .ed { animation: shrise .4s ease calc(1s + var(--k) * .2s) both; }
 @media (max-width: 560px) { .shtab span { display: none; } .effl li { grid-template-columns: minmax(0, 1fr) 70px 36px 62px; } .ttg { grid-template-rows: 22px repeat(5, 44px); } .gapl { gap: 16px; } .effl { gap: 22px; } .ttb { font-size: 10.5px; padding: 3px 4px; } .sv-sec { height: 380px; } .secal { left: 0; max-width: none; } }
 @media (prefers-reduced-motion: reduce) { .shs, .shs.on { transition: none; } .shs.on * { animation: none !important; } .shprog { display: none; } }
 </style>
@@ -5551,8 +5551,8 @@ function renderLogin() {
    - '동작 줄이기' 설정이면 움직임 없이 그립니다. */
 const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)');
 const RD = { W: 600, H: 520, C: [300, 262], R: 172 };
-/* ---------- 로그인 화면: 핵심 기능 롤링 소개(한 학기 흐름 순, 7초마다 넘김·멈춤 가능) ---------- */
-const SHOW_MS = 7000;
+/* ---------- 로그인 화면: 핵심 기능 롤링 소개(한 학기 흐름 순, 3초마다 넘김·멈춤 가능) ---------- */
+const SHOW_MS = 3000;
 function showcaseHtml() {
   const S = [
     ['진단', '3종 진단', '진단으로 내 역량 확인', '직업기초·핵심·기초학습 3종 진단으로 강점과 보완할 영역을 찾고, 학기말 재진단으로 얼마나 자랐는지 봅니다.',
@@ -5586,7 +5586,7 @@ function initShowcase() {
   const slides = [...root.querySelectorAll('.shs')], tabs = [...root.querySelectorAll('.shtab')], pb = root.querySelector('#shpause');
   let cur = 0, timer = null, userStop = REDUCED_MOTION.matches, hold = false;
   if (state.shTimer) clearTimeout(state.shTimer);
-  const playTerra = el => { const t = el.querySelector('.terra-login'); if (t && t._terra && !REDUCED_MOTION.matches) setTimeout(() => t._terra && t._terra.play(1800), 500); };
+  const playTerra = el => { const t = el.querySelector('.terra-login'); if (t && t._terra && !REDUCED_MOTION.matches) setTimeout(() => t._terra && t._terra.play(1600), 300); };
   const running = () => !userStop && !hold;
   const sync = () => { root.classList.toggle('paused', !running()); pb.setAttribute('aria-label', userStop ? '자동 넘김 다시 시작' : '자동 넘김 멈추기'); pb.firstElementChild.textContent = userStop ? '▶' : '❚❚'; };
   const sched = () => { clearTimeout(timer); if (running()) state.shTimer = timer = setTimeout(() => { if (document.body.contains(root)) show((cur + 1) % slides.length); }, SHOW_MS); };
