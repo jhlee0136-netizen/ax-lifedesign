@@ -1565,6 +1565,113 @@ h1, h2, h3, .summary, .pf-headline, .vbadge, .empty-state .lede { text-wrap: bal
 .loglist p { margin: 4px 0 0; } .logh { display: flex; gap: 10px; align-items: baseline; } .logh .linkbtn { margin-left: auto; }
 .logform h4 { margin: 0; font-size: 14px; }
 .p-csf, .p-csd { grid-column: span 6; } @media (max-width: 1000px) { .p-csf, .p-csd { grid-column: 1 / -1; } }
+/* v36: 알림함 */
+.ibell { position: relative; } .ibell svg { flex: none; }
+.ibadge { font-size: 11px; line-height: 1; min-width: 18px; padding: 3px 5px; border-radius: 999px; background: var(--signal); color: #fff; text-align: center; font-weight: 700; }
+.ibadge[hidden] { display: none; }
+.ipop { position: fixed; inset: 0; z-index: 390; background: rgba(19, 25, 24, .18); }
+.ipop[hidden] { display: none; }
+.ibox { position: absolute; top: 64px; right: max(16px, calc((100vw - 1280px) / 2)); width: min(440px, calc(100vw - 32px)); max-height: calc(100vh - 88px); display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 24px 60px rgba(19, 25, 24, .22); animation: kin .16s ease-out; }
+.ihead { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; padding: 14px 16px 8px; }
+.ihead h2 { margin: 0; font-size: 17px; } .ihead .linkbtn { margin-left: auto; font-size: 13px; }
+.iclose { font: inherit; font-size: 13px; background: none; border: 1px solid var(--line); border-radius: 8px; padding: 2px 8px; cursor: pointer; color: var(--muted); }
+.ifil { display: flex; gap: 4px; padding: 0 16px 8px; border-bottom: 1px solid var(--line); }
+.ifil button { font: inherit; font-size: 13px; background: none; border: 0; border-radius: 8px; padding: 4px 10px; cursor: pointer; color: var(--muted); }
+.ifil button[aria-selected=true] { background: var(--signal-soft); color: var(--ink); font-weight: 600; }
+.ilist { list-style: none; margin: 0; padding: 6px; overflow: auto; flex: 1; }
+.ilist li > button { width: 100%; text-align: left; font: inherit; color: var(--ink); background: none; border: 0; border-radius: 10px; padding: 10px 12px; cursor: pointer; display: grid; grid-template-columns: 10px 1fr auto; gap: 10px; align-items: start; }
+.ilist li > button:hover, .ilist li > button:focus-visible { background: var(--signal-soft); }
+.idot { width: 8px; height: 8px; border-radius: 50%; margin-top: 7px; background: var(--signal); }
+.ilist li.read .idot { background: transparent; border: 1px solid var(--line); }
+.ilist li.read b { font-weight: 500; color: var(--muted); }
+.imain { display: grid; gap: 2px; min-width: 0; } .imain .meta { font-size: 13px; text-wrap: pretty; }
+.ik { font-size: 12px; color: var(--signal); font-weight: 600; }
+.iat { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.iempty { padding: 18px 12px; color: var(--muted); font-size: 14px; }
+.ifoot { padding: 8px 16px 12px; border-top: 1px solid var(--line); margin: 0; font-size: 12px; }
+@media (max-width: 640px) { .ibell { padding: 4px 8px; } .ibox { top: 56px; } }
+/* v37: 로그인 화면 핵심 기능 롤링 소개 */
+.showc { margin-top: 26px; max-width: 580px; }
+.shstage { display: grid; }
+.shs { grid-area: 1 / 1; opacity: 0; visibility: hidden; transition: opacity .45s ease, visibility 0s linear .45s; }
+.shs.on { opacity: 1; visibility: visible; transition: opacity .45s ease; }
+.sht { font-size: 19px; margin: 0 0 4px; letter-spacing: -.01em; }
+.shd { margin: 0 0 6px; color: var(--muted); font-size: 14.5px; max-width: 34em; text-wrap: pretty; }
+.showc .terra-login { margin-top: 0; }
+.sv { position: relative; margin-top: 18px; }
+.svkey { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 12.5px; color: var(--muted); margin: 12px 0 0; }
+.svkey i { display: inline-block; width: 12px; height: 10px; border-radius: 3px; margin-right: -6px; }
+.shbar { display: flex; align-items: stretch; gap: 8px; margin-top: 18px; border-top: 1px solid var(--line); }
+.shnav { display: flex; flex: 1; min-width: 0; }
+.shtab { position: relative; flex: 1; min-width: 0; font: inherit; text-align: left; background: none; border: 0; padding: 10px 6px 4px 0; cursor: pointer; color: var(--muted); display: grid; gap: 1px; }
+.shtab b { font-size: 14px; font-weight: 620; color: var(--muted); white-space: nowrap; }
+.shtab span { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.shtab[aria-selected=true] b { color: var(--ink); }
+.shtab:hover b { color: var(--ink); }
+.shtab:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; border-radius: 4px; }
+.shprog { position: absolute; left: 0; right: 6px; top: -1px; height: 2px; background: var(--signal); transform: scaleX(0); transform-origin: left; }
+.shtab[aria-selected=true] .shprog { transform: scaleX(1); animation: shprog 7s linear; }
+.showc.paused .shtab[aria-selected=true] .shprog { animation-play-state: paused; }
+@keyframes shprog { from { transform: scaleX(0); } }
+.shpause { font: inherit; font-size: 11px; align-self: center; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); color: var(--muted); cursor: pointer; flex: none; margin-top: 8px; }
+.shpause:hover { color: var(--ink); border-color: var(--signal); } .shpause:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+/* 설계: 차이 분석 → 추천 */
+.svjob { display: flex; align-items: baseline; gap: 8px; margin: 0 0 12px; font-size: 13px; color: var(--muted); }
+.svjob b { font-size: 16px; color: var(--ink); }
+.gapl { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px; }
+.gapl li { display: grid; grid-template-columns: 64px 1fr 52px; align-items: center; gap: 10px; font-size: 13.5px; }
+.gb { position: relative; height: 16px; background: var(--paper); border-radius: 6px; }
+.gme { position: absolute; left: 0; top: 0; bottom: 0; width: var(--me); background: var(--signal); border-radius: 6px; }
+.ggap { position: absolute; top: 0; bottom: 0; left: var(--me); width: calc(var(--need) - var(--me)); background: repeating-linear-gradient(135deg, var(--amber-soft) 0 4px, var(--amber) 4px 5px); border-radius: 0 6px 6px 0; }
+.gneed { position: absolute; top: -4px; bottom: -4px; left: var(--need); width: 2px; background: var(--ink); }
+.gv { font-weight: 640; font-variant-numeric: tabular-nums; } .gv small { color: var(--muted); font-weight: 500; }
+.recl { list-style: none; padding: 0; margin: 30px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.recl li { font-size: 13px; padding: 5px 10px; border-radius: 999px; background: var(--signal-soft); color: var(--ink); }
+.recl b { color: var(--signal); margin-right: 6px; font-weight: 640; }
+.kme { background: var(--signal); } .kgap { background: repeating-linear-gradient(135deg, var(--amber-soft) 0 3px, var(--amber) 3px 4px); } .kneed { width: 2px !important; background: var(--ink); }
+.shs.on .gme { animation: shgrow .9s cubic-bezier(.2, .7, .2, 1) calc(.2s + var(--k) * .12s) both; }
+.shs.on .ggap { animation: shfade .5s ease calc(1.2s + var(--k) * .12s) both; }
+.shs.on .recl li { animation: shrise .5s ease calc(2.2s + var(--k) * .35s) both; }
+@keyframes shgrow { from { width: 0; } }
+@keyframes shfade { from { opacity: 0; } }
+@keyframes shrise { from { opacity: 0; transform: translateY(8px); } }
+/* 시간표: 빈칸 채우기 */
+.ttg { display: grid; grid-template-columns: 44px repeat(5, 1fr); grid-template-rows: 22px repeat(5, 62px); gap: 4px; }
+.tth { text-align: center; font-size: 12.5px; color: var(--muted); font-weight: 600; grid-row: 1; }
+.ttp { grid-column: 1; font-size: 11.5px; color: var(--muted); align-self: center; }
+.ttb { border-radius: 8px; font-size: 12.5px; line-height: 1.25; padding: 5px 6px; overflow: hidden; display: flex; align-items: center; }
+.ttb.maj, .kmaj { background: var(--paper); color: var(--muted); border: 1px solid var(--line); }
+.ttb.lib, .klib { background: var(--signal); color: #fff; font-weight: 600; }
+.ttb.study, .kstudy { background: transparent; border: 1.5px dashed var(--signal); color: var(--signal); }
+.shs.on .ttb.lib, .shs.on .ttb.study { animation: shpop .45s cubic-bezier(.2, .8, .3, 1.3) calc(.9s + var(--k) * .55s) both; }
+@keyframes shpop { from { opacity: 0; transform: scale(.7); } }
+/* 분반·상담 */
+.sv-sec { height: 430px; }
+.secl { position: absolute; top: 0; transform: translateX(-50%); font-size: 13px; color: var(--ink); }
+.dot { position: absolute; left: var(--x1); top: var(--y1); width: 16px; height: 16px; margin: -8px; border-radius: 50%; background: var(--signal); opacity: .85; }
+.dot.alert { background: var(--amber); box-shadow: 0 0 0 3px var(--panel), 0 0 0 5px var(--amber); }
+.shs.on .dot { animation: shsort 1.1s cubic-bezier(.5, 0, .2, 1) calc(.4s + var(--k) * .06s) both; }
+.shs.on .dot.alert { animation: shsort 1.1s cubic-bezier(.5, 0, .2, 1) calc(.4s + var(--k) * .06s) both, shring .6s ease 2.8s both; }
+@keyframes shsort { from { left: var(--x0); top: var(--y0); background: var(--muted); } }
+@keyframes shring { from { box-shadow: 0 0 0 3px var(--panel), 0 0 0 3px var(--amber); } }
+.secal { position: absolute; right: 0; bottom: 0; margin: 0; font-size: 13px; color: var(--muted); background: var(--panel); border: 1px solid var(--amber); border-radius: 10px; padding: 8px 12px; display: grid; gap: 2px; max-width: 260px; }
+.secal b { color: var(--warn-ink); }
+.shs.on .secal { animation: shrise .5s ease 3.1s both; }
+/* 성장·개선 */
+.effl { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 34px; }
+.effl li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) 40px 70px; align-items: center; gap: 10px; font-size: 13.5px; }
+.en { display: grid; min-width: 0; } .en small { color: var(--muted); font-size: 11.5px; }
+.eb { position: relative; height: 16px; }
+.eb::before { content: ""; position: absolute; left: 50%; top: -5px; bottom: -5px; width: 1px; background: var(--line-strong); }
+.ebar { position: absolute; left: 50%; top: 0; bottom: 0; width: var(--v); background: var(--signal); border-radius: 0 6px 6px 0; }
+.effl li.eneg .ebar { left: auto; right: 50%; background: var(--bad-ink); border-radius: 6px 0 0 6px; }
+.ev { font-weight: 640; font-variant-numeric: tabular-nums; text-align: right; }
+.ed { font-size: 12px; text-align: center; padding: 3px 6px; border-radius: 999px; white-space: nowrap; }
+.ed-ok { background: var(--signal-soft); color: var(--signal); } .ed-mid { background: var(--amber-soft); color: var(--warn-ink); } .ed-bad { background: var(--paper); color: var(--bad-ink); border: 1px solid var(--bad-ink); }
+.shs.on .ebar { animation: shgrow .9s cubic-bezier(.2, .7, .2, 1) calc(.3s + var(--k) * .2s) both; }
+.shs.on .ed { animation: shrise .4s ease calc(1.6s + var(--k) * .3s) both; }
+@media (max-width: 560px) { .shtab span { display: none; } .effl li { grid-template-columns: minmax(0, 1fr) 70px 36px 62px; } .ttg { grid-template-rows: 22px repeat(5, 44px); } .gapl { gap: 16px; } .effl { gap: 22px; } .ttb { font-size: 10.5px; padding: 3px 4px; } .sv-sec { height: 380px; } .secal { left: 0; max-width: none; } }
+@media (prefers-reduced-motion: reduce) { .shs, .shs.on { transition: none; } .shs.on * { animation: none !important; } .shprog { display: none; } }
 </style>
 </head>
 <body>
@@ -4698,6 +4805,7 @@ const TOUR_STUDENT = [
   S_('학생 · 처음 들어오면', "홈 맨 위에 '처음 오셨다면 이 순서로 쓰세요' 안내가 있습니다. 내 진단 → 내 설계 → 홈 순서로 쓰면 되고, 닫아도 오른쪽 위 '도움말'에서 다시 볼 수 있습니다.", '.p-onb', async () => { await tourLogin('student', '20261001'); state.phase = 'start'; await tourStudentReady(); go('home'); }),
   S_('홈 · 진행 단계', '한 학기 흐름(3종 진단 → 결과·AI 분석 → 이수 계획 → 수강·이수 → 학기말 재진단 → 성장 확인) 중 어디까지 왔는지 보여 줍니다. 단계를 누르면 그 화면으로 갑니다.', '.stepper', async () => go('home')),
   S_('홈 · 지금 할 일', '할 일을 중요도 순으로 모읍니다. 진단 재실시, 이수 계획 저장, 비교과 개설 알림, 지도교수 상담 요청 같은 일이 생기면 여기에 뜨고, 누르면 해당 화면으로 바로 갑니다.', '.p-hal', async () => go('home')),
+  S_('알림함', '진단 기간 안내, 지도교수 상담 요청, 관심 비교과 개설 같은 알림이 위쪽 알림함에 모입니다. 숫자는 안 읽은 알림 수이고, 누르면 해당 화면으로 갑니다.', '#inboxbtn', async () => go('home')),
   S_('홈 · 나의 역량', '최근 진단의 직업기초 7영역 점수와 핵심역량·기초학습에서 보완할 축을 요약합니다. 낮은 영역은 노란 막대로 표시됩니다.', '.p-hme', async () => go('home')),
   S_('홈 · 이수 계획과 진단 기록', '저장한 이수 계획의 과목 수와 이번 학기 학점, 지금까지 받은 진단 기록(회차·날짜·신뢰성)을 봅니다.', '.p-hgr', async () => go('home')),
   S_('내 진단 · 진단 받기', '직업기초·핵심·기초학습 3종 진단을 한 번에 받습니다(약 20분). 중간에 나가도 자동 저장돼 이어서 할 수 있고, 응답 시간과 일관성으로 성의 있게 답했는지도 함께 봅니다.', '.facts', async () => go('intro')),
@@ -4734,6 +4842,7 @@ const TOUR_FACULTY = [
   S_('교원 · 홈 요약', '학기 시점, 지도 학생 상담 알림 수와 상담 완료 수, 수준별 분반 대상 교양 수를 한눈에 봅니다.', '.p-sum', async () => { await tourLogin('faculty'); state.phase = 'mid'; go('fhome'); }),
   S_('교원 홈 · 상담 알림 미리 보기', '향상도가 기준에 못 미치거나 낮은 수준이 이어지는 학생을 알림으로 보여 줍니다(시연에서는 가상 예시 데이터).', '.p-fa', async () => go('fhome')),
   S_('교원 홈 · 지금 할 일', '남은 상담, 후속 점검일, 학기 시점별 할 일이 모입니다.', '.p-fw', async () => go('fhome')),
+  S_('알림함', '상담 알림, 후속 점검일, 학생의 상담 요청 응답이 위쪽 알림함에 모입니다. 숫자는 안 읽은 알림 수이고, 알림을 누르면 해당 학생 화면으로 갑니다.', '#inboxbtn', async () => go('fhome')),
   S_('교원 홈 · 플랫폼 이용 학생', "실제로 플랫폼을 쓰는 지도 학생의 진단 결과, 향상도, 이수 계획, 자기주도 실천, 조기 경보 위험도와 사유가 나옵니다. '상담 요청'으로 희망 일시 후보를 보내면 학생 응답이 이 표에 표시됩니다.", '.p-freal', async () => go('fhome')),
   S_('지도 학생 상담 · 단계별 학생', '알림 대상·상담 전·상담 완료·지도 학생 숫자를 누르면 해당 학생 목록이 나옵니다. 지도 학생은 학기마다 새로 정해지고, 상담 완료에는 이전 학기에 상담한 학생도 남습니다.', '.p-alist', async () => go('advisor')),
   S_('지도 학생 상담 · 상담 준비 카드', '학생의 강점·보완점, 이수 현황, 비교과 참여를 한 장으로 정리하고, 합의한 보완 활동과 후속 점검일을 기록합니다. 학생별 상담 기록이 날짜순으로 쌓이고 고칠 수 있으며, 메모는 기록한 교원 본인만 봅니다.', '.p-adet', async () => go('advisor')),
@@ -5326,7 +5435,7 @@ async function enterUser(u) {
   setUser(u);
 }
 function setUser(u) {
-  state.user = u; state.tt = null; state.ttMsg = ''; state.recSel = null; state.planSig = null; state.planPrev = null; state.planUndo = null; state.ttCellMode = false; state.careerTab = null; state.careerSel = null; state.careerInd = null; state.jobG = ''; state.jobQ = ''; state.myLogs = null; state.advFilter = null; state.advSel = null; state.logEdit = null;
+  state.user = u; state.tt = null; state.ttMsg = ''; state.recSel = null; state.planSig = null; state.planPrev = null; state.planUndo = null; state.ttCellMode = false; state.careerTab = null; state.careerSel = null; state.careerInd = null; state.jobG = ''; state.jobQ = ''; state.myLogs = null; state.advFilter = null; state.advSel = null; state.logEdit = null; state.inboxStaff = null; state.inboxF = null; { const ib = document.getElementById('inboxpop'); if (ib) ib.hidden = true; }
   state.phase = state.phase || 'start';
   if (u.role === 'student') {
     state.dept = CURRICULUM.depts.includes(u.dept) ? u.dept : state.dept;
@@ -5384,8 +5493,7 @@ function renderLogin() {
       <div class="lockup"><p class="lockup-org">인하공업전문대학</p><h1>대학 생활 설계 플랫폼</h1></div>
       <p class="lede">3종 진단으로 내 역량을 확인하고, 교양·융합·비교과 교육과정을 추천받아 학기별 이수 계획을 세웁니다. 학기말 재진단으로 성장을 확인합니다.</p>
       <button class="btn tourbtn no-print" id="tourgo" type="button">기능 둘러보기 <span>학생 · 교원 · 직원(담당별)</span></button>
-      ${terraHtml({ frames: [[58, 46, 52, 37, 63, 41, 74], [66, 55, 61, 48, 70, 57, 78]], labels: ['입학 직후', '1학기말'], start: 0, avg: true, cap: `예시 학생이 입학 직후에서 1학기말로 성장한 모습입니다. 꼭짓점이 안쪽 주황 띠에 있으면 보완, 바깥 파란 띠에 있으면 높음입니다.`, alt: '예시 학생의 직업기초 7영역 점수 변화' }, 'terra-login')}
-      <ol class="cycle-line" aria-label="한 학기 흐름"><li><b>진단</b>3종</li><li><b>계획</b>추천·AI 분석</li><li><b>이수</b>분반·학점</li><li><b>재진단</b>성장 확인</li></ol>
+      ${showcaseHtml()}
     </section>
     <section class="login-card" aria-label="로그인">
       <div class="tabs" role="tablist"><button role="tab" class="tab" aria-selected="${L.tab === 'student'}" data-lt="student">학생</button><button role="tab" class="tab" aria-selected="${L.tab === 'staff'}" data-lt="staff">교직원</button></div>
@@ -5433,7 +5541,7 @@ function renderLogin() {
   };
   const first = $view.querySelector('.login-card input, .login-card select'); if (first && (innerWidth > 900 || L.stage !== 'id' || L.tab !== 'student')) first.focus({ preventScroll: innerWidth <= 900 });
   mountTerra($view);
-  const lt = $view.querySelector('.terra-login'); if (lt && lt._terra && !REDUCED_MOTION.matches) setTimeout(() => lt._terra && lt._terra.play(1800), 1300);
+  initShowcase();
 }
 
 /* ---------- 역량 레이더: 직업기초 7영역을 한 중심에서 같은 척도(0~100)로 비교 ----------
@@ -5443,6 +5551,62 @@ function renderLogin() {
    - '동작 줄이기' 설정이면 움직임 없이 그립니다. */
 const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)');
 const RD = { W: 600, H: 520, C: [300, 262], R: 172 };
+/* ---------- 로그인 화면: 핵심 기능 롤링 소개(한 학기 흐름 순, 7초마다 넘김·멈춤 가능) ---------- */
+const SHOW_MS = 7000;
+function showcaseHtml() {
+  const S = [
+    ['진단', '3종 진단', '진단으로 내 역량 확인', '직업기초·핵심·기초학습 3종 진단으로 강점과 보완할 영역을 찾고, 학기말 재진단으로 얼마나 자랐는지 봅니다.',
+      terraHtml({ frames: [[58, 46, 52, 37, 63, 41, 74], [66, 55, 61, 48, 70, 57, 78]], labels: ['입학 직후', '1학기말'], start: 0, avg: true, alt: '예시 학생의 직업기초 7영역 점수 변화' }, 'terra-login')],
+    ['설계', '목표 직무·추천', '목표 직무와의 차이를 메우는 교육과정', '목표 직무가 요구하는 수준과 내 점수의 차이를 보고, 그 차이를 메우는 교양·융합과정·비교과를 추천받습니다.',
+      `<div class="sv sv-gap"><p class="svjob"><span>목표 직무</span><b>기계공학 기술자</b><span>한국고용직업분류</span></p>
+        <ul class="gapl">${[['문제해결', 61, 75], ['의사소통', 66, 72], ['디지털', 57, 74], ['자기관리', 48, 65]].map(([n, me, need], k) => `<li style="--me:${me}%;--need:${need}%;--k:${k}"><span class="gn">${n}</span><span class="gb"><span class="gme"></span><span class="ggap"></span><span class="gneed"></span></span><span class="gv">${me}<small>/${need}</small></span></li>`).join('')}</ul>
+        <ul class="recl">${[['교양', '자기관리와셀프리더십'], ['융합', '디지털메이킹 융합과정'], ['비교과', '크리에이티브 DX 공모전']].map(([k, n], i) => `<li style="--k:${i}"><b>${k}</b>${n}</li>`).join('')}</ul>
+        <p class="svkey"><i class="kme"></i>내 점수 <i class="kgap"></i>메울 차이 <i class="kneed"></i>직무 요구 수준</p></div>`],
+    ['시간표', '빈 시간 추천', '전공 시간표 빈칸에 맞춘 교양', '학과 전공 시간표를 불러오면, 들을 수 있고 시간이 맞는 교양 분반과 자기주도 학습 시간을 빈칸에 채워 줍니다.',
+      `<div class="sv sv-tt"><div class="ttg">${['월', '화', '수', '목', '금'].map((d, i) => `<b class="tth" style="grid-column:${i + 2}">${d}</b>`).join('')}${[1, 2, 3, 4, 5].map(p => `<span class="ttp" style="grid-row:${p + 1}">${p}교시</span>`).join('')}
+        ${[[1, 1, 2, '기계요소설계'], [2, 3, 2, 'CAD 실습'], [3, 1, 2, '공업수학'], [4, 2, 2, '재료역학'], [5, 4, 2, '측정공학']].map(([d, p, n, t]) => `<span class="ttb maj" style="grid-column:${d + 1};grid-row:${p + 1}/span ${n}">${t}</span>`).join('')}
+        ${[[1, 4, 2, '교양 · 셀프리더십', 'lib'], [3, 4, 2, '융합 · 디지털메이킹', 'lib'], [2, 1, 1, '자기주도 학습', 'study'], [5, 1, 1, '자기주도 학습', 'study']].map(([d, p, n, t, c], k) => `<span class="ttb ${c}" style="grid-column:${d + 1};grid-row:${p + 1}/span ${n};--k:${k}">${t}</span>`).join('')}</div>
+        <p class="svkey"><i class="kmaj"></i>전공(학과 편성) <i class="klib"></i>추천 교양·융합 <i class="kstudy"></i>자기주도 학습</p></div>`],
+    ['분반·상담', '교원', '진단 결과로 분반하고 상담으로 잇기', '교원은 진단 점수로 담당 교양을 상·중·하 분반으로 나누고, 낮은 수준이 이어지는 학생은 지도교수 상담 알림으로 받습니다.',
+      `<div class="sv sv-sec">${['상', '중', '하'].map((t, c) => `<b class="secl" style="left:${18 + c * 32}%">${t} 분반</b>`).join('')}
+        ${[0, 2, 1, 2, 0, 1, 1, 2, 0, 1, 2, 1, 0, 2, 1, 1, 0, 2].map((lv, i, a) => { const k = a.slice(0, i).filter(x => x === lv).length, x1 = 18 + lv * 32 + ((k % 3) - 1) * 8, y1 = 26 + Math.floor(k / 3) * 13, x0 = 6 + i * 5.2; return `<span class="dot${lv === 2 && k < 3 ? ' alert' : ''}" style="--x0:${x0}%;--y0:12%;--x1:${x1}%;--y1:${y1}%;--k:${i}"></span>`; }).join('')}
+        <p class="secal"><b>상담 알림 3명</b>'하' 수준 2회 연속 · 지도교수 화면에 표시 → 상담 기록</p></div>`],
+    ['성장·개선', '학기말', '쌓인 결과로 교육과정 고치기', '학기말 재진단 결과로 과정별 효과를 계산하고, 강의평가와 함께 유지·운영 개선·재설계 대상을 골라 다음 학기에 반영합니다.',
+      `<div class="sv sv-eff"><ul class="effl">${[['교양', '자기관리와셀프리더십', 6.2, '유지', 'ok'], ['융합', '디지털메이킹 융합과정', 4.1, '유지', 'ok'], ['비교과', '크리에이티브 DX 공모전', 1.2, '운영 개선', 'mid'], ['교양', '예시 교양 A', -1.4, '재설계', 'bad']].map(([k, n, v, d, c], i) => `<li style="--v:${Math.abs(v) / 8 * 50}%;--k:${i}" class="${v < 0 ? 'eneg' : ''}"><span class="en"><small>${k}</small>${n}</span><span class="eb"><span class="ebar"></span></span><span class="ev">${v > 0 ? '+' : ''}${v.toFixed(1)}</span><span class="ed ed-${c}">${d}</span></li>`).join('')}</ul>
+        <p class="svkey">입학 직후 점수를 맞춘 보정 효과(점) · 예시 자료</p></div>`]
+  ];
+  return `<section class="showc" aria-roledescription="carousel" aria-label="핵심 기능 소개">
+    <div class="shstage">${S.map(([, , t, d, v], i) => `<div class="shs${i ? '' : ' on'}" role="group" aria-roledescription="slide" aria-label="${i + 1} / ${S.length}: ${t}" ${i ? 'aria-hidden="true"' : ''} id="shs${i}"><h2 class="sht">${t}</h2><p class="shd">${d}</p>${v}</div>`).join('')}</div>
+    <div class="shbar"><div class="shnav" role="tablist" aria-label="한 학기 흐름">${S.map(([b, s], i) => `<button role="tab" type="button" class="shtab" data-sh="${i}" aria-controls="shs${i}" aria-selected="${!i}"><b>${b}</b><span>${s}</span><i class="shprog" aria-hidden="true"></i></button>`).join('')}</div>
+    <button class="shpause" id="shpause" type="button" aria-label="자동 넘김 멈추기"><span aria-hidden="true">❚❚</span></button></div>
+  </section>`;
+}
+function initShowcase() {
+  const root = $view.querySelector('.showc'); if (!root) return;
+  const slides = [...root.querySelectorAll('.shs')], tabs = [...root.querySelectorAll('.shtab')], pb = root.querySelector('#shpause');
+  let cur = 0, timer = null, userStop = REDUCED_MOTION.matches, hold = false;
+  if (state.shTimer) clearTimeout(state.shTimer);
+  const playTerra = el => { const t = el.querySelector('.terra-login'); if (t && t._terra && !REDUCED_MOTION.matches) setTimeout(() => t._terra && t._terra.play(1800), 500); };
+  const running = () => !userStop && !hold;
+  const sync = () => { root.classList.toggle('paused', !running()); pb.setAttribute('aria-label', userStop ? '자동 넘김 다시 시작' : '자동 넘김 멈추기'); pb.firstElementChild.textContent = userStop ? '▶' : '❚❚'; };
+  const sched = () => { clearTimeout(timer); if (running()) state.shTimer = timer = setTimeout(() => { if (document.body.contains(root)) show((cur + 1) % slides.length); }, SHOW_MS); };
+  function show(i, focusTab) {
+    slides[cur].classList.remove('on'); slides[cur].setAttribute('aria-hidden', 'true'); tabs[cur].setAttribute('aria-selected', 'false'); tabs[cur].tabIndex = -1;
+    cur = i; void slides[i].offsetWidth;
+    slides[i].classList.add('on'); slides[i].removeAttribute('aria-hidden'); tabs[i].setAttribute('aria-selected', 'true'); tabs[i].tabIndex = 0;
+    const p = tabs[i].querySelector('.shprog'); p.style.animation = 'none'; void p.offsetWidth; p.style.animation = '';
+    if (focusTab) tabs[i].focus();
+    if (i === 0) playTerra(slides[0]);
+    sched();
+  }
+  tabs.forEach((t, i) => { t.tabIndex = i ? -1 : 0; t.onclick = () => show(i); t.onkeydown = e => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d) { e.preventDefault(); show((cur + d + slides.length) % slides.length, true); } }; });
+  pb.onclick = () => { userStop = !userStop; sync(); if (running()) show(cur); };
+  root.addEventListener('mouseenter', () => { hold = true; sync(); clearTimeout(timer); });
+  root.addEventListener('mouseleave', () => { hold = false; sync(); sched(); });
+  root.addEventListener('focusin', () => { hold = true; sync(); clearTimeout(timer); });
+  root.addEventListener('focusout', e => { if (!root.contains(e.relatedTarget)) { hold = false; sync(); sched(); } });
+  sync(); playTerra(slides[0]); sched();
+}
 function terraHtml(o, cls) {
   /* o: { frames: [[7개 점수], ...], labels?: [시점 이름], cap?, avg?: true(학교 평균 겹침), empty?: true } */
   return `<figure class="terra ${cls || ''}" data-terra='${esc(JSON.stringify(o))}'><div class="terra-c"></div>${o.cap ? `<figcaption>${o.cap}</figcaption>` : ''}</figure>`;
@@ -7342,6 +7506,89 @@ async function renderCounselStat() {
   </div>`;
 }
 
+/* ---------- 알림함: 역할별로 받은 알림을 한곳에 모으고 읽음 표시(읽음 여부는 이 브라우저에 저장) ---------- */
+const inboxKey = () => `inbox_read:${state.user.role}:${state.user.no || state.user.name}`;
+const inboxRead = () => lsGet(inboxKey()) || {};
+function inboxMark(ids) { const r = inboxRead(), at = localTime(); ids.forEach(id => { r[id] = r[id] || at; }); lsSet(inboxKey(), r); }
+/* 교직원 알림에 쓰는 플랫폼 이용 학생(상담 요청 응답 포함)을 한 번 불러 둠 */
+function ensureInboxStaff() {
+  if (state.inboxStaff || state.inboxStaffLoading || !state.user || state.user.role === 'student') return;
+  state.inboxStaffLoading = true;
+  api('/api/staff/students').then(r => { state.inboxStaff = (r.data && r.data.students) || []; }).catch(() => { state.inboxStaff = []; })
+    .finally(() => { state.inboxStaffLoading = false; inboxBadge(); });
+}
+function inboxItems() {
+  const u = state.user, out = []; if (!u) return out;
+  const A = state.alertStd || { drop: 0, lowCount: 3 };
+  if (u.role === 'student') {
+    const S = settingsNow().schedule || {}, H = state.history || [], last = H[H.length - 1];
+    if (state.phase === 'start' && S.diagStart) out.push({ id: `sch:diag:${S.diagStart}`, k: '안내', t: '진단 기간 안내', d: `${S.diagStart} ~ ${S.diagEnd || ''} 동안 3종 진단(약 20분)을 받습니다.`, at: S.diagStart, go: 'intro' });
+    if (state.phase === 'end' && S.retestStart) out.push({ id: `sch:re:${S.retestStart}`, k: '안내', t: '학기말 재진단 안내', d: `${S.retestStart} ~ ${S.retestEnd || ''} 동안 같은 진단을 다시 받아 성장을 확인합니다.`, at: S.retestStart, go: 'intro' });
+    const cq = sGet('user', 'creq');
+    if (cq) out.push({ id: `creq:${cq.at}`, k: '상담', t: cq.status === '요청' ? '지도교수 상담 요청' : '지도교수 상담 요청 · 응답함', d: `${cq.by}님이 상담 일시 후보 ${(cq.slots || []).length}개를 보냈습니다.${cq.status === '요청' ? ' 홈에서 가능한 일시를 골라 응답하세요.' : ''}`, at: cq.at, go: 'home' });
+    if (last && last.verdict === '재실시') out.push({ id: `retake:${last.date}`, k: '진단', t: '진단 재실시 안내', d: '응답 신뢰성 점검에서 재실시 판정을 받았습니다. 문항을 천천히 읽고 다시 받아 주세요.', at: last.date, go: 'intro' });
+    if (H.length >= 2 && mean(last.vals) - mean(H[0].vals) < (A.drop || 0)) out.push({ id: `gain:${last.date}`, k: '상담', t: '지도교수 상담 안내', d: '향상도가 기준에 못 미쳐 지도교수 상담이 안내되었습니다.', at: last.date, go: 'counsel' });
+    let plan = null; try { plan = loadPlan() || designPlan(); } catch (e) { /* 진단 전 */ }
+    try {
+      ncAlerts(plan).forEach(x => out.push({ id: `nc:${x.o.id}`, k: '비교과', t: `${x.wish ? '관심 비교과 개설' : '추천 비교과 개설'}: ${x.o.n}`, d: `${x.st.t} · 신청 ${x.o.applyFrom || '-'} ~ ${x.o.applyTo || '-'}${!x.wish && x.fit.length ? ` · ${x.fit.slice(0, 2).map(shortSub).join('·')} 보완에 연계` : ''}`, at: x.o.applyFrom || '', go: 'planmap' }));
+    } catch (e) { /* 진단 전에는 연계 판단 불가 */ }
+  } else {
+    const staff = state.inboxStaff || [];
+    if (u.role === 'faculty') {
+      const term = termLabel(), logs = state.myLogs || [], done = new Set(logs.filter(l => l.term === term).map(l => l.no)), today = localTime().slice(0, 10);
+      advisorAlerts().forEach(a => out.push({ id: `al:${term}:${a.st.no}`, k: '상담 알림', t: `${a.st.alias} 상담 필요${done.has(a.st.no) ? ' · 상담함' : ''}`, d: a.why.join(' · '), at: term, go: 'advisor', adv: ['alert', a.st.no] }));
+      logs.filter(l => l.follow && l.follow <= today).forEach(l => out.push({ id: `fu:${l.id}:${l.follow}`, k: '후속 점검', t: `${l.label || '학생'} 후속 점검일`, d: `${l.date} 상담에서 합의한 행동을 점검할 날입니다.`, at: l.follow, go: 'advisor', adv: ['done', l.no] }));
+    }
+    staff.forEach(x => {
+      const c = x.creq;
+      if (c && c.status === '응답') { const r = c.reply || {}; out.push({ id: `creqr:${x.no}:${r.at || c.at}`, k: '상담 응답', t: `${x.name} 학생이 상담 요청에 응답`, d: `${r.slot ? creqSlot(r.slot) : '다른 시간 제안'}${r.note ? ` · 메모: ${r.note}` : ''}`, at: r.at || c.at, go: HOME[u.role] }); }
+      if (u.role === 'admin') { const k = riskOfReal(x); if (riskLv(k.score)[1] === '위험') out.push({ id: `real:${x.no}:${k.score}`, k: '조기 경보', t: `${x.name} 위험 ${k.score}점`, d: k.why.join(' · '), at: x.last ? x.last.date : '', go: 'risk' }); }
+    });
+    if (u.role === 'admin') {
+      const hi = cohort().filter(st => riskLv(riskOfCohort(st).score)[1] === '위험').length;
+      if (hi) out.push({ id: `risk:${state.phase}:${hi}`, k: '조기 경보', t: `조기 경보 위험 학생 ${hi}명`, d: '진단·향상도·이수 신호를 더한 점수가 50점 이상인 학생입니다. 학과별 비율과 사유를 확인하세요.', at: PHASES.find(p => p[0] === state.phase)[1], go: 'risk' });
+      const t = todayISO(), soon = new Date(Date.now() + 3 * 864e5).toISOString().slice(0, 10);
+      ncOpenList().filter(o => ncStatus(o).k === 'open' && o.applyTo && o.applyTo <= soon && o.applyTo >= t).forEach(o => out.push({ id: `ncend:${o.id}:${o.applyTo}`, k: '비교과', t: `${o.n} 신청 마감 ${dday(o.applyTo)}`, d: `신청 기간 ${o.applyFrom || '-'} ~ ${o.applyTo}. 관심 학생에게 안내 메일을 보낼 수 있습니다.`, at: o.applyTo, go: 'ncopen' }));
+    }
+  }
+  const R = inboxRead();
+  return out.filter(x => !x.go || stepAllowed(x.go)).map(x => ({ ...x, read: !!R[x.id] }))
+    .sort((a, b) => (a.read - b.read) || String(b.at || '').localeCompare(String(a.at || '')));
+}
+function inboxBadge() {
+  const n = document.getElementById('inboxn'); if (!n || !state.user) return;
+  let k = 0; try { k = inboxItems().filter(x => !x.read).length; } catch (e) { /* 자료 준비 전 */ }
+  n.textContent = k > 99 ? '99+' : k; n.hidden = !k;
+  document.getElementById('inboxbtn').setAttribute('aria-label', `알림함, 안 읽은 알림 ${k}개`);
+}
+function openInbox() {
+  let box = document.getElementById('inboxpop');
+  if (!box) { box = document.createElement('div'); box.id = 'inboxpop'; box.className = 'ipop no-print'; document.body.appendChild(box); }
+  const L = inboxItems(), F = state.inboxF || 'all', shown = F === 'unread' ? L.filter(x => !x.read) : L, un = L.filter(x => !x.read).length;
+  box.hidden = false;
+  box.innerHTML = `<div class="ibox" role="dialog" aria-modal="true" aria-labelledby="ibh">
+    <header class="ihead"><h2 id="ibh">알림함</h2><span class="meta">안 읽은 알림 ${un}개</span>
+      <button class="linkbtn" id="iball" type="button" ${un ? '' : 'disabled'}>모두 읽음으로 표시</button><button class="iclose" id="ibclose" type="button" aria-label="알림함 닫기">닫기</button></header>
+    <div class="ifil" role="tablist">${[['all', `전체 ${L.length}`], ['unread', `안 읽음 ${un}`]].map(([k, t]) => `<button role="tab" type="button" data-inf="${k}" aria-selected="${F === k}">${t}</button>`).join('')}</div>
+    <ul class="ilist">${shown.map(x => `<li class="${x.read ? 'read' : 'unread'}"><button type="button" data-inbox="${esc(x.id)}"><span class="idot" aria-hidden="true"></span><span class="imain"><span class="ik">${esc(x.k)}</span><b>${esc(x.t)}</b><span class="meta">${esc(x.d)}</span></span><span class="iat">${esc(x.at || '')}</span></button></li>`).join('')
+      || `<li class="iempty">${F === 'unread' ? '안 읽은 알림이 없습니다.' : '받은 알림이 없습니다. 진단 기간 안내, 상담 요청, 비교과 개설 같은 일이 생기면 여기에 모입니다.'}</li>`}</ul>
+    <p class="meta ifoot">알림을 누르면 읽음으로 표시되고 해당 화면으로 갑니다. 읽음 표시는 이 브라우저에 저장됩니다.</p></div>`;
+  const close = () => { box.hidden = true; document.removeEventListener('keydown', onKey); const b = document.getElementById('inboxbtn'); if (b) b.focus(); };
+  const onKey = e => { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', onKey);
+  box.onclick = e => { if (e.target === box) close(); };
+  document.getElementById('ibclose').onclick = close;
+  document.getElementById('iball').onclick = () => { inboxMark(L.map(x => x.id)); inboxBadge(); document.removeEventListener('keydown', onKey); openInbox(); };
+  box.querySelectorAll('[data-inf]').forEach(b => b.onclick = () => { state.inboxF = b.dataset.inf; document.removeEventListener('keydown', onKey); openInbox(); document.querySelector(`[data-inf="${state.inboxF}"]`).focus(); });
+  box.querySelectorAll('[data-inbox]').forEach(b => b.onclick = () => {
+    const x = L.find(y => y.id === b.dataset.inbox); if (!x) return;
+    inboxMark([x.id]); box.hidden = true; document.removeEventListener('keydown', onKey);
+    if (x.adv) { state.advFilter = x.adv[0]; state.advSel = x.adv[1]; state.logEdit = null; }
+    go(x.go);
+  });
+  const first = box.querySelector('.ilist button') || document.getElementById('ibclose'); first.focus();
+}
+
 /* ---------- 메뉴: 역할별 운영 프로세스 순서 ---------- */
 const NAV = {
   /* steps: [화면 id, 이름, 부모 화면(있으면 그 화면 안의 보기), 부모 화면의 첫 보기 이름] */
@@ -7376,7 +7623,7 @@ function renderNav() {
   nav.innerHTML = `<div class="navgroup" role="group" aria-label="${ROLE_NAME[u.role]} 메뉴">${navOf(u.role).map(g => `<button class="navlink" data-go="${g.steps[0][0]}" ${gi && gi.g.id === g.id ? 'aria-current="page"' : ''}>${g.t}</button>`).join('')}</div>`;
   strip.innerHTML = opsMode() ? `<span class="meta opsnote">${PHASES.find(x => x[0] === state.phase)[1]}</span><span id="savest" class="savest"></span>` : `<label class="phase" title="시연용: 학기 시점을 바꿔 흐름을 확인합니다">시연 시점<select id="phase">${PHASES.map(([k, t]) => `<option value="${k}" ${state.phase === k ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
     <button class="linkbtn demotog" id="demotog" title="가상 데이터 안내와 시연 시점 선택을 숨기거나 보입니다">${demoOn() ? '시연 표시 끄기' : '시연 표시 켜기'}</button><span id="savest" class="savest"></span>`;
-  box.innerHTML = `<button class="kbtn no-print" id="helpbtn" type="button" title="이 화면 사용법과 용어 사전">도움말</button><button class="kbtn no-print" id="kbtn" type="button" title="화면 이름으로 바로 가기(Ctrl+K)">바로 가기 <kbd>Ctrl K</kbd></button><span class="uchip"><b>${esc(u.name)}</b><span>${ROLE_NAME[u.role]}${u.role === 'admin' && u.duty && u.duty !== 'all' && !String(u.name).includes(DUTY_NAME[u.duty]) ? ' · ' + DUTY_NAME[u.duty] : ''}${u.no ? ' · ' + u.no : ''}${u.role === 'student' ? ' · ' + esc(state.dept) : ''}</span></span><button class="linkbtn" id="logout">로그아웃</button>`;
+  box.innerHTML = `<button class="kbtn no-print ibell" id="inboxbtn" type="button" aria-haspopup="dialog" title="받은 알림"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>알림<b class="ibadge" id="inboxn" hidden>0</b></button><button class="kbtn no-print" id="helpbtn" type="button" title="이 화면 사용법과 용어 사전">도움말</button><button class="kbtn no-print" id="kbtn" type="button" title="화면 이름으로 바로 가기(Ctrl+K)">바로 가기 <kbd>Ctrl K</kbd></button><span class="uchip"><b>${esc(u.name)}</b><span>${ROLE_NAME[u.role]}${u.role === 'admin' && u.duty && u.duty !== 'all' && !String(u.name).includes(DUTY_NAME[u.duty]) ? ' · ' + DUTY_NAME[u.duty] : ''}${u.no ? ' · ' + u.no : ''}${u.role === 'student' ? ' · ' + esc(state.dept) : ''}</span></span><button class="linkbtn" id="logout">로그아웃</button>`;
   const tabs = gi ? gi.g.steps.filter(s => !s[2] && stepAllowed(s[0])) : [], curSt = gi && gi.g.steps.find(s => s[0] === cur), curRoot = curSt ? curSt[2] || curSt[0] : cur;
   sub.innerHTML = tabs.length > 1 ? `<div class="subtabs" role="tablist">${tabs.map(([id, t]) => `<button role="tab" class="subtab" data-go="${id}" aria-selected="${id === curRoot}">${t}</button>`).join('')}</div>` : '';
   if (document.getElementById('phase')) document.getElementById('phase').onchange = e => { state.phase = e.target.value; render(); };
@@ -7384,6 +7631,9 @@ function renderNav() {
   document.getElementById('kbtn').onclick = openPalette;
   if (document.getElementById('demotog')) document.getElementById('demotog').onclick = () => { lsSet('demo_ui', !demoOn()); render(); };
   document.getElementById('helpbtn').onclick = openHelp;
+  document.getElementById('inboxbtn').onclick = openInbox;
+  if (u.role === 'faculty') ensureLogs(inboxBadge);
+  ensureInboxStaff(); setTimeout(inboxBadge, 0);
   saveState();
 }
 const NEEDS_DIAG = ['portfolio', 'result', 'analysis', 'plan', 'planmap', 'timetable', 'career', 'gap', 'recs', 'roadmap', 'counsel'];
