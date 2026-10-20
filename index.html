@@ -488,7 +488,9 @@ section.block { margin-top: 44px; }
 html { scrollbar-gutter: stable; }
 .shell, .dash .shell { max-width: 1280px; }
 .topbar { flex-wrap: nowrap; height: 58px; padding-top: 0; margin-top: 0; padding-bottom: 0; align-items: center; box-sizing: border-box; }
-.brand { white-space: nowrap; flex-shrink: 0; }
+.brand { white-space: nowrap; flex-shrink: 0; color: inherit; text-decoration: none; border-radius: 8px; }
+.brand:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+a.brand:hover .brand-text b { color: var(--signal); }
 .appnav { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; margin-left: 18px; scrollbar-width: none; }
 .appnav::-webkit-scrollbar { display: none; }
 .navgroup { flex-wrap: nowrap; flex-shrink: 0; }
@@ -1761,7 +1763,7 @@ html[lang=en] #kbtn kbd { display: none; }
 <body>
 <div class="shell">
   <header class="topbar">
-    <span class="brand" aria-label="인하공업전문대학 대학 생활 설계 플랫폼"><i class="brand-mark" aria-hidden="true"></i><span class="brand-text"><small>인하공업전문대학</small><b>대학 생활 설계 플랫폼</b></span></span>
+    <a class="brand" href="./" id="brandlink" aria-label="인하공업전문대학 대학 생활 설계 플랫폼 · 첫 화면으로" title="첫 화면으로"><i class="brand-mark" aria-hidden="true"></i><span class="brand-text"><small>인하공업전문대학</small><b>대학 생활 설계 플랫폼</b></span></a>
     <nav class="appnav" id="appnav" aria-label="주요 메뉴"></nav>
     <div class="roles" id="roles" aria-label="사용자"></div>
   </header>
@@ -7783,7 +7785,7 @@ function terraRun(fig, o) {
   function paint() {
     const v = cur(), shown = v.map(Math.round);
     me.setAttribute('points', pts(v));
-    if (o.empty) { labs.innerHTML = AREAS.map((a, k) => { const [x, y] = pt(k, 100), c = Math.cos(ang(k)), s = Math.sin(ang(k)); return `<g class="rd-lab"><text x="${(x + c * 22).toFixed(1)}" y="${(y + s * 22 + (s > .5 ? 14 : s < -.5 ? -6 : 6)).toFixed(1)}" text-anchor="${Math.abs(c) < .25 ? 'middle' : c > 0 ? 'start' : 'end'}"><tspan class="n">${a.short}</tspan></text></g>`; }).join(''); return; }
+    if (o.empty) { labs.innerHTML = AREAS.map((a, k) => { const [x, y] = pt(k, 100), c = Math.cos(ang(k)), s = Math.sin(ang(k)); return `<g class="rd-lab"><text x="${(x + c * 22).toFixed(1)}" y="${(y + s * 22 + (s > .5 ? 14 : s < -.5 ? -6 : 6)).toFixed(1)}" text-anchor="${Math.abs(c) < .25 ? 'middle' : c > 0 ? 'start' : 'end'}"><tspan class="n">${trL(a.short)}</tspan></text></g>`; }).join(''); return; }
     const low = shown.indexOf(Math.min(...shown));
     dots.innerHTML = v.map((x, k) => { const [px, py] = pt(k, x); const l = lvl(shown[k]); return `${k === low && S.grow === 1 ? `<circle class="rd-pulse" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="6"/>` : ''}<circle class="rd-dot ${l}" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="5.5"/>`; }).join('');
     labs.innerHTML = AREAS.map((a, k) => {
@@ -7791,7 +7793,7 @@ function terraRun(fig, o) {
       const lx = x + c * 22, ly = y + s * 22 + (s > .5 ? 12 : s < -.5 ? -18 : -4);
       const anc = Math.abs(c) < .25 ? 'middle' : c > 0 ? 'start' : 'end', l = lvl(shown[k]);
       const d = multi ? shown[k] - Math.round(frames[0][k]) : null;
-      return `<g class="rd-lab ${l}" data-k="${k}"><text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anc}"><tspan class="n">${a.short}</tspan></text><text x="${lx.toFixed(1)}" y="${(ly + 25).toFixed(1)}" text-anchor="${anc}"><tspan class="v">${shown[k]}</tspan><tspan class="l" dx="5">${S.grow < 1 ? '' : lvlTxt[l]}</tspan>${d !== null && S.pos > 0 && d !== 0 ? `<tspan class="d ${d > 0 ? 'up' : 'down'}" dx="5">${d > 0 ? '+' : ''}${d}</tspan>` : ''}</text></g>`;
+      return `<g class="rd-lab ${l}" data-k="${k}"><text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anc}"><tspan class="n">${trL(a.short)}</tspan></text><text x="${lx.toFixed(1)}" y="${(ly + 25).toFixed(1)}" text-anchor="${anc}"><tspan class="v">${shown[k]}</tspan><tspan class="l" dx="5">${S.grow < 1 ? '' : trL(lvlTxt[l])}</tspan>${d !== null && S.pos > 0 && d !== 0 ? `<tspan class="d ${d > 0 ? 'up' : 'down'}" dx="5">${d > 0 ? '+' : ''}${d}</tspan>` : ''}</text></g>`;
     }).join('');
   }
   const ease = t => 1 - Math.pow(1 - t, 3);
@@ -9951,11 +9953,15 @@ function translateTree(root) {
   if (!langEN() || !root) return;
   const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), hits = [];
   for (let n = w.nextNode(); n; n = w.nextNode()) { if (n.parentElement && !n.parentElement.closest(I18N_SKIP)) { const t = tr(n.nodeValue); if (t !== null && t !== n.nodeValue) hits.push([n, t]); } }
-  hits.forEach(([n, t]) => { n.nodeValue = t; });
-  (root.querySelectorAll ? root.querySelectorAll('[placeholder],[title],[aria-label]') : []).forEach(e => ['placeholder', 'title', 'aria-label'].forEach(a => { const v = e.getAttribute(a); const t = v && tr(v); if (t) e.setAttribute(a, t); }));
+  hits.forEach(([n, t]) => { I18N_ORIG.push([n, null, n.nodeValue]); n.nodeValue = t; });
+  (root.querySelectorAll ? root.querySelectorAll('[placeholder],[title],[aria-label]') : []).forEach(e => ['placeholder', 'title', 'aria-label'].forEach(a => { const v = e.getAttribute(a); const t = v && tr(v); if (t && t !== v) { I18N_ORIG.push([e, a, v]); e.setAttribute(a, t); } }));
   flushI18n();
 }
 let i18nObs = null;
+const trL = s => (langEN() ? (tr(s) || s).trim() : s);
+/* 번역 전 한국어를 기억해 두었다가 '한'으로 바꾸면 되돌림(헤더 로고처럼 다시 그리지 않는 부분 포함) */
+const I18N_ORIG = [];
+function restoreKo() { I18N_ORIG.splice(0).reverse().forEach(([n, a, v]) => { if (!n.isConnected) return; if (a) n.setAttribute(a, v); else n.nodeValue = v; }); document.documentElement.lang = 'ko'; }
 function startI18n() {
   if (i18nObs || typeof MutationObserver === 'undefined') return;
   let q = false;
@@ -9966,7 +9972,7 @@ function langSwitchHtml() {
   const en = lsGet('lang') === 'en';
   return `<div class="langsw no-print notr" role="group" aria-label="언어 Language"><button type="button" data-lang="ko" aria-pressed="${!en}" lang="ko" title="한국어">한</button><button type="button" data-lang="en" aria-pressed="${en}" lang="en" title="English">EN</button></div>`;
 }
-function bindLangSwitch(root) { (root || document).querySelectorAll('[data-lang]').forEach(b => b.onclick = () => { if ((lsGet('lang') === 'en') === (b.dataset.lang === 'en')) return; lsSet('lang', b.dataset.lang); render(); }); }
+function bindLangSwitch(root) { (root || document).querySelectorAll('[data-lang]').forEach(b => b.onclick = () => { if ((lsGet('lang') === 'en') === (b.dataset.lang === 'en')) return; lsSet('lang', b.dataset.lang); if (b.dataset.lang === 'ko') restoreKo(); render(); }); }
 function langNote() {
   return langEN() ? '<div class="langnote no-print" role="note">English mode: the whole screen is shown in English using AI translation reviewed for this platform. Official course names may differ from the college\'s English catalog.</div>' : '';
 }
@@ -10253,6 +10259,7 @@ function render() {
   if (langEN()) { startI18n(); $view.insertAdjacentHTML('afterbegin', langNote()); translateTree(document.body); }
 }
 pwaInit();
+document.getElementById('brandlink').addEventListener('click', e => { e.preventDefault(); closeHelp(); if (state.tour) return; if (state.user) go(HOME[state.user.role]); else { state.step = 'login'; render(); window.scrollTo({ top: 0 }); } });
 authInit().then(render);
 </script>
 </body>
