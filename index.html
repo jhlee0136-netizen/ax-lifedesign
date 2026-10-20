@@ -1709,6 +1709,43 @@ body:has(.tour-hl) .topbar:not(:has(.tour-hl)) { background: var(--paper); -webk
 .ncform label.ncsub { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink); padding: 5px 4px; border-radius: 6px; cursor: pointer; }
 .ncform label.ncsub:hover { background: var(--paper); }
 .ncform label.ncsub input { flex: none; width: 16px; height: 16px; margin: 0; padding: 0; accent-color: var(--signal); }
+/* 같은 목표 선배의 이수 경로 */
+.p-rsen { grid-column: 1 / -1; }
+.srows { list-style: none; padding: 0; margin: 0 0 6px; }
+.srows li { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(80px, 1fr) 9em 8em; gap: 14px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.sr-n, .sr-g { display: grid; min-width: 0; } .sr-n .meta, .sr-g .meta { font-size: 12.5px; }
+.sr-bar { height: 8px; background: var(--track); border-radius: 4px; overflow: hidden; } .sr-bar i { display: block; height: 100%; background: var(--signal); border-radius: 4px; }
+.sr-g b { color: var(--ok-ink); font-variant-numeric: tabular-nums; } .sr-act { justify-self: end; }
+.srcols { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 28px; }
+.srmini { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; } .srmini li { display: grid; }
+.srpath { list-style: none; padding: 0; margin: 0 0 10px; display: grid; gap: 10px; }
+.srpath > li { border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
+.sp-h { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.sp-t { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 6px; } .sp-t p { margin: 2px 0 0; font-size: 13.5px; text-wrap: pretty; }
+@media (max-width: 760px) { .srows li { grid-template-columns: minmax(0, 1fr) auto; } .sr-bar { grid-column: 1 / -1; grid-row: 2; } .sr-act { grid-column: 1 / -1; justify-self: start; } .srcols, .sp-t { grid-template-columns: 1fr; } }
+
+/* 수업 역량 프로필 */
+.p-cpd { grid-column: span 7; } .p-cpt { grid-column: span 5; } .p-cpg { grid-column: 1 / -1; }
+@media (max-width: 1000px) { .p-cpd, .p-cpt { grid-column: 1 / -1; } }
+.cprows { list-style: none; padding: 0; margin: 10px 0 6px; }
+.cprows li { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(90px, 1fr) 7.5em; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.cp-n { display: grid; min-width: 0; } .cp-n .meta { font-size: 12.5px; } .cp-n .dn { color: var(--bad-ink); } .cp-n .up { color: var(--ok-ink); }
+.cp-c { text-align: right; font-size: 12.5px; }
+.cpstack { display: flex; height: 12px; border-radius: 6px; overflow: hidden; gap: 2px; background: var(--track); }
+.cpstack i { display: block; height: 100%; }
+.cpstack .lo, .mlegend .cplo { background: var(--amber); } .cpstack .mid, .mlegend .cpmid { background: color-mix(in srgb, var(--signal) 45%, var(--panel)); } .cpstack .hi, .mlegend .cphi { background: var(--signal); }
+.cptips { list-style: none; padding: 0; margin: 0 0 10px; display: grid; gap: 10px; }
+.cptips li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 14px; text-wrap: pretty; }
+.cpgain { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 6px; max-width: 640px; }
+.cpgain li { display: grid; grid-template-columns: 9em 1fr 5em; gap: 12px; align-items: center; font-size: 14px; }
+.cpgain li.me { font-weight: 600; } .cpgain b { text-align: right; font-variant-numeric: tabular-nums; }
+.cpg-bar { height: 10px; background: var(--track); border-radius: 5px; overflow: hidden; } .cpg-bar i { display: block; height: 100%; background: color-mix(in srgb, var(--signal) 50%, var(--panel)); }
+.cpgain li.me .cpg-bar i { background: var(--signal); }
+@media (max-width: 640px) { .cprows li { grid-template-columns: minmax(0, 1fr) auto; } .cpstack { grid-column: 1 / -1; grid-row: 2; } }
+
+/* 영어 화면(베타) */
+.langnote { margin: 0 0 14px; padding: 8px 12px; border-radius: 10px; background: var(--signal-soft); font-size: 13px; color: var(--ink); }
+#langbtn { font-weight: 600; }
 </style>
 </head>
 <body>
@@ -3183,7 +3220,7 @@ function renderCounsel() {
   <div class="dash-grid">
     <section class="panel p-chat"><header class="phead"><h2>진로 상담</h2><span class="meta" id="aimode">연결 확인 중</span></header>
       <div class="pbody chatbody">
-        <div class="thread" id="thread" aria-live="polite">${state.chat.length ? state.chat.map(bubble).join('') : `<div class="msg ai"><p>안녕하세요. ${state.dept} 진단 결과와 이수 계획을 보고 과목과 융합과정 선택을 도와드릴게요. 관심 있는 분야나 고민을 편하게 물어보세요.</p></div>`}</div>
+        <div class="thread" id="thread" aria-live="polite">${state.chat.length ? state.chat.map(bubble).join('') : `<div class="msg ai"><p>${langEN() ? `Hi! I'll help you choose courses and micro-degrees based on your diagnosis results and course plan (${state.dept}). Ask me anything about your interests or concerns.` : `안녕하세요. ${state.dept} 진단 결과와 이수 계획을 보고 과목과 융합과정 선택을 도와드릴게요. 관심 있는 분야나 고민을 편하게 물어보세요.`}</p></div>`}</div>
         <div class="suggest no-print">${SUGGEST.map(q => `<button class="chipbtn" data-ask="${escH(q)}">${escH(q)}</button>`).join('')}</div>
         <form class="ask no-print" id="askf"><label class="sr" for="askq">질문</label><textarea id="askq" rows="2" placeholder="예: 반도체 쪽으로 가고 싶은데 어떤 과목을 들어야 하나요?"></textarea><button class="btn" id="asksend" type="submit">보내기</button></form>
       </div></section>
@@ -3207,7 +3244,7 @@ function renderCounsel() {
     let reply = null;
     if (await checkAI()) {
       try {
-        const r = await aiFetch('chat', { messages: state.chat.map(m => ({ role: m.role, content: m.content })), context: counselContext() });
+        const r = await aiFetch('chat', { messages: state.chat.map((m, i, a) => ({ role: m.role, content: m.content + (langEN() && i === a.length - 1 ? '\n\n(Please answer in English.)' : '') })), context: counselContext() });
         const j = await r.json();
         if (r.ok && j.text) reply = { role: 'assistant', content: j.text, html: mdLite(j.text), courses: coursesIn(j.text), src: 'AI 답변 · 학생 데이터와 교과과정표 근거' };
         else reply = Object.assign(ruleReply(q), { src: `AI 연결 실패(${escH(j.error || r.status)}) · 규칙 기반 답변` });
@@ -3385,8 +3422,8 @@ function renderCommittee() {
 
 /* ---------- 교원: 수업 안 수준별 조편성 ---------- */
 const LV3 = v => (v >= HIGH ? '상' : v >= MID ? '중' : '하');
-function renderSections() {
-  /* 분반은 수강신청 전에 정해지므로 수준으로 나누지 않습니다. 이미 편성된 분반 수업 안에서 수강생을 진단 수준별 조로 나눠 수준별 학습을 합니다 */
+/* ---------- 교과 담당: 고른 과목·분반의 수강생 명단(시연: 가상 신입생 중 신청 인원만큼) ---------- */
+function classCtx() {
   const co = cohort();
   const list = offered(state.dept, 1).filter(c => c.subs.length);
   if (!state.secCourse || !list.some(c => c.n === state.secCourse)) state.secCourse = (list.find(c => c.c === '직업기초') || list[0]).n;
@@ -3394,11 +3431,61 @@ function renderSections() {
   const sem = curTerm().split('-')[1], real = (((catalogNow() || {}).courses || {})[course.n] || []).filter(s => secFits(s, state.dept, '1', '', sem));
   const secs = real.length ? real : sectionsDemo({ n: course.n, cr: course.t[0] ? course.t[0].credit : 2 });
   if (!secs.some(s => s.sec === state.secSec)) state.secSec = secs[0].sec;
-  const si = secs.findIndex(s => s.sec === state.secSec), S0 = secs[si];
   const idx = course.subs.map(sn => SUBNAMES.indexOf(sn));
-  /* 시연: 교양은 여러 학과가 함께 들으므로 가상 신입생 전체에서 이 분반 신청 인원만큼 뽑아 수강생으로 씀(실제는 수강신청 명단) */
-  const roster = co.filter((st, i) => i % 20 === (hashStr(course.n) + si) % 20).slice(0, Math.min(S0.cap || 40, S0.enr || 34))
+  const rosterOf = si => co.filter((st, i) => i % 20 === (hashStr(course.n) + si) % 20).slice(0, Math.min(secs[si].cap || 40, secs[si].enr || 34))
     .map(st => ({ st, v: Math.round(idx.reduce((a, i) => a + st.sub[i], 0) / idx.length) }));
+  const si = secs.findIndex(s => s.sec === state.secSec);
+  return { co, list, course, real, secs, si, S0: secs[si], idx, roster: rosterOf(si), rosterOf };
+}
+function classPickHtml(C) {
+  return `<div class="pick" style="margin:10px 0 0">
+    <label>교과목<select id="cpcourse">${C.list.map(c => `<option ${c.n === C.course.n ? 'selected' : ''}>${esc(c.n)}</option>`).join('')}</select></label>
+    <label>분반<select id="cpsec">${C.secs.map(s => `<option value="${esc(s.sec)}" ${s.sec === C.S0.sec ? 'selected' : ''}>${esc(s.sec)}분반 · ${DAYS[s.d]} ${pStart(s.s)}</option>`).join('')}</select></label></div>`;
+}
+function bindClassPick(rerender) {
+  const a = document.getElementById('cpcourse'), b = document.getElementById('cpsec');
+  if (a) a.onchange = e => { state.secCourse = e.target.value; state.secSec = null; state.grpMoves = null; rerender(); };
+  if (b) b.onchange = e => { state.secSec = e.target.value; state.grpMoves = null; rerender(); };
+}
+/* ---------- 수업 역량 프로필: 우리 반 수강생의 역량 분포·수업 전 유의점·학기말 향상(분반 단위 통계만) ---------- */
+function renderClassProf() {
+  const C = classCtx(), R = C.roster, n = R.length, mean0 = a => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0);
+  const head = `<section class="panel p-sum"><p class="summary">수업 역량 프로필</p>
+      <p class="meta">담당 분반 수강생의 진단 결과를 반 단위 통계로 보고 수업 운영에 반영합니다. 개인 점수는 조편성에 필요한 수준까지만 쓰고, 여기서는 집계만 보여 줍니다. 수강생이 ${MIN_GROUP}명 미만이면 분포를 숨깁니다. <span class="badge amber">가상 예시 데이터</span></p>
+      ${classPickHtml(C)}</section>`;
+  if (n < MIN_GROUP) { $view.innerHTML = `<div class="dash-grid">${head}${panelH('p-cpd', '연계 능력 분포', '', `<p class="meta">수강생이 ${n}명이라 개인이 드러나지 않도록 분포를 표시하지 않습니다.</p>`)}</div>`; bindClassPick(renderClassProf); return; }
+  const allAvg = k => mean0(C.co.map(st => st.sub[k]));
+  const rows = C.course.subs.map(sn => { const k = SUBNAMES.indexOf(sn), vals = R.map(r => r.st.sub[k]); return { sn, k, avg: mean0(vals), all: allAvg(k), lo: vals.filter(v => v < MID).length, mid: vals.filter(v => v >= MID && v < HIGH).length, hi: vals.filter(v => v >= HIGH).length }; });
+  const lv = { 하: R.filter(r => LV3(r.v) === '하').length, 중: R.filter(r => LV3(r.v) === '중').length, 상: R.filter(r => LV3(r.v) === '상').length };
+  const sd = Math.sqrt(mean0(R.map(r => (r.v - mean0(R.map(x => x.v))) ** 2)));
+  const basicLow = R.filter(r => r.st.basicLow && !r.st.suppDone).length, rel = R.filter(r => r.st.rel === '재실시').length;
+  const weak = rows.slice().sort((a, b) => (a.avg - a.all) - (b.avg - b.all))[0];
+  const tips = [];
+  if (weak && weak.avg - weak.all < -2) tips.push(['보완', `${shortSub(weak.sn)} 평균 ${Math.round(weak.avg)}점으로 학교 평균보다 ${Math.round(weak.all - weak.avg)}점 낮습니다. 첫 2주에 이 능력의 기초 개념과 예제를 앞에 배치하세요.`]);
+  if (lv.하 / n >= 0.3) tips.push(['기초', `'하' 수준이 ${lv.하}명(${Math.round(lv.하 / n * 100)}%)입니다. 수준별 조편성으로 기초 조를 두고 튜터링·보충 자료를 연결하세요.`]);
+  if (lv.상 / n >= 0.3) tips.push(['심화', `'상' 수준이 ${lv.상}명입니다. 심화 과제를 선택형으로 두고 또래 멘토 역할을 맡기면 수업 전체가 좋아집니다.`]);
+  if (sd >= 15) tips.push(['수준 차', `수강생 사이 점수 차이가 큽니다(표준편차 ${Math.round(sd)}점). 한 가지 속도로 진행하기보다 수준별 조 활동을 섞으세요.`]);
+  if (basicLow) tips.push(['기초학습', `기초학습이 낮고 보충을 아직 받지 않은 학생이 ${basicLow}명입니다. 학습지원센터 보충 프로그램을 안내하세요.`]);
+  if (rel) tips.push(['확인', `진단 재실시 대상 ${rel}명은 결과 해석에 주의가 필요합니다. 재진단 뒤 조를 다시 정하세요.`]);
+  if (!tips.length) tips.push(['안정', '연계 능력이 학교 평균과 비슷하고 수준 차이도 크지 않습니다. 표준 진행으로 충분합니다.']);
+  /* 학기말 향상: 이 분반 vs 같은 과목 다른 분반(재진단 결과, 가상) */
+  const gain = rs => mean0(rs.map(r => mean0(C.idx.map(k => r.st.traceSub[1][k] - r.st.traceSub[0][k]))));
+  const others = C.secs.map((s, i) => ({ s, i, g: gain(C.rosterOf(i)), n: C.rosterOf(i).length })).filter(x => x.n >= MIN_GROUP);
+  const gmax = Math.max(1, ...others.map(x => Math.abs(x.g)));
+  const bar = (r, cls) => { const t = r.lo + r.mid + r.hi; return `<span class="cpstack" role="img" aria-label="하 ${r.lo}명, 중 ${r.mid}명, 상 ${r.hi}명"><i class="lo" style="width:${r.lo / t * 100}%"></i><i class="mid" style="width:${r.mid / t * 100}%"></i><i class="hi" style="width:${r.hi / t * 100}%"></i></span>`; };
+  $view.innerHTML = `<div class="dash-grid">${head}
+    ${panelH('p-cpd', '연계 능력 분포', `${esc(C.S0.sec)}분반 · ${n}명`, `<div class="stats stats-sm"><div class="stat"><b>${n}명</b><span>수강생</span></div><div class="stat"><b>${lv.상} · ${lv.중} · ${lv.하}</b><span>상 · 중 · 하</span></div><div class="stat"><b>${Math.round(sd)}점</b><span>점수 차이(표준편차)</span></div></div>
+      <ul class="cprows">${rows.map(r => `<li><span class="cp-n"><b>${esc(r.sn)}</b><span class="meta">반 평균 ${Math.round(r.avg)}점 · 학교 평균 ${Math.round(r.all)}점 <span class="${r.avg - r.all < 0 ? 'dn' : 'up'}">(${r.avg - r.all >= 0 ? '+' : ''}${Math.round(r.avg - r.all)})</span></span></span>${bar(r)}<span class="meta cp-c">하 ${r.lo} · 중 ${r.mid} · 상 ${r.hi}</span></li>`).join('')}</ul>
+      <ul class="mlegend"><li><i class="cplo"></i>하(${MID}점 미만)</li><li><i class="cpmid"></i>중</li><li><i class="cphi"></i>상(${HIGH}점 이상)</li></ul>`)}
+    ${panelH('p-cpt', '수업 전에 알아 둘 점', '규칙 기반 제안', `<ul class="cptips">${tips.map(([k, t]) => `<li><span class="badge">${k}</span><span>${esc(t)}</span></li>`).join('')}</ul><div class="actions no-print"><button class="btn ghost sm" data-go="sections" type="button">수준별 조편성으로</button></div>`)}
+    ${panelH('p-cpg', '학기말 향상(재진단)', '같은 과목 분반 비교', `<p class="meta">연계 능력의 입학 직후 → 1학기말 평균 변화입니다. 교원 평가가 아니라 수업 개선 참고용이며, 분반마다 수강생 출발점이 달라 단순 비교에는 한계가 있습니다.</p>
+      <ul class="cpgain">${others.map(x => `<li class="${x.i === C.si ? 'me' : ''}"><span>${esc(x.s.sec)}분반${x.i === C.si ? ' · 내 분반' : ''}</span><span class="cpg-bar"><i style="width:${Math.abs(x.g) / gmax * 100}%"></i></span><b>${x.g >= 0 ? '+' : ''}${x.g.toFixed(1)}점</b></li>`).join('')}</ul>`)}
+  </div>`;
+  bindClassPick(renderClassProf);
+}
+function renderSections() {
+  /* 분반은 수강신청 전에 정해지므로 수준으로 나누지 않습니다. 이미 편성된 분반 수업 안에서 수강생을 진단 수준별 조로 나눠 수준별 학습을 합니다 */
+  const C = classCtx(), { list, course, real, secs, S0, roster } = C;
   const unc = roster.filter(r => r.st.rel === '재실시');
   const ok = roster.filter(r => r.st.rel !== '재실시').sort((a, b) => b.v - a.v);
   const k = Math.max(2, Math.min(ok.length || 2, state.grpN || Math.max(2, Math.round(ok.length / 5)))), mode = state.grpMode || 'level';
@@ -3416,9 +3503,8 @@ function renderSections() {
   <div class="dash-grid">
     <section class="panel p-sum"><p class="summary">수준별 조편성</p>
       <p class="meta">분반은 수강신청 전에 정해져 있으므로, 편성된 분반 수업 안에서 수강생을 진단 수준별 조로 나눠 수준에 맞는 학습 활동을 합니다. 수준은 교과목에 연결된 하위능력 점수의 평균(상 ${HIGH}점 이상 · 중 ${MID}~${HIGH - 1}점 · 하 ${MID}점 미만)이고, 신뢰성 재실시 대상은 '수준 확인 필요'로 따로 둡니다. <span class="badge amber">가상 예시 데이터</span> 수강생은 가상 신입생 중 이 분반 신청 인원만큼 뽑은 것입니다.</p>
-      <div class="pick" style="margin:10px 0 0">
-        <label>교과목<select id="scourse">${list.map(c => `<option ${c.n === course.n ? 'selected' : ''}>${esc(c.n)}</option>`).join('')}</select></label>
-        <label>분반<select id="ssec">${secs.map(s => `<option value="${esc(s.sec)}" ${s.sec === S0.sec ? 'selected' : ''}>${esc(s.sec)}분반 · ${DAYS[s.d]} ${pStart(s.s)}</option>`).join('')}</select></label>
+      ${classPickHtml(C)}
+      <div class="pick" style="margin:8px 0 0">
         <label>조 수<select id="sn">${Array.from({ length: Math.max(1, Math.min(10, ok.length) - 1) }, (_, i) => i + 2).map(n => `<option ${n === k ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
         <label>구성 방식<select id="smode"><option value="level" ${mode === 'level' ? 'selected' : ''}>수준별(같은 수준끼리)</option><option value="mixed" ${mode === 'mixed' ? 'selected' : ''}>수준 섞기(협력 학습)</option></select></label>
       </div>
@@ -3431,8 +3517,7 @@ function renderSections() {
     </div></section>
   </div>`;
   const reset = () => { state.grpMoves = null; renderSections(); };
-  document.getElementById('scourse').onchange = e => { state.secCourse = e.target.value; state.secSec = null; reset(); };
-  document.getElementById('ssec').onchange = e => { state.secSec = e.target.value; reset(); };
+  bindClassPick(renderSections);
   document.getElementById('sn').onchange = e => { state.grpN = Number(e.target.value); reset(); };
   document.getElementById('smode').onchange = e => { state.grpMode = e.target.value; reset(); };
   document.getElementById('sreset').onclick = reset;
@@ -4787,6 +4872,7 @@ const TOUR_OVERVIEW = [
   { who: '학생', when: '학기 초', title: '진단 결과와 AI 분석', text: '3종 결과와 응답 신뢰성, 강점과 보완할 점이 나오고, AI가 무엇부터 보완할지 처방합니다. 신뢰성이 낮으면 재실시를 안내합니다.', sel: '.p-three', prep: async () => { await tourStudentReady(); go('result'); } },
   { who: '학생', when: '학기 초', title: '목표 직무 정하기', text: '전공 관련 직업(한국고용직업분류), 인천 전략산업 직무, 기타 직무 중에서 목표를 고릅니다. 아직 없으면 진단 기반 보완으로 설계합니다.', sel: '.p-jfirst', prep: async () => go('career') },
   { who: '학생', when: '학기 초', title: '차이 분석과 추천 교육과정', text: "목표 직무가 요구하는 역량과 내 점수의 차이를 보고, 차이를 메우는 교양·융합과정·비교과를 추천받습니다. 항목마다 '과정 보기'로 명세서와 과정 개요를 확인하고 고릅니다.", sel: '.p-rlib', prep: async () => { const J = JOBS.find(j => j.id === 'k1513') || JOBS[0]; state.targetJob = J.id; state.designMode = 'job'; go('recs'); } },
+  { who: '학생', when: '학기 초', title: '같은 목표 선배의 이수 경로', text: '같은 직무로 이어지는 학과 선배들이 무엇을 듣고 준비도가 얼마나 올랐는지 보고, 마음에 드는 과목을 바로 선택에 넣습니다.', sel: '.p-rsen', prep: async () => go('recs') },
   { who: '학생', when: '학기 초', title: '이수 로드맵으로 계획 세우기', text: '고른 교육과정이 학년·학기별 단계로 펼쳐지고 졸업 요건을 미리 점검합니다. 비교과는 관심 등록만 해 두면 개설될 때 알림을 받습니다.', sel: '.p-pmap', prep: async () => { await tourPlanReady(); go('planmap'); } },
   { who: '학생', when: '학기 초', title: '이번 학기 시간표', text: '관리자가 등록한 전공 시간표를 불러오면, 관리자가 배치한 분반 중 내가 들을 수 있고 시간이 맞는 교양을 정원까지 고려해 추천하고, 수업 안에서 어느 수준 조로 학습할지도 알려 줍니다.', sel: '.tt', prep: async () => { go('timetable'); await wait(50); const d = document.getElementById('ttdb'); if (d) { d.click(); await wait(900); } const g = document.getElementById('ttgo'); if (g && !(state.tt && state.tt.ran)) { g.click(); for (let i = 0; i < 60 && state.ttPend; i++) await wait(250); if (state.step === 'timetable') renderTimetable(); } } },
   { who: '교원', when: '학기 초', title: '진단 결과로 수준별 조편성', text: '미리 정해진 분반 수업 안에서, 수강생의 진단 점수로 조 수만큼 수준별 조를 나눕니다. 조마다 수준에 맞는 학습 활동을 안내하고, 필요하면 학생을 다른 조로 옮깁니다.', sel: '.p-board', prep: async () => { await tourLogin('faculty'); state.phase = 'start'; go('sections'); } },
@@ -4882,6 +4968,7 @@ const TOUR_STUDENT = [
   S_('차이 분석 · AI 해석', '차이가 큰 능력부터 무엇을 해야 하는지 AI가 우선순위와 이유를 설명합니다.', '.p-gai', async () => go('gap')),
   S_('차이 분석 · 직무의 능력단위', "목표 직무가 하는 일(NCS 능력단위)과, 그중 우리 대학 교과목으로 배울 수 있는 것을 보여 줍니다(교육과정위원회 승인 매칭 기준).", '.p-ncs', async () => go('gap')),
   S_('③ 추천 교육과정 · 교양', "차이를 메우는 교양을 추천합니다. 항목마다 '과정 보기'로 교과목 명세서(개요·학습목표·주요 내용)를 확인하고 고릅니다.", '.p-rlib', async () => go('recs')),
+  S_('③ 추천 교육과정 · 같은 목표 선배의 경로', '같은 직무로 이어지는 학과 선배들이 많이 들은 교양, 이수한 융합과정, 참여한 비교과와 그때의 직무 준비도 상승을 보여 줍니다. 준비도가 가장 많이 오른 선배의 학기별 경로도 볼 수 있고, 마음에 드는 과목은 바로 선택에 넣습니다.', '.p-rsen', async () => { if (!state.targetJob) { state.targetJob = (JOBS.find(j => j.id === 'k1513') || JOBS[0]).id; state.designMode = 'job'; } go('recs'); }),
   S_('추천 교육과정 · 융합과정', "목표와 연계된 융합과정(나노·마이크로디그리) 중 하나를 고를 수 있습니다. '과정 보기'에 목적·대상·인증 기준·구성 과목이 있습니다. 듣지 않아도 됩니다.", '.p-rmic', async () => go('recs')),
   S_('추천 교육과정 · 비교과', '비교과는 해마다 개설 시기가 달라 계획에 넣지 않고 관심 등록만 합니다. 개설되면 홈과 메일로 알려 줍니다.', '.p-rnc', async () => go('recs')),
   S_('④ 이수 로드맵', '고른 교육과정이 학년·학기별 단계로 펼쳐집니다. 학과 편성 교양, 추천 교양, 융합과정이 층으로 쌓입니다.', '.p-pmap', async () => { await tourPlanReady(); go('planmap'); }),
@@ -4907,6 +4994,7 @@ const TOUR_FACULTY = [
   S_('지도 학생 상담 · 단계별 학생', '알림 대상·상담 전·상담 완료·지도 학생 숫자를 누르면 해당 학생 목록이 나옵니다. 지도 학생은 학기마다 새로 정해지고, 상담 완료에는 이전 학기에 상담한 학생도 남습니다.', '.p-alist', async () => go('advisor')),
   S_('지도 학생 상담 · 상담 준비 카드', '학생의 강점·보완점, 이수 현황, 비교과 참여를 한 장으로 정리하고, 합의한 보완 활동과 후속 점검일을 기록합니다. 학생별 상담 기록이 날짜순으로 쌓이고 고칠 수 있으며, 메모는 기록한 교원 본인만 봅니다.', '.p-adet', async () => go('advisor')),
   S_('수준별 조편성 · 기준', '분반은 미리 정해져 있으므로, 교과목과 분반을 고른 뒤 조 수를 정하면 그 분반 수강생을 연계 하위능력 점수로 수준별 조에 나눕니다. 같은 수준끼리 또는 수준을 섞어(협력 학습) 구성할 수 있습니다.', '.p-sum', async () => go('sections')),
+  S_('수업 역량 프로필', '담당 분반 수강생의 연계 능력을 반 평균·학교 평균·상중하 분포로 보고, 수업 전에 알아 둘 점(보완할 능력, 기초·심화 학생 비율, 기초학습 보충 대상)과 학기말 분반별 향상을 확인합니다. 개인 점수 없이 반 단위 통계만 보여 줍니다.', '.p-cpt', async () => go('classprof')),
   S_('수준별 조편성 · 결과', '조별 인원·수준 구성과 수준에 맞는 학습 활동을 보고, 학생 옆 선택 상자로 조를 옮깁니다. 조 명단은 CSV로 내려받습니다.', '.p-board', async () => go('sections')),
   S_('학과 현황 · 영역별 역량', '소속 학과 학생의 7영역 역량을 대학 평균과 비교합니다(10명 이상일 때만 집계).', '.p-ddarea', async () => go('fdept')),
   S_('학과 현황 · 직무 준비도', '학과가 고른 직업마다 학생들의 평균 적합도와 준비된 학생 비율을 봅니다.', '.p-ddjob', async () => go('fdept')),
@@ -6310,6 +6398,7 @@ function adminTodos() {
 
 /* ---------- 위치 표시: 역할 › 메뉴 › 화면 › 보기, 그리고 이 화면에서 하는 일 ---------- */
 const PAGE_JOB = {
+  classprof: '담당 분반 수강생의 연계 능력 분포, 수업 전에 알아 둘 점, 학기말 향상을 반 단위 통계로 봅니다.',
   jobkit: '목표 직무의 NCS 능력단위·직업기초능력에 맞춰 이수한 교과·비교과를 입사지원서 교육사항 형식으로 정리합니다.',
   counselstat: '지도교수 상담 건수를 교원별·학과별로 집계합니다(상담 메모는 보지 않음).',
   portfolio: '진단·이수·비교과·실천 기록을 한 장으로 모으고 자기소개서 소재를 정리합니다.', risk: '이탈·부진 위험 학생을 신호별 점수와 사유로 미리 찾습니다.', evals: '강의평가 문항·척도를 정하고 결과를 교육과정 효과성과 함께 봅니다.', deptdash: '학과별 역량·직무 준비도·개선할 교과목을 한 화면에서 봅니다.', fdept: '소속 학과의 역량·직무 준비도·개선할 교과목을 봅니다.',
@@ -6448,6 +6537,45 @@ function recsFor(T) {
   const ncs = ncRecs(dd).map(p => ({ ...p, hit: p.subs.filter(s => need[s] > 0) })).sort((a, b) => b.hit.length - a.hit.length || b.score - a.score).slice(0, 5);
   return { lib, mics, ncs, base: [...base] };
 }
+/* ---------- 같은 목표 선배의 이수 경로: 이 직무로 이어지는 학과 선배(가상 코호트)가 무엇을 듣고 준비도가 얼마나 올랐는지 ---------- */
+function seniorPaths(job, recSet = new Set()) {
+  const co = cohort(), last = co[0].traceSub.length - 1;
+  const fitAt = (st, t) => jobFit(job, Object.fromEntries(SUBNAMES.map((s, k) => [s, st.traceSub[t][k]])));
+  let base = co.filter(st => jobRel(job, st.dept) >= 2), scope = '이 직무로 이어지는 학과';
+  if (base.length < 20) { base = co.filter(st => st.grp === (CURRICULUM.deptGroup[state.dept] || '디자인·기타')); scope = `${CURRICULUM.deptGroup[state.dept] || '같은'} 계열`; }
+  const S = base.map(st => { const f0 = fitAt(st, 0), f1 = fitAt(st, last); return { st, f0, f1, g: f1 - f0 }; });
+  const avg = a => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0);
+  const mine = new Set(offered(state.dept, 1).map(c => c.n));
+  const cstat = {}; S.forEach(x => new Set(x.st.picks.map(p => p.c.n)).forEach(n => { (cstat[n] = cstat[n] || []).push(x); }));
+  const courses = Object.entries(cstat).map(([n, L]) => { const has = new Set(L); return { n, cnt: L.length, pct: Math.round(L.length / S.length * 100), gIn: avg(L.map(x => x.g)), gOut: avg(S.filter(x => !has.has(x)).map(x => x.g)), mine: mine.has(n) }; })
+    .filter(c => c.cnt >= 3 && c.mine).sort((a, b) => (recSet.has(b.n) - recSet.has(a.n)) || b.cnt - a.cnt).slice(0, 6);
+  const mstat = {}; S.forEach(x => { if (x.st.micro) (mstat[x.st.micro] = mstat[x.st.micro] || []).push(x); });
+  const micros = Object.entries(mstat).map(([id, L]) => ({ m: CURRICULUM.micro.find(m => m.id === id), cnt: L.length, gIn: avg(L.map(x => x.g)) })).filter(x => x.m && x.cnt >= 2).sort((a, b) => b.cnt - a.cnt).slice(0, 3);
+  const nstat = {}; S.forEach(x => (x.st.nc || []).forEach(p => { (nstat[p.n] = nstat[p.n] || []).push(x); }));
+  const ncs = Object.entries(nstat).map(([n, L]) => ({ n, cnt: L.length, gIn: avg(L.map(x => x.g)) })).filter(x => x.cnt >= 2).sort((a, b) => b.cnt - a.cnt).slice(0, 3);
+  const top = S.slice().sort((a, b) => b.g - a.g).slice(0, 3);
+  return { n: S.length, scope, last, f0: avg(S.map(x => x.f0)), f1: avg(S.map(x => x.f1)), g: avg(S.map(x => x.g)), courses, micros, ncs, top };
+}
+function seniorHtml(T, R, S) {
+  if (!T.job) return `<p class="meta">목표 직무를 정하면, 같은 직무로 이어지는 학과 선배들이 어떤 과목·융합과정·비교과를 듣고 직무 준비도가 얼마나 올랐는지 보여 드립니다. <button class="linkbtn" data-go="career" type="button">목표 직무 정하기</button></p>`;
+  const recN = new Set(R.lib.map(x => x.c.n)), P = seniorPaths(T.job, recN), me = jobFit(T.job, T.now);
+  if (P.n < MIN_GROUP) return '<p class="meta">비교할 선배가 적어 표시하지 않습니다.</p>';
+  const sg = v => `${v >= 0 ? '+' : ''}${Math.round(v)}`;
+  const term = (st, t) => [...st.picks.filter(p => p.term === t).map(p => p.c.n), ...(st.micro && st.mterm === t ? [`융합 ${CURRICULUM.micro.find(m => m.id === st.micro).name}`] : []), ...(st.nc || []).filter(p => p.term === t).map(p => `비교과 ${p.n}`)];
+  return `<p class="meta">${esc(P.scope)} 선배 ${P.n}명(가상 코호트)의 기록입니다. 이름·학번은 보지 않고 집계만 보여 주며, 실제 운영에서는 ${MIN_GROUP}명 미만이면 숨깁니다. <span class="badge amber">가상 예시 데이터</span></p>
+    <div class="stats stats-sm"><div class="stat"><b>${Math.round(P.f0)}% → ${Math.round(P.f1)}%</b><span>선배 평균 직무 준비도(입학 직후 → ${P.last}학기 뒤)</span></div><div class="stat"><b>${sg(P.g)}%p</b><span>선배 평균 상승</span></div><div class="stat"><b>${me}%</b><span>나의 지금 적합도(선배 입학 직후 평균 대비 ${sg(me - P.f0)}%p)</span></div></div>
+    <h3 class="sub3">선배들이 많이 들은 교양</h3>
+    <ul class="srows">${P.courses.map(c => `<li><span class="sr-n"><b>${esc(c.n)}</b><span class="meta">선배 ${c.pct}%가 들음${recN.has(c.n) ? ' · 나에게도 추천된 과목' : ''}</span></span>
+      <span class="sr-bar" aria-hidden="true"><i style="width:${c.pct}%"></i></span>
+      <span class="sr-g"><b>${sg(c.gIn)}%p</b><span class="meta">안 들은 선배 ${sg(c.gOut)}%p</span></span>
+      <span class="sr-act">${recN.has(c.n) ? (S.lib.has(c.n) ? '<span class="okc">선택함</span>' : `<button class="btn ghost sm" data-sradd="${esc(c.n)}" type="button">선택에 넣기</button>`) : '<span class="meta">목표 차이와 연결 적음</span>'}</span></li>`).join('')}</ul>
+    <div class="srcols"><div><h3 class="sub3">많이 이수한 융합과정</h3>${P.micros.length ? `<ul class="srmini">${P.micros.map(x => `<li><b>${esc(x.m.name)}</b><span class="meta">${x.cnt}명 · 평균 상승 ${sg(x.gIn)}%p</span></li>`).join('')}</ul>` : '<p class="meta">이수한 선배가 적습니다.</p>'}</div>
+      <div><h3 class="sub3">많이 참여한 비교과</h3>${P.ncs.length ? `<ul class="srmini">${P.ncs.map(x => `<li><b>${esc(x.n)}</b><span class="meta">${x.cnt}명 · 평균 상승 ${sg(x.gIn)}%p</span></li>`).join('')}</ul>` : '<p class="meta">참여한 선배가 적습니다.</p>'}</div></div>
+    <h3 class="sub3">준비도가 가장 많이 오른 선배의 경로</h3>
+    <ol class="srpath">${P.top.map((x, i) => `<li><div class="sp-h"><b>선배 ${'ABC'[i]}</b><span class="meta">${esc(x.st.dept)} · 준비도 ${x.f0}% → ${x.f1}% (${sg(x.g)}%p)</span></div>
+      <div class="sp-t">${[1, 2, 3].map(t => `<div><span class="meta">${t}학기</span><p>${term(x.st, t).map(esc).join(', ') || '-'}</p></div>`).join('')}</div></li>`).join('')}</ol>
+    <p class="meta">상승폭은 같은 기간의 단순 비교라 과목만의 효과는 아닙니다. 과목별 효과는 관리자 '교육과정 효과성'에서 입학 직후 점수를 맞춰 따로 계산합니다.</p>`;
+}
 function renderRecs() {
   const T = designTarget(), R = recsFor(T), plan = designPlan();
   const S = state.recSel = state.recSel && state.recSel.key === T.label ? state.recSel : { key: T.label, lib: new Set(R.lib.filter(x => plan.items.some(i => i.n === x.c.n && i.kind !== 'base')).map(x => x.c.n)), mic: plan.micro || '', nc: new Set(ncWish(plan)) };
@@ -6459,10 +6587,12 @@ function renderRecs() {
     ${panelH('p-rlib', '교양 · 선택', `${S.lib.size}/${R.lib.length}과목 선택`, R.lib.length ? `<p class="meta">차이가 큰 능력을 다루는 교양입니다. 듣고 싶은 과목을 고르세요. <button class="linkbtn" id="rliball" type="button">${S.lib.size === R.lib.length ? '모두 해제' : '추천 모두 선택'}</button></p><ul class="rpick">${R.lib.map(x => `<li><label><input type="checkbox" data-rlib="${esc(x.c.n)}" ${S.lib.has(x.c.n) ? 'checked' : ''}><span><b>${esc(x.c.n)}</b><span class="meta">${esc(shortSub(x.sn))} 차이 ${x.gap}점 · ${esc(x.c.src)} · ${termText(x.c)}${unitHint(x.c.n)}</span></span></label>${infoBox('lib:' + x.c.n, libInfo(x.c.n))}</li>`).join('')}</ul>` : '<p class="meta">차이를 메울 추가 교양이 없습니다. 학과 편성 교양만으로 계획합니다.</p>')}
     ${panelH('p-rmic', '융합과정 · 선택', S.mic ? '1개 선택' : '선택 안 함', `<p class="meta">목표와 연계된 융합과정입니다. 하나만 고를 수 있고, 이수 진도는 '융합과정 현황'에서 봅니다.</p><ul class="rpick"><li><label><input type="radio" name="rmic" value="" ${S.mic ? '' : 'checked'}><span><b>선택하지 않음</b><span class="meta">융합과정은 필수가 아닙니다.</span></span></label></li>${R.mics.map(({ m, hit }) => `<li><label><input type="radio" name="rmic" value="${m.id}" ${S.mic === m.id ? 'checked' : ''}><span><b>${esc(m.name)}</b><span class="meta">${esc(m.cert)}${hit.length ? ` · ${hit.map(shortSub).join('·')} 보완` : ''}${T.job && T.job.micro.includes(m.id) ? ' · 목표 직무 연계' : ''}</span></span></label>${infoBox('mic:' + m.id, micInfo(m))}</li>`).join('')}</ul>`)}
     ${panelH('p-rnc', '비교과 · 관심 등록', `${S.nc.size}개 등록`, `<p class="meta">진단과 연결된 비교과입니다. 개설 시기가 해마다 달라 계획에 넣지 않고, 개설되면 알려 드립니다.</p><ul class="rpick">${R.ncs.map(p => `<li><label><input type="checkbox" data-rnc="${esc(p.n)}" ${S.nc.has(p.n) ? 'checked' : ''}><span><b>${esc(p.n)}</b><span class="meta">${p.in}-IN ${IN_AXIS[p.in]} · ${esc(p.host)}${p.hit.length ? ` · ${p.hit.map(shortSub).join('·')} 보완` : ''}</span></span></label>${infoBox('nc:' + p.n, ncInfo(p))}</li>`).join('')}</ul>`)}
+    ${panelH('p-rsen', '같은 목표 선배의 이수 경로', T.job ? esc(T.job.name) : '목표 직무를 정하면 표시', seniorHtml(T, R, S))}
     <section class="panel p-act"><div class="pbody"><div class="actions no-print"><button class="btn" id="rbuild">고른 교육과정으로 이수 계획 만들기</button><span class="meta" id="rmsg">기존 계획에서 직접 옮기거나 넣은 내용은 새 계획으로 바뀝니다.</span></div></div></section>
   </div>`;
   bindInfo();
   $view.querySelectorAll('[data-rlib]').forEach(c => c.onchange = () => { c.checked ? S.lib.add(c.dataset.rlib) : S.lib.delete(c.dataset.rlib); renderRecs(); });
+  $view.querySelectorAll('[data-sradd]').forEach(b => b.onclick = () => { S.lib.add(b.dataset.sradd); toast(`${b.dataset.sradd}을(를) 선택에 넣었습니다. 아래 '이수 계획 만들기'로 반영하세요.`); renderRecs(); });
   const la = document.getElementById('rliball'); if (la) la.onclick = () => { if (S.lib.size === R.lib.length) S.lib.clear(); else R.lib.forEach(x => S.lib.add(x.c.n)); renderRecs(); };
   $view.querySelectorAll('[data-rnc]').forEach(c => c.onchange = () => { c.checked ? S.nc.add(c.dataset.rnc) : S.nc.delete(c.dataset.rnc); renderRecs(); });
   $view.querySelectorAll('input[name=rmic]').forEach(r => r.onchange = () => { S.mic = r.value; renderRecs(); });
@@ -7047,6 +7177,7 @@ function openHelp() {
   const d = document.createElement('div'); d.id = 'helpdrawer'; d.className = 'helpdrawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', '도움말');
   d.innerHTML = `<div class="hd-in"><div class="onb-head"><h2>도움말</h2><button class="linkbtn" id="helpclose" type="button">닫기</button></div>
     <h3>지금 화면${st ? ` · ${esc(st[1])}` : ''}</h3><p>${esc(PAGE_JOB[cur] || '이 화면의 설명이 아직 없습니다.')}</p>
+    <h3>휴대폰 홈 화면에 앱으로 추가</h3><p class="meta">안드로이드·PC 크롬: 위쪽 '앱 설치' 버튼 또는 브라우저 메뉴의 '홈 화면에 추가'. 아이폰 사파리: 공유 버튼 → '홈 화면에 추가'. 설치하면 앱처럼 전체 화면으로 열리고, 알림함에서 '이 기기로 알림 받기'를 켜면 새 알림을 기기 알림으로 받습니다.</p>
     <h3>${ROLE_NAME[u.role]} 사용 순서</h3><ol class="onb">${ONBOARD[u.role].map(([t, dd, g], i) => `<li><span class="sn">${i + 1}</span><div><b>${t}</b><p class="meta">${dd}</p></div><button class="btn ghost sm" data-go="${g}" type="button">열기</button></li>`).join('')}</ol>
     <h3>용어 사전</h3><dl class="gloss">${Object.entries(GLOSS).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
     <h3>기능 둘러보기</h3><p class="meta">화면마다 기능을 하나씩 짚어 줍니다. 시연 계정으로 바꿔 들어가니, 실제 작업 중이면 저장 후 시작하세요.</p><div class="actions"><button class="btn sm" id="helptour" type="button">${esc((TOURS[u.role === 'admin' ? ({ all: 'ops' }[u.duty || 'all'] || u.duty) : u.role] || TOURS.overview).t)} 둘러보기</button><button class="linkbtn" id="helptourall" type="button">다른 사용자 보기</button></div>
@@ -7634,7 +7765,7 @@ function inboxItems() {
 }
 function inboxBadge() {
   const n = document.getElementById('inboxn'); if (!n || !state.user) return;
-  let k = 0; try { k = inboxItems().filter(x => !x.read).length; } catch (e) { /* 자료 준비 전 */ }
+  let k = 0; try { const L = inboxItems(); k = L.filter(x => !x.read).length; pushNewInbox(L); } catch (e) { /* 자료 준비 전 */ }
   n.textContent = k > 99 ? '99+' : k; n.hidden = !k;
   document.getElementById('inboxbtn').setAttribute('aria-label', `알림함, 안 읽은 알림 ${k}개`);
 }
@@ -7649,7 +7780,8 @@ function openInbox() {
     <div class="ifil" role="tablist">${[['all', `전체 ${L.length}`], ['unread', `안 읽음 ${un}`]].map(([k, t]) => `<button role="tab" type="button" data-inf="${k}" aria-selected="${F === k}">${t}</button>`).join('')}</div>
     <ul class="ilist">${shown.map(x => `<li class="${x.read ? 'read' : 'unread'}"><button type="button" data-inbox="${esc(x.id)}"><span class="idot" aria-hidden="true"></span><span class="imain"><span class="ik">${esc(x.k)}</span><b>${esc(x.t)}</b><span class="meta">${esc(x.d)}</span></span><span class="iat">${esc(x.at || '')}</span></button></li>`).join('')
       || `<li class="iempty">${F === 'unread' ? '안 읽은 알림이 없습니다.' : '받은 알림이 없습니다. 진단 기간 안내, 상담 요청, 비교과 개설 같은 일이 생기면 여기에 모입니다.'}</li>`}</ul>
-    <p class="meta ifoot">알림을 누르면 읽음으로 표시되고 해당 화면으로 갑니다. 읽음 표시는 이 브라우저에 저장됩니다.</p></div>`;
+    <p class="meta ifoot">알림을 누르면 읽음으로 표시되고 해당 화면으로 갑니다. 읽음 표시는 이 브라우저에 저장됩니다.${typeof Notification === 'undefined' ? '' : notifyOK() ? ' <span class="okc">기기 알림 켜짐</span>' : ' <button class="linkbtn" id="ibpush" type="button">이 기기로 알림 받기</button>'}</p></div>`;
+  { const pb = document.getElementById('ibpush'); if (pb) pb.onclick = async () => { if (await enableDeviceNotify()) { document.removeEventListener('keydown', onKey); openInbox(); } }; }
   const close = () => { box.hidden = true; document.removeEventListener('keydown', onKey); const b = document.getElementById('inboxbtn'); if (b) b.focus(); };
   const onKey = e => { if (e.key === 'Escape') close(); };
   document.addEventListener('keydown', onKey);
@@ -7772,6 +7904,92 @@ function renderJobKit() {
   document.getElementById('kitcsv').onclick = () => download(`입사지원서_교육사항_${job.name}.csv`, [['구분', '교육과정명', '학점', '이수 시기', '이수 상태', '관련 NCS 능력단위', '관련 직업기초능력', '주요 내용'], ...rows.map(r => [r.kind, r.n, r.cr, r.term, r.done ? '이수' : '계획', r.jobU.join(', '), r.abil.join(', '), r.ov])]);
 }
 
+/* ---------- 영어 화면(베타, 학생): 메뉴·제목·버튼·능력 이름을 영어로. 교과목명·설명 문장·진단 문항은 한국어 유지 ---------- */
+const I18N_EN = {
+  '홈': 'Home', '내 진단': 'My Diagnosis', '내 설계': 'My Plan', '상담': 'Advising', '학생': 'Student', '교원': 'Faculty', '교직원': 'Staff', '관리자': 'Admin',
+  '대학 생활 설계 플랫폼': 'College Life Design Platform', '인하공업전문대학': 'Inha Technical College', '인하공업전문대학 대학 생활 설계 플랫폼': 'Inha Technical College · College Life Design Platform',
+  '알림': 'Alerts', '받은 알림': 'Alerts', '도움말': 'Help', '로그아웃': 'Log out', '바로 가기': 'Go to', '시연 시점': 'Demo term', '시연 표시 끄기': 'Hide demo labels', '시연 표시 켜기': 'Show demo labels',
+  '학기 초 · 진단 기간': 'Start of term · Diagnosis', '학기 중 · 이수': 'Mid-term · Courses', '학기말 · 재진단·분석': 'End of term · Re-diagnosis', '이 브라우저에 저장됨': 'Saved in this browser', '클라우드에 저장됨': 'Saved to cloud',
+  '진단 받기': 'Take diagnosis', '진단 결과': 'Results', '성장 리포트': 'Growth report', '성장 포트폴리오': 'Growth portfolio', '설계하기': 'Design', '융합과정 현황': 'Micro-degree progress', '입사지원서 꾸러미': 'Job application kit',
+  '① 목표 직무': '① Target job', '② 차이 분석': '② Gap analysis', '③ 추천 교육과정': '③ Recommendations', '④ 이수 계획·시간표': '④ Plan & timetable', '이수 로드맵': 'Roadmap', '계획 고치기': 'Edit plan', '이번 학기 시간표': "This term's timetable", 'AI 상담': 'AI advising', '진로 상담': 'Career advising', 'AI 분석': 'AI analysis', '결과 요약': 'Summary',
+  '다음 단계': 'Next step', '지금 할 일': 'To-do now', '나의 역량': 'My competencies', '나의 이수 계획': 'My course plan', '진단 기록': 'Diagnosis history', '이번 주 자기주도 학습': 'Self-study this week', '목표 직무 준비도': 'Target job readiness', '다음에 하면 오르는 것': 'What raises it next', '입사지원서 꾸러미 보기': 'Open job application kit',
+  '3종 진단': '3 diagnoses', '결과·AI 분석': 'Results & AI analysis', '이수 계획': 'Course plan', '수강·이수': 'Take courses', '학기말 재진단': 'End-of-term re-diagnosis', '성장 확인': 'Check growth',
+  '직업기초역량': 'Basic job competencies', '핵심역량': 'Core competencies', '기초학습역량': 'Basic learning skills', '직업기초역량진단': 'Basic Job Competency Test', '핵심역량진단': 'Core Competency Test', '기초학습역량진단': 'Basic Learning Skills Test', '직업기초': 'Basic job skills',
+  '의사소통': 'Communication', '수리': 'Numeracy', '문제해결': 'Problem solving', '자기관리': 'Self-management', '대인관계': 'Interpersonal', '디지털': 'Digital', '직업윤리': 'Work ethics',
+  '의사소통능력': 'Communication', '수리능력': 'Numeracy', '문제해결능력': 'Problem solving', '자기개발능력': 'Self-development', '대인관계능력': 'Interpersonal skills', '디지털능력': 'Digital skills', '직업윤리': 'Work ethics',
+  '문서소통능력': 'Written communication', '구두소통능력': 'Oral communication', '외국어소통능력': 'Foreign-language communication', '연산능력': 'Calculation', '통계활용능력': 'Using statistics', '도표활용능력': 'Using charts', '문제분석능력': 'Problem analysis', '대안발굴능력': 'Finding alternatives', '의사결정능력': 'Decision making', '경력개발능력': 'Career development', '적응학습능력': 'Adaptive learning', '시간관리능력': 'Time management', '협업능력': 'Collaboration', '리더십': 'Leadership', '갈등관리능력': 'Conflict management', '디지털활용능력': 'Digital literacy', 'AI활용능력': 'Using AI', '디지털책임의식': 'Digital responsibility', '근로윤리': 'Work ethic', '직장공동체의식': 'Workplace community', '산업안전보건의식': 'Industrial safety',
+  '문서소통': 'Written comm.', '구두소통': 'Oral comm.', '외국어소통': 'Foreign language', '연산': 'Calculation', '통계활용': 'Statistics', '도표활용': 'Charts', '문제분석': 'Problem analysis', '대안발굴': 'Alternatives', '의사결정': 'Decisions', '경력개발': 'Career dev.', '적응학습': 'Adaptive learning', '시간관리': 'Time mgmt', '협업': 'Collaboration', '갈등관리': 'Conflict mgmt', '디지털활용': 'Digital literacy', 'AI활용': 'Using AI', '디지털책임': 'Digital resp.', '직장공동체': 'Workplace community', '산업안전보건': 'Industrial safety',
+  '지성인': 'Intellectual', '직업인': 'Professional', '사회인': 'Citizen', '핵심 · 지성인': 'Core · Intellectual', '핵심 · 직업인': 'Core · Professional', '핵심 · 사회인': 'Core · Citizen', '기초 · 국어': 'Basic · Korean', '기초 · 수리': 'Basic · Math', '기초 · 영어': 'Basic · English', '국어': 'Korean', '영어': 'English', '수학': 'Math',
+  '입학 직후': 'At entry', '지금': 'Now', '학교 평균': 'School average', '대학 평균': 'College average', '학과 평균': 'Dept. average', '보완(40점 미만)': 'Needs work (<40)', '높음(70점 이상)': 'High (70+)', '나': 'Me', '정상': 'Valid', '주의': 'Caution', '재실시': 'Retake', '높음': 'High', '보통': 'Medium', '낮음': 'Low', '강점': 'Strength', '보완': 'To improve',
+  '목표 직무': 'Target job', '목표 다시 정하기': 'Change target', '직무 적합도': 'Job fit', '적합도': 'Fit', '내 점수': 'My score', '직무 요구': 'Job requirement', '메울 차이': 'Gap to close', '차이 분석': 'Gap analysis', '차이': 'Gap', '충족': 'Met', '부족': 'Short', '기준 충족': 'Meets standard',
+  '교양': 'General ed.', '융합과정': 'Micro-degree', '비교과': 'Extracurricular', '전공': 'Major', '학과 편성 교양': 'Dept.-required general ed.', '추천 교양': 'Recommended general ed.', '추천 교양(선택)': 'Recommended general ed. (optional)', '융합과정(선택)': 'Micro-degree (optional)', '비교과(관심 등록)': 'Extracurricular (watchlist)', '비교과 · 관심 등록': 'Extracurricular · Watchlist', '교양 · 선택': 'General ed. · Choose', '융합과정 · 선택': 'Micro-degree · Choose', '관심 등록': 'Watch', '과정 보기': 'Details', '선택에 넣기': 'Add to selection', '선택함': 'Selected', '선택 안 함': 'None', '같은 목표 선배의 이수 경로': 'Paths of seniors with the same goal', '선배들이 많이 들은 교양': 'General ed. seniors took most', '많이 이수한 융합과정': 'Popular micro-degrees', '많이 참여한 비교과': 'Popular extracurriculars', '준비도가 가장 많이 오른 선배의 경로': 'Paths of seniors who improved most', '선배 A': 'Senior A', '선배 B': 'Senior B', '선배 C': 'Senior C',
+  '고른 교육과정으로 이수 계획 만들기': 'Build plan from selections', '계획에 넣기': 'Add to plan', '이수 계획 보기': 'View plan', '계획 보기': 'View plan', '이번 학기 시간표로 확정': "Confirm this term's timetable", '내 설계 시작하기': 'Start planning', '졸업 요건 점검': 'Graduation check', '학기별 수강 계획표': 'Term-by-term plan', '주간 시간표': 'Weekly timetable', '학사정보시스템에서 불러오기': 'Load from student system', '추천 받기': 'Get recommendations', '추천 조건': 'Preferences', '추천 결과': 'Recommendations', '약점 보완': 'Fix weaknesses', '강점 심화': 'Build strengths', '비울 요일': 'Day off', '오전 선호': 'Mornings', '오후 선호': 'Afternoons', '상관없음': 'Any', '시간표 인쇄': 'Print timetable', '자기주도 학습': 'Self-study', '내 반': 'My class', '월': 'Mon', '화': 'Tue', '수': 'Wed', '목': 'Thu', '금': 'Fri', '월요일': 'Monday', '화요일': 'Tuesday', '수요일': 'Wednesday', '목요일': 'Thursday', '금요일': 'Friday',
+  '이수 완료': 'Completed', '수강 중': 'In progress', '계획': 'Planned', '미계획': 'Not planned', '인증 기준': 'Certificate threshold', '구성 과목': 'Courses', '목표 과정': 'Target program', '나노디그리': 'Nano-degree', '마이크로디그리': 'Micro-degree', '이 과정을 목표로 정하기': 'Set as target program',
+  '표 내려받기(CSV)': 'Download table (CSV)', '인쇄·PDF': 'Print / PDF', '직무 관련 교육사항': 'Job-related education', '목표 직무 능력단위 준비 현황': 'NCS unit readiness', '교육과정명': 'Course', '이수 시기': 'Term', '관련 NCS 능력단위': 'Related NCS units', '관련 직업기초능력': 'Related basic skills', '주요 내용': 'Summary', '구분': 'Type', '교과': 'Course', '계획 중인 과목도 함께 보기': 'Include planned courses', '자기소개서 소재(성장 포트폴리오)': 'Essay material (portfolio)',
+  '진단 시작': 'Start diagnosis', '3종 진단 시작하기': 'Start the 3 diagnoses', '이어서 받기': 'Resume', '결과 보기': 'View results', '결과 자세히': 'Details', '다음': 'Next', '이전': 'Back', '보내기': 'Send', '대화 지우기': 'Clear chat', '상담에 쓰는 내 정보': 'Data used for advising', '나의 이수 계획 보기': 'View my plan', '안내 닫기': 'Close guide', '열기': 'Open', '닫기': 'Close', '모두 읽음으로 표시': 'Mark all read', '전체': 'All', '알림함': 'Alerts', '처음 오셨다면 이 순서로 쓰세요': 'New here? Use it in this order', '나중에 이어 받기': 'Continue later',
+  '역량 변화': 'Competency change', '쌓은 경험': 'Experience', '이수한 교과': 'Courses completed', '계획한 교과': 'Courses planned', '자기소개서·면접 소재': 'Essay & interview material', '다음 학기에 할 일': 'Next term', 'AI로 문장 다듬기': 'Polish with AI', '규칙 기반': 'Rule-based', 'AI 작성': 'AI-written', '포트폴리오': 'Portfolio',
+  '가상 예시 데이터': 'Sample data', '기능 둘러보기': 'Feature tour', '학기 중': 'Mid-term', '학기 초': 'Start of term', '학기말': 'End of term', '이번 학기': 'This term', '없음': 'None', '기록 없음': 'No records', '저장됨': 'Saved', '아직 없음': 'None yet', '진단': 'Diagnosis', '설계': 'Plan', '성장·개선': 'Growth', '조편성·상담': 'Groups & advising', '시간표': 'Timetable',
+  '직접 입력': 'Enter manually', '이번 학기 목적': 'Goal this term', '교양 학점 목표': 'Gen. ed. credit goal', '시간대': 'Time of day', '융합과정 인증': 'Micro-degree certificate', '이번 학기': 'This term', '학과 편성': 'Dept. required', '직접 추가': 'Add manually', '과목 찾기': 'Find course', '추천 이유': 'Why', '전공 시간표': 'Major timetable', '성장 확인 하러 가기': 'Check growth', '결과 자세히': 'Details', '진단 결과와 AI 분석 확인하기': 'Check results & AI analysis', '이수 계획 세우고 저장하기': 'Build and save a plan', '학기말 재진단 받기': 'Take the re-diagnosis', '성장 리포트 확인하기': 'See growth report', '상담하기': 'Ask', '질문': 'Question',
+  '역량': 'Competency', '직무 관련 교육': 'Job-related courses', '실천': 'Practice', '하위능력': 'Sub-skills', '연계 역량': 'Linked skills', '영역': 'Area', '점수': 'Score', '변화': 'Change', '판정': 'Verdict', '신뢰성': 'Reliability', '응답 신뢰성': 'Response reliability', '날짜': 'Date', '회차': 'Round', '학번': 'Student ID', '학과': 'Department', '이름': 'Name'
+};
+const I18N_RE = [[/^(\d+)과목$/, '$1 courses'], [/^(\d+)학점$/, '$1 credits'], [/^(\d+)명$/, '$1'], [/^(\d+)점$/, '$1 pts'], [/^(\d+)회$/, '$1×'], [/^(\d)학년 (\d)학기$/, 'Year $1 · Sem $2'], [/^(\d)학기$/, 'Sem $1'], [/^(\d+)분반$/, 'Sec. $1'], [/^(\d+)건$/, '$1'], [/^(\d+)개$/, '$1']];
+const langEN = () => !!(state.user && state.user.role === 'student' && lsGet('lang') === 'en');
+const I18N_SKIP = 'script,style,textarea,.typing,.qtext,.opts,.scale,.kit-tbl td:nth-child(2),.notr';
+function tr(s) { const k = s.trim(); if (!k) return null; if (I18N_EN[k]) return s.replace(k, I18N_EN[k]); for (const [re, to] of I18N_RE) if (re.test(k)) return s.replace(k, k.replace(re, to)); return null; }
+function translateTree(root) {
+  if (!langEN() || !root) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), hits = [];
+  for (let n = w.nextNode(); n; n = w.nextNode()) { if (n.parentElement && !n.parentElement.closest(I18N_SKIP)) { const t = tr(n.nodeValue); if (t !== null && t !== n.nodeValue) hits.push([n, t]); } }
+  hits.forEach(([n, t]) => { n.nodeValue = t; });
+  (root.querySelectorAll ? root.querySelectorAll('[placeholder],[title],[aria-label]') : []).forEach(e => ['placeholder', 'title', 'aria-label'].forEach(a => { const v = e.getAttribute(a); const t = v && tr(v); if (t) e.setAttribute(a, t); }));
+}
+let i18nObs = null;
+function startI18n() {
+  if (i18nObs || typeof MutationObserver === 'undefined') return;
+  let q = false;
+  i18nObs = new MutationObserver(() => { if (q || !langEN()) return; q = true; requestAnimationFrame(() => { q = false; translateTree(document.body); }); });
+  i18nObs.observe(document.body, { childList: true, subtree: true });
+}
+function langNote() {
+  return langEN() ? '<div class="langnote no-print" role="note">English (beta): menus, titles, buttons and skill names are in English. Course names, explanations and diagnosis items are still in Korean. AI advising answers in English.</div>' : '';
+}
+
+/* ---------- 휴대폰 홈 화면 앱(PWA)·기기 알림: 공개 사이트(https)에서만 켜짐. 기기 알림은 앱(탭)이 열려 있을 때 새 알림이 생기면 띄움(서버 푸시는 운영 단계) ---------- */
+let INSTALL_EVT = null;
+function pwaInit() {
+  if (location.protocol !== 'https:' && location.hostname !== 'localhost') return;
+  const add = (tag, attrs) => { const e = document.createElement(tag); Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v)); document.head.appendChild(e); };
+  add('link', { rel: 'manifest', href: 'manifest.webmanifest' }); add('link', { rel: 'apple-touch-icon', href: 'icon-192.png' });
+  add('meta', { name: 'theme-color', content: '#2E4A7D' }); add('meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }); add('meta', { name: 'apple-mobile-web-app-title', content: '대학 생활 설계' });
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+  addEventListener('beforeinstallprompt', e => { e.preventDefault(); INSTALL_EVT = e; if (state.user) renderNav(); });
+  addEventListener('appinstalled', () => { INSTALL_EVT = null; toast('홈 화면에 앱을 설치했습니다.'); if (state.user) renderNav(); });
+}
+const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+async function installApp() { if (!INSTALL_EVT) return; INSTALL_EVT.prompt(); try { await INSTALL_EVT.userChoice; } catch (e) { /* 취소 */ } INSTALL_EVT = null; renderNav(); }
+const notifyOK = () => typeof Notification !== 'undefined' && Notification.permission === 'granted' && lsGet(inboxKey() + ':push') === true;
+async function enableDeviceNotify() {
+  if (typeof Notification === 'undefined') { toast('이 브라우저는 기기 알림을 지원하지 않습니다.'); return false; }
+  const p = Notification.permission === 'granted' ? 'granted' : await Notification.requestPermission();
+  if (p !== 'granted') { toast('기기 알림이 허용되지 않았습니다. 브라우저 설정에서 허용할 수 있습니다.'); return false; }
+  lsSet(inboxKey() + ':push', true);
+  lsSet(inboxKey() + ':pushed', Object.fromEntries(inboxItems().map(x => [x.id, 1]))); /* 지금 있는 알림은 다시 띄우지 않음 */
+  showDeviceNotice('기기 알림을 켰습니다', '새 알림이 생기면 이 기기에 알려 드립니다.', 'lifedesign-on');
+  return true;
+}
+function showDeviceNotice(title, body, tag) {
+  const opt = { body, tag, icon: 'icon-192.png', badge: 'icon-192.png', lang: 'ko' };
+  if (navigator.serviceWorker && navigator.serviceWorker.controller) navigator.serviceWorker.ready.then(r => r.showNotification(title, opt)).catch(() => {});
+  else try { new Notification(title, opt); } catch (e) { /* 지원 안 함 */ }
+}
+function pushNewInbox(items) {
+  if (!notifyOK()) return;
+  const key = inboxKey() + ':pushed', done = lsGet(key) || {}, fresh = items.filter(x => !x.read && !done[x.id]);
+  if (!fresh.length) return;
+  fresh.slice(0, 3).forEach(x => showDeviceNotice(`[${x.k}] ${x.t}`, x.d, x.id));
+  fresh.forEach(x => { done[x.id] = 1; }); lsSet(key, done);
+}
+
 /* ---------- 메뉴: 역할별 운영 프로세스 순서 ---------- */
 const NAV = {
   /* steps: [화면 id, 이름, 부모 화면(있으면 그 화면 안의 보기), 부모 화면의 첫 보기 이름] */
@@ -7779,7 +7997,7 @@ const NAV = {
     { id: 'diag', t: '내 진단', steps: [['intro', '진단 받기'], ['result', '진단 결과', null, '결과 요약'], ['analysis', 'AI 분석', 'result'], ['growth', '성장 리포트'], ['portfolio', '성장 포트폴리오']] },
     { id: 'plan', t: '내 설계', steps: [['career', '설계하기', null, '① 목표 직무'], ['gap', '② 차이 분석', 'career'], ['recs', '③ 추천 교육과정', 'career'], ['planmap', '④ 이수 계획·시간표', 'career'], ['plan', '계획 고치기', 'career', null, 'planmap'], ['timetable', '이번 학기 시간표', 'career', null, 'planmap'], ['roadmap', '융합과정 현황'], ['jobkit', '입사지원서 꾸러미']] },
     { id: 'cns', t: '상담', steps: [['counsel', 'AI 상담']] }],
-  faculty: [{ id: 'fhome', t: '홈', steps: [['fhome', '홈']] }, { id: 'sec', t: '수준별 조편성', steps: [['sections', '수준별 조편성']] }, { id: 'adv', t: '지도 학생', steps: [['advisor', '지도 학생 상담']] }, { id: 'fdp', t: '학과 현황', steps: [['fdept', '학과 개선 현황']] }],
+  faculty: [{ id: 'fhome', t: '홈', steps: [['fhome', '홈']] }, { id: 'sec', t: '수업 운영', steps: [['sections', '수준별 조편성'], ['classprof', '수업 역량 프로필']] }, { id: 'adv', t: '지도 학생', steps: [['advisor', '지도 학생 상담']] }, { id: 'fdp', t: '학과 현황', steps: [['fdept', '학과 개선 현황']] }],
   admin: [{ id: 'ahome', t: '홈', steps: [['ahome', '지금 할 일'], ['axkpi', 'AX 성과']] },
     { id: 'tstart', t: '학기 초', steps: [['diagops', '진단 운영'], ['itembank', '문항 관리', null, '문항 은행·AI 고도화'], ['itemqa', '문항 분석', 'itembank'], ['forms', 'B형 검사지·동등화', 'itembank'], ['majortt', '전공 시간표'], ['electt', '교양·융합 시간표'], ['integration', '학사·수강편람 연동']] },
     { id: 'tmid', t: '학기 중', steps: [['ncopen', '비교과 개설'], ['risk', '조기 경보'], ['counselstat', '상담 현황'], ['grades', '학점 연계'], ['notify', '알림 발송']] },
@@ -7806,7 +8024,7 @@ function renderNav() {
   nav.innerHTML = `<div class="navgroup" role="group" aria-label="${ROLE_NAME[u.role]} 메뉴">${navOf(u.role).map(g => `<button class="navlink" data-go="${g.steps[0][0]}" ${gi && gi.g.id === g.id ? 'aria-current="page"' : ''}>${g.t}</button>`).join('')}</div>`;
   strip.innerHTML = opsMode() ? `<span class="meta opsnote">${PHASES.find(x => x[0] === state.phase)[1]}</span><span id="savest" class="savest"></span>` : `<label class="phase" title="시연용: 학기 시점을 바꿔 흐름을 확인합니다">시연 시점<select id="phase">${PHASES.map(([k, t]) => `<option value="${k}" ${state.phase === k ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
     <button class="linkbtn demotog" id="demotog" title="가상 데이터 안내와 시연 시점 선택을 숨기거나 보입니다">${demoOn() ? '시연 표시 끄기' : '시연 표시 켜기'}</button><span id="savest" class="savest"></span>`;
-  box.innerHTML = `<button class="kbtn no-print ibell" id="inboxbtn" type="button" aria-haspopup="dialog" title="받은 알림"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>알림<b class="ibadge" id="inboxn" hidden>0</b></button><button class="kbtn no-print" id="helpbtn" type="button" title="이 화면 사용법과 용어 사전">도움말</button><button class="kbtn no-print" id="kbtn" type="button" title="화면 이름으로 바로 가기(Ctrl+K)">바로 가기 <kbd>Ctrl K</kbd></button><span class="uchip"><b>${esc(u.name)}</b><span>${ROLE_NAME[u.role]}${u.role === 'admin' && u.duty && u.duty !== 'all' && !String(u.name).includes(DUTY_NAME[u.duty]) ? ' · ' + DUTY_NAME[u.duty] : ''}${u.no ? ' · ' + u.no : ''}${u.role === 'student' ? ' · ' + esc(state.dept) : ''}</span></span><button class="linkbtn" id="logout">로그아웃</button>`;
+  box.innerHTML = `<button class="kbtn no-print ibell" id="inboxbtn" type="button" aria-haspopup="dialog" title="받은 알림"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>알림<b class="ibadge" id="inboxn" hidden>0</b></button>${INSTALL_EVT && !isStandalone() ? '<button class="kbtn no-print" id="installbtn" type="button" title="휴대폰·PC 홈 화면에 앱으로 설치">앱 설치</button>' : ''}${u.role === 'student' ? `<button class="kbtn no-print" id="langbtn" type="button" title="English / 한국어" lang="${langEN() ? 'ko' : 'en'}">${langEN() ? '한국어' : 'EN'}</button>` : ''}<button class="kbtn no-print" id="helpbtn" type="button" title="이 화면 사용법과 용어 사전">도움말</button><button class="kbtn no-print" id="kbtn" type="button" title="화면 이름으로 바로 가기(Ctrl+K)">바로 가기 <kbd>Ctrl K</kbd></button><span class="uchip"><b>${esc(u.name)}</b><span>${ROLE_NAME[u.role]}${u.role === 'admin' && u.duty && u.duty !== 'all' && !String(u.name).includes(DUTY_NAME[u.duty]) ? ' · ' + DUTY_NAME[u.duty] : ''}${u.no ? ' · ' + u.no : ''}${u.role === 'student' ? ' · ' + esc(state.dept) : ''}</span></span><button class="linkbtn" id="logout">로그아웃</button>`;
   const tabs = gi ? gi.g.steps.filter(s => !s[2] && stepAllowed(s[0])) : [], curSt = gi && gi.g.steps.find(s => s[0] === cur), curRoot = curSt ? curSt[2] || curSt[0] : cur;
   sub.innerHTML = tabs.length > 1 ? `<div class="subtabs" role="tablist">${tabs.map(([id, t]) => `<button role="tab" class="subtab" data-go="${id}" aria-selected="${id === curRoot}">${t}</button>`).join('')}</div>` : '';
   if (document.getElementById('phase')) document.getElementById('phase').onchange = e => { state.phase = e.target.value; render(); };
@@ -7815,6 +8033,8 @@ function renderNav() {
   if (document.getElementById('demotog')) document.getElementById('demotog').onclick = () => { lsSet('demo_ui', !demoOn()); render(); };
   document.getElementById('helpbtn').onclick = openHelp;
   document.getElementById('inboxbtn').onclick = openInbox;
+  { const ib = document.getElementById('installbtn'); if (ib) ib.onclick = installApp; }
+  { const lb = document.getElementById('langbtn'); if (lb) lb.onclick = () => { lsSet('lang', langEN() ? 'ko' : 'en'); render(); }; }
   if (u.role === 'faculty') ensureLogs(inboxBadge);
   ensureInboxStaff(); setTimeout(inboxBadge, 0);
   saveState();
@@ -8003,7 +8223,7 @@ function render() {
   watchTerms(); closeHelp();
   document.body.classList.toggle('dash', ['home', 'fhome', 'ahome', 'result', 'analysis', 'plan', 'planmap', 'timetable', 'gap', 'recs', 'roadmap', 'studio', 'counsel', 'career', 'sections', 'advisor', 'diagops', 'grades', 'gain', 'impact', 'itembank', 'forms', 'settings', 'integration', 'majortt', 'electt', 'ncopen', 'notify', 'auditlog', 'axkpi', 'specmap', 'report', 'ask', 'itemqa', 'portfolio', 'risk', 'evals', 'deptdash', 'fdept', 'counselstat'].includes(state.step));
   renderNav();
-  const R = { dbreak: renderDBreak, jobkit: renderJobKit, counselstat: renderCounselStat, portfolio: renderPortfolio, risk: renderRisk, evals: renderEvals, deptdash: renderDeptDash, fdept: renderDeptDash, login: renderLogin, home: renderHome, fhome: renderFHome, ahome: renderAHome, needdiag: renderNeedDiag, intro: renderIntro, quiz: renderQuiz, coverage: renderCoverage, roadmap: renderRoadmap,
+  const R = { classprof: renderClassProf, dbreak: renderDBreak, jobkit: renderJobKit, counselstat: renderCounselStat, portfolio: renderPortfolio, risk: renderRisk, evals: renderEvals, deptdash: renderDeptDash, fdept: renderDeptDash, login: renderLogin, home: renderHome, fhome: renderFHome, ahome: renderAHome, needdiag: renderNeedDiag, intro: renderIntro, quiz: renderQuiz, coverage: renderCoverage, roadmap: renderRoadmap,
     committee: renderCommittee, growth: renderGrowth, impact: renderImpact, plan: renderPlan, studio: renderStudio, counsel: renderCounsel, career: renderCareer, sections: renderSections,
     advisor: renderAdvisor, diagops: renderDiagOps, grades: renderGrades, analysis: renderAnalysis, timetable: renderTimetable, gap: renderGap, recs: renderRecs, planmap: renderPlanMap, gain: renderGain, itembank: renderItemBank, forms: renderForms, settings: renderSettings, integration: renderIntegration, majortt: renderMajorTT, electt: renderElectTT, ncopen: renderNcOpen, notify: renderNotify, auditlog: renderAudit, axkpi: renderAxKpi, specmap: renderSpecMap, report: renderReport, ask: renderAsk, itemqa: renderItemQA, result: renderResult };
   const ph = document.getElementById('pagehead'); if (ph) ph.innerHTML = u ? crumbHtml() + viewSwitchHtml() : '';
@@ -8012,7 +8232,10 @@ function render() {
   bindOnb();
   nextBar();
   mountTerra($view);
+  document.documentElement.lang = langEN() ? 'en' : 'ko';
+  if (langEN()) { startI18n(); $view.insertAdjacentHTML('afterbegin', langNote()); translateTree(document.body); }
 }
+pwaInit();
 authInit().then(render);
 </script>
 </body>
